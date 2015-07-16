@@ -1,0 +1,307 @@
+==================================================
+はじめに
+==================================================
+
+
+ニュートリノ
+--------------------------------------------------
+
+ニュートリノは弱い相互作用を通してのみ反応する
+中性レプトンで、1931年にPauliによってその存在が
+仮定され、1935年にFermiによって理論付けられた粒子
+である。弱い相互作用しかしないため、ニュートリノを
+直接検出することは非常に困難だが、1956年にReinesと
+Cowanによる実験によってその存在が初めて確認された。
+1962年にはLederman、Schwartz、Steinbergerらの測定に
+よって電子の反応に現れるニュートリノとミューオンの
+反応に現れるニュートリノの2種類存在することが確認さ
+れた。
+その後、これまでに、
+電子ニュートリノ（ :math:`\nu_{e}` ）、
+ミューオンニュートリノ（ :math:`\nu_{\mu}` ）、
+タウニュートリノ（ :math:`\nu_{\tau}` ）
+という3世代のフレーバーとその反粒子が
+存在することが分かった。
+
+ニュートリノの質量に関しては、
+素粒子物理学の理論である「標準模型」において
+ゼロとして扱われてきた。また、直接測定による上限値
+が与えられるにとどまっている。。しかし近年、
+太陽ニュートリノや原子炉ニュートリノの観測で
+電子ニュートリノの数が減少する、
+あるいは大気ニュートリノの観測や
+加速器ニュートリノ実験でミューオンニュートリノの
+数が減少する、という現象が観測された。
+これは、ニュートリノが飛行中に別のフレーバーに
+変わるニュートリノ振動現象によると考えられている。
+
+ニュートリノ振動現象は、
+ニュートリノが質量をもつ場合にのみ起きるため、
+その観測は、ニュートリノが有限の質量をもつことを
+意味する。
+
+
+
+ニュートリノ振動
+--------------------------------------------------
+
+ニュートリノ振動とは、ある種類のニュートリノが、
+その時間発展とともに、他の種類のニュートリノに
+変化する現象で、ニュートリノ間の質量が異なる
+場合にのみ起こり得る。ニュートリノ振動現象が
+起きるということは、ニュートリノ質量の存在を
+示すとともに、質量の固有状態がレプトン
+世代間で混合していることを示している。
+
+
+ニュートリノ振動は、フレーバーの固有状態
+（
+:math:`\nu_{e}` ,
+:math:`\nu_{\mu}` ,
+:math:`\nu_{\tau}`
+）
+と質量固有状態
+（
+:math:`\nu_{1}` ,
+:math:`\nu_{2}` ,
+:math:`\nu_{3}`
+）
+が一致せず、さらに３つの質量固有状態が１つに
+縮退してない場合に起こる。
+この場合、混合状態は３つの混合角
+（
+:math:`\theta_{12}` ,
+:math:`\theta_{23}` ,
+:math:`\theta_{13}`
+）
+と１つのCP複素位相
+:math:`\delta`
+を用いて以下の用に記述することができる。
+
+
+.. todo:: pmatrixの書き方
+
+   \begin{equation}
+   \begin{pmatrix}
+   \nu_{e}\\
+   \nu_{\mu}\\
+   \nu_{\tau}
+   \end{pmatrix}
+   =
+   \begin{pmatrix}
+   U_{e1} & U_{e2} & U_{e3}\\
+   U_{\mu1} & U_{\mu2} & U_{\mu3}\\
+   U_{\tau1} & U_{\tau2} & U_{\tau3}
+   \end{pmatrix}
+   \begin{pmatrix}
+   \nu_{1}\\
+   \nu_{2}\\
+   \nu_{3}
+   \end{pmatrix}
+   \end{equation}
+
+この :math:`3 \times 3` 行列は世代間の混合を表す
+ユニタリ行列で、MNS（Maki-Nakagawa-Sakata）行列と
+呼ばれ\cite{mns}、通常以下のように書かれる。
+
+.. todo:: matrix
+
+   \begin{equation}
+   U_{\alpha i} =
+   \begin{pmatrix}
+   1 & 0 & 0 \\
+   0 & C_{23} & S_{23} \\
+   0 & -S_{23} & C_{23} \\
+   \end{pmatrix}
+   \begin{pmatrix}
+   C_{13} & 0 & S_{13}e^{-i\delta} \\
+   0 & 1 & 0 \\
+   -S_{13}e^{i\delta} & 0 & C_{13} \\
+   \end{pmatrix}
+   \begin{pmatrix}
+   C_{12} & S_{12} & 0 \\
+   -S_{12} & C_{12} & 0 \\
+   0 & 0 & 1 \\
+   \end{pmatrix}
+   \end{equation}
+
+ここで、
+:math:`\alpha = (e, \mu, \tau)` ,
+:math:`i = (1, 2, 3)` ,
+:math:`C_{ij} = \cos \theta_{ij}` ,
+:math:`S_{ij} = \sin \theta_{ij}`
+である。
+
+ここでは、最も簡単な場合として２つのフレーバー
+（
+:math:`\nu_{\alpha}` ,
+:math:`\nu_{\beta}`
+）
+間の振動を考えることにする
+（
+:math:`\theta_{12} = \theta` ,
+:math:`\theta_{23} = \theta_{13} = 0`
+とする）。
+この２つのフレーバー固有状態は
+質量固有状態
+（
+:math:`\nu_{1}` ,
+:math:`\nu_{2}`
+を用いて
+
+.. todo:: pmatrix
+
+   \begin{equation}
+   \begin{pmatrix}
+   \nu_{\alpha}\\
+   \nu_{\beta}
+   \end{pmatrix}
+   =
+   \begin{pmatrix}
+   \cos\theta & \sin\theta\\
+   -\sin\theta & \cos\theta
+   \end{pmatrix}
+   \begin{pmatrix}
+   \nu_{1}\\
+   \nu_{2}
+   \end{pmatrix}
+   \end{equation}
+
+と表すことができ、質量固有状態の時間発展は、
+
+.. todo:: pmatrix
+
+   \begin{equation}
+   \begin{pmatrix}
+   \nu_{1}(t)\\
+   \nu_{2}(t)
+   \end{pmatrix}
+   =
+   \begin{pmatrix}
+   e^{-i(E_{1}t-p_{1}x)} & 0\\
+   0 & e^{-i(E_{2}t-p_{2}x)}
+   \end{pmatrix}
+   \begin{pmatrix}
+   \nu_{1}(t=0)\\
+   \nu_{2}(t=0)
+   \end{pmatrix}
+   \end{equation}
+
+と表すことができる。
+ここで
+:math:`E_{i}` ,
+:math:`p_{i}`
+はそれぞれ
+:math:`\nu_{i}` のエネルギー、運動量を表す。
+
+これより、フレーバー固有状態の時間発展は、
+
+.. todo:: pmatrix
+
+   \begin{equation}
+   \begin{pmatrix}
+   \nu_{\alpha}(t)\\
+   \nu_{\beta}(t)
+   \end{pmatrix}
+   =U
+   \begin{pmatrix}
+   e^{-i(E_{1}t-p_{1}x)} & 0\\
+   0 & e^{-i(E_{2}t-p_{2}x)}
+   \end{pmatrix}
+   U^{-1}
+   \begin{pmatrix}
+   \nu_{\alpha}(t=0)\\
+   \nu_{\beta}(t=0) \label{equA}
+   \end{pmatrix}
+   \end{equation}
+
+となる。
+
+時刻 :math:`t=0` 、
+位置 :math:`x=0` で生成されたニュートリノが
+距離 :math:`L` だけ飛行した場合を考える。
+ニュートリノの質量はエネルギーより
+十分小さいとしてよく
+（ :math:`m_{i} \ll E_{i}` ）
+
+.. todo::
+
+   \begin{eqnarray}
+   p_{i} & = & \sqrt{E_{i}^{2}-m_{i}^{2}} \sim E_{i} + \frac{m_{i}^{2}}{2E_{i}}\\
+   t & \sim & L
+   \end{eqnarray}
+   と近似でき、\equref{equA}は、
+   \begin{equation}
+   \begin{pmatrix}
+   \nu_{\alpha}(t)\\
+   \nu_{\beta}(t)
+   \end{pmatrix}
+   =U
+   \begin{pmatrix}
+   e^{-i\frac{m_{1}^{2}L}{2E_{1}}} & 0\\
+   0 & e^{-i\frac{m_{1}^{2}L}{2E_{2}}}
+   \end{pmatrix}
+   U^{-1}
+   \begin{pmatrix}
+   \nu_{\alpha}(t=0)\\
+   \nu_{\beta}(t=0)
+   \end{pmatrix}
+   \end{equation}
+   となる。
+
+
+以下ではある決まったエネルギーのニュートリノを考え、$E_{i}=E_{\nu}$とする。
+位置$x$=0において$\nu_{\alpha}$だったニュートリノが、距離$L$飛行した後に$\nu_{\beta}$になる確率$P(\nu_{\alpha}\rightarrow \nu_{\beta})$、および、$\nu_{\alpha}$のままである確率$P(\nu_{\alpha}\rightarrow \nu_{\alpha})$はそれぞれ、
+
+.. todo::
+
+   \begin{eqnarray}
+   P(\nu_{\alpha}\rightarrow \nu_{\beta}) & = & |\bra{\nu_{\beta}}\nu_{\alpha}\rangle|^{2} \nonumber\\
+   & = & \sin^{2}2\theta\sin^{2}\left(1.27\times \Delta m^{2}\ \mathrm{[eV^{2}]}\times \frac{L\ \mathrm{[km]}}{E_{\nu}\ \mathrm{[GeV]}}\right) \label{nuchange}\\
+   P(\nu_{\alpha}\rightarrow \nu_{\alpha}) & = & 1 - P(\nu_{\alpha}\rightarrow \nu_{\beta}) \nonumber \\
+   & = & 1 - \sin^{2}2\theta\sin^{2}\left(1.27 \times \Delta m^{2}\ \mathrm{[eV^{2}]} \times \frac{L\ \mathrm{[km]}}{E_{\nu}\ \mathrm{[GeV]}}\right) \label{nuunchange}
+   \end{eqnarray}
+
+となる。
+ここで、$\Delta m^{2}\equiv |m_{1}^{2} - m_{2}^{2}|$は質量二乗差のことである。
+
+これらの式から、確率$P$は質量二乗差$\Delta m^{2}$と混合角$\theta$をパラメータとして、飛行距離$L$およびニュートリノエネルギー$E_{\nu}$の関数としてフレーバー間で振動することがわかる。また、この振動が起こるのは、フレーバー固有状態が質量固有状態と異なっており($\theta \neq 0$)、かつ質量固有状態が縮退していない($\Delta m^{2} \neq 0$)場合であることが分かる。
+
+このニュートリノ振動の存在を実証出来れば、少なくとも２種類のニュートリノの間に質量差が生じることになり、したがって、少なくとも１種類のニュートリノが質量を持つことの証明となる。
+
+
+%\subsubsection{$\nu_{\mu} \rightarrow \nu_{x} \ 振動$}
+
+%\subsubsection{$\nu_{\mu} \rightarrow \nu_{e} \ 振動$}
+
+
+ニュートリノ振動実験の現状
+--------------------------------------------------
+
+\if0
+太陽ニュートリノ観測と原子炉ニュートリノ実験によって$\Delta m_{12}^{2}$と$\theta_{12}$が、また大気ニュートリノ観測と加速器ニュートリノ実験によって$\Delta m_{23}^{2}$と$\theta_{23}$が測定されてきた。しかし残る1つの混合角$\theta_{13}$	については、上限値$\sin^{2}\theta_{13}<0.1$が与えられているのみなので、その精密な測定結果が強く待ち望まれている。
+
+以下に説明するT2K実験は世界最高感度のニュートリノ振動測定により、唯一未発見である$\theta_{13}$による振動モードの世界初観測を実現しようとしている。またCP位相$\delta$は$\theta_{13}$が0でないときに初めて測定可能であるため、$\theta_{13}$の測定は将来的なCP位相$\delta$の測定のためにも重要な要素となる。
+
+現在までにSKやSNO実験による太陽ニュートリノ観測とKamLANDによる原子炉ニュートリノ実験[2]から、$\Delta m_{12}^{2}=7.9 \times 10^{-5} eV^{2}$が、また、SKによる太陽ニュートリノ観測とK2K実験による加速器ニュートリノ実験\comment{MINOSが新しい結果}から、$1.6 \times 10^{-3} < \Delta m_{23}^{2} < 3.0 \times 10^{-3} eV^{2}, \sin^{2}2\theta_{23} > 0.9$であることが分かっている。しかし、残る混合角$\theta_{13}$については原子炉を用いたCHOOZ実験による上限値$\sin^{2}2\theta_{13} < 0.1$しか分かっていない[4]。 2009年度に開始した本研究T2K実験は、off-axis ビーム法の世界初導入による世界最高感度の測定により$\sin^{2}2\theta_{13} \simeq 0.006$まで探索することを目標にしている。
+\fi
+
+ニュートリノ振動観測実験はニュートリノの生成過程によって、大気ニュートリノ観測、太陽ニュートリノ観測、原子炉ニュートリノ観測、および加速器ニュートリノ実験の４つに大別される。現在までに行われたこれらの観測・実験によって分かっていることをまとめる。
+
+.. todo::
+
+   \begin{description}
+   \item[$\Delta m_{23}^{2}, \theta_{23}$（大気ニュートリノ領域）]\mbox{}\\%
+   $\nu_{\mu} \rightarrow \nu_{\tau}$の振動モードに関しては、スーパーカミオカンデによる大気ニュートリノ観測\cite{sk_solar}で発見され、加速器ニュートリノを用いたK2K実験\cite{k2k}により確立された。MINOSの最新の結果\cite{minos}によると、振動パラメータは$2.31\times10^{-3} < \Delta m_{23}^{2} < 3.43 \times 10^{-3}\ \mathrm{eV^{2}},  \sin^{2}2\theta > 0.78\ (90 \%\ \mathrm{C.L.})$である。
+
+.. todo::
+
+   \item [$\Delta m_{12}^{2}, \theta_{12}$（太陽ニュートリノ領域）]\mbox{}\\%
+   $\nu_{e} \rightarrow \nu_{x}$（$\nu_{e}\rightarrow \nu_{\mu}$及び$\nu_{e}\rightarrow \nu_{\tau}$）の振動モードに関しては、スーパーカミオカンデ\cite{sk-solar}やSNO実験\cite{sno}による太陽ニュートリノ観測やKamLAND実験\cite{kamland}による原子炉ニュートリノ観測により確立された。振動パラメータは$\Delta m_{12}^{2} \sim 8 \times 10^{-5}\ \mathrm{eV^{2}}, \tan^{2}\theta_{12} \sim 0.5$である。
+
+.. todo::
+
+   \item[$\Delta m_{13}^{2}, \theta_{13}$]\mbox{}\\%
+   $\theta_{13}$を介した$\nu_{\mu}\rightarrow \nu_{e}$の振動モードは未だ見つかっておらず、振動パラメータもCHOOZ実験による原子炉ニュートリノの観測\cite{chooz}により$\Delta m_{23}^{2} \sim 2.4 \times 10^{-3}\ \mathrm{eV^{2}}$のとき $\sin^{2}2\theta_{13} < 0.15$という上限値しか分かっていない。\\
+また、CP非対称性の複素位相$\delta$はMNS行列の$\sin\theta_{13}$の項についてくるため、$\theta_{13}$がゼロでない時にのみ、測定可能となる。
+\end{description}

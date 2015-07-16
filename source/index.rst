@@ -10,6 +10,8 @@ Contents:
 
 .. toctree::
    :maxdepth: 2
+
+   abstract
    preface
    t2k-experiment
    mizuche
