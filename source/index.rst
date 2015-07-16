@@ -10,7 +10,13 @@ Contents:
 
 .. toctree::
    :maxdepth: 2
-
+   preface
+   t2k-experiment
+   mizuche
+   geant4-simulation
+   mizuche-design
+   pmt-calibration
+   summary
 
 
 Indices and tables
@@ -19,4 +25,3 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-
