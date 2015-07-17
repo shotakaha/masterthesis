@@ -22,6 +22,8 @@ import shlex
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #sys.path.insert(0, os.path.abspath('.'))
 
+import sphinx_bootstrap_theme
+
 # -- General configuration ------------------------------------------------
 
 # If your documentation needs a minimal Sphinx version, state it here.
@@ -78,7 +80,7 @@ language = 'ja'
 
 # There are two options for replacing |today|: either, you set today to some
 # non-false value, then it is used:
-#today = ''
+# today = ''
 # Else, today_fmt is used as the format for a strftime call.
 #today_fmt = '%B %d, %Y'
 
@@ -118,7 +120,7 @@ todo_include_todos = True
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-html_theme = 'alabaster'
+html_theme = 'bootstrap'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -126,7 +128,7 @@ html_theme = 'alabaster'
 #html_theme_options = {}
 
 # Add any paths that contain custom themes here, relative to this directory.
-#html_theme_path = []
+html_theme_path = sphinx_bootstrap_theme.get_html_theme_path()
 
 # The name for this set of Sphinx documents.  If None, it defaults to
 # "<project> v<release> documentation".
@@ -216,24 +218,28 @@ htmlhelp_basename = 'MizucheMTdoc'
 
 latex_elements = {
 # The paper size ('letterpaper' or 'a4paper').
-#'papersize': 'letterpaper',
+    'papersize': 'a4paper',
 
 # The font size ('10pt', '11pt' or '12pt').
-#'pointsize': '10pt',
+    'pointsize': '12pt',
 
 # Additional stuff for the LaTeX preamble.
 #'preamble': '',
 
 # Latex figure (float) alignment
-#'figure_align': 'htbp',
+    'figure_align': 'htbp',
 }
 
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  (master_doc, 'MizucheMT.tex', 'MizucheMT Documentation',
-   'Shota TAKAHASHI', 'manual'),
+  (master_doc,
+   'MizucheMT.tex',
+   # r'修士論文\\ニュートリノ反応数測定のための\\小型水チェレンコフ検出器\\"Mizuche"の開発',
+   r'小型水チェレンコフ検出器Mizucheの開発',
+   r'京都大学大学院理学研究科  物理学・宇宙物理学専攻\\物理学第二教室  高エネルギー物理学研究室\\高橋 将太',
+   'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
