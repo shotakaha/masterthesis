@@ -224,11 +224,23 @@ latex_elements = {
     'pointsize': '12pt',
 
 # Additional stuff for the LaTeX preamble.
-#'preamble': '',
+    'preamble': '',
 
 # Latex figure (float) alignment
     'figure_align': 'htbp',
 }
+
+latex_elements['preamble'] += '\\usepackage{pxjahyper}\n'
+latex_elements['preamble'] += '\\usepackage{graphics}\n'
+latex_elements['preamble'] += '\\hypersetup{bookmarksnumbered=true}\n'
+latex_elements['preamble'] += '\\hypersetup{bookmarksopen=true}\n'
+latex_elements['preamble'] += '\\hypersetup{bookmarksopenlevel=2}\n'
+latex_elements['preamble'] += '\\hypersetup{colorlinks=true}\n'
+latex_elements['preamble'] += '\\hypersetup{pdfpagemode=UseOutlines}\n'
+
+# latex_elements['preamble'] += '\\renewcommand{\\familydefault}{\\sfdefault}\n'
+# latex_elements['preamble'] += '\\renewcommand{\\kanjifamilydefault}{\\gtdefault}\n'
+
 
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title,
@@ -241,6 +253,9 @@ latex_documents = [
    r'京都大学大学院理学研究科  物理学・宇宙物理学専攻\\物理学第二教室  高エネルギー物理学研究室\\高橋 将太',
    'manual'),
 ]
+
+latex_docclass = {'howto':'jsarticle',
+                  'manual' : 'jsbook'}
 
 # The name of an image file (relative to this directory) to place at the top of
 # the title page.
