@@ -241,6 +241,51 @@ latex_elements['preamble'] += '\\hypersetup{pdfpagemode=UseOutlines}\n'
 # latex_elements['preamble'] += '\\renewcommand{\\familydefault}{\\sfdefault}\n'
 # latex_elements['preamble'] += '\\renewcommand{\\kanjifamilydefault}{\\gtdefault}\n'
 
+## Personal Settings (Specific to this Project)
+latex_elements['preamble'] += '%%% Shortcut for Particles\n'
+latex_elements['preamble'] += r'\newcommand{\pizero}{$\pi^{0}$}' + '\n'
+
+latex_elements['preamble'] += '%%% Shortcut for Neutrino Interactions\n'
+latex_elements['preamble'] += r'\newcommand{\ccqe}{$\nu + p \rightarrow \mu + n$}' + '\n'
+latex_elements['preamble'] += r'\newcommand{\ncqe}{$\nu + N \rightarrow \nu + N$}' + '\n'
+latex_elements['preamble'] += r'\newcommand{\ccp}{$\nu + p \rightarrow \mu + n + \pi^{0}$}' + '\n'
+latex_elements['preamble'] += r'%\newcommand{\nc1p}' + '\n'
+latex_elements['preamble'] += r'%\newcommand{\dis}' + '\n'
+
+latex_elements['preamble'] += '%%% Math Sequences\n'
+latex_elements['preamble'] += r'%%% \bra and \ket must be used in math mode' + '\n'
+latex_elements['preamble'] += r'\newcommand{\bra}[1]{\langle #1 |}' + '\n'
+latex_elements['preamble'] += r'\newcommand{\ket}[1]{ | #1 \rangle}' + '\n'
+
+latex_elements['preamble'] += '%%% Units\n'
+latex_elements['preamble'] += r'\newcommand{\cmcm}{cm$^{2}$}' + '\n'
+
+latex_elements['preamble'] += '%%% Tips\n'
+latex_elements['preamble'] += r'\newcommand{\figref}[1]{図\ref{#1}}' + '\n'
+latex_elements['preamble'] += r'\newcommand{\tabref}[1]{表\ref{#1}}' + '\n'
+latex_elements['preamble'] += r'\newcommand{\equref}[1]{式(\ref{#1})}' + '\n'
+latex_elements['preamble'] += r'\newcommand{\secref}[1]{第\ref{#1}章}' + '\n'
+latex_elements['preamble'] += r'\renewcommand{\bibname}{参考文献}' + '\n'
+
+latex_elements['preamble'] += '%%% Mizuche Original\n'
+latex_elements['preamble'] += r'\newcommand{\fv}{\mathrm{FV}}' + '\n'
+latex_elements['preamble'] += r'\newcommand{\ov}{\mathrm{OV}}' + '\n'
+latex_elements['preamble'] += r'\newcommand{\ww}{\mathrm{(w/ FVwater)}}' + '\n'
+latex_elements['preamble'] += r'\newcommand{\wow}{\mathrm{(w/o FVwater)}}' + '\n'
+latex_elements['preamble'] += r'\newcommand{\photon}{\mathrm{photon}}' + '\n'
+latex_elements['preamble'] += r'\newcommand{\pe}{\mathrm{p.e.}}' + '\n'
+latex_elements['preamble'] += r'\newcommand{\nd}{\mathrm{ND}}' + '\n'
+latex_elements['preamble'] += r'\newcommand{\sk}{\mathrm{SK}}' + '\n'
+latex_elements['preamble'] += r'\newcommand{\miz}{\mathrm{Miz}}' + '\n'
+
+latex_elements['preamble'] += '%%% Colors\n'
+latex_elements['preamble'] += r'\newcommand{\red}[1]{\textcolor{red}{\textbf{#1}}}' + '\n'
+latex_elements['preamble'] += r'\newcommand{\comment}[1]{\red{#1}\footnote{\red{#1}}}' + '\n'
+latex_elements['preamble'] += r'\newcommand{\memo}[1]{\footnote{\red{#1}}}' + '\n'
+
+latex_elements['preamble'] += '%%% subfigure\n'
+# latex_elements['preamble'] += r'\renewcommand*{\thesubfigure}{（\arabic{subfigure}）}' + '\n'
+
 
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title,
