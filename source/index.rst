@@ -6,8 +6,6 @@
 Welcome to MizucheMT's documentation!
 =====================================
 
-Contents:
-
 .. toctree::
    :maxdepth: 2
 
