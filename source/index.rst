@@ -13,9 +13,9 @@ Welcome to MizucheMT's documentation!
    preface
    t2k-experiment
    mizuche
-   geant4-simulation
-   mizuche-design
-   pmt-calibration
+   geant4
+   design
+   calibration
    summary
 
 
