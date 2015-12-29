@@ -1,0 +1,68 @@
+==================================================
+T2K前置検出器群
+==================================================
+
+
+INGRID
+==================================================
+
+INGRIDはニュートリノビーム軸上に置かれた検出器である。合計14個のモジュールからなる大質量の検出器である。ニュートリノビームの軸中心がどの方向を向いているのかを毎日確認することができる。
+
+
+オフアクシス検出器
+==================================================
+
+オフアクシス検出器はニュートリノ生成点から下流280 mに設置されており、ビーム軸からずれたスーパーカミオカンデ方向を向いている。
+   その断面図を\figref{TOAD}に示す。オフアクシス検出器はP0D、TPC、FGD、ECAL、SMRDの５つの検出器で構成される複合型検出器である。飛跡検出をメインに、運動量再構成、エネルギー再構成、粒子識別を行い、振動前のニュートリノのフラックスおよびエネルギーの測定を行う。測定結果を基にスーパーカミオカンデでのフラックスおよびエネルギースペクトルを予測する。
+
+   \begin{figure}[htbp]
+   \centering
+   %\includegraphics[bb=189 528 418 758, width=0.8\textwidth]{fig/T2KOAD.pdf}
+   \includegraphics[bb=0 0 873 773, width=0.7\textwidth]{fig/T2KND280.png}
+   %\includegraphics[bb=0 0 1213 1073, width=0.8\textwidth]{fig/T2KND280.pdf}
+   %\includegraphics[bb=14 14 4864 4305, clip, width=0.8\textwidth]{fig/T2KND280.eps}
+   \caption[T2Kオフアクシス検出器]{T2Kオフアクシス検出器}
+   \label{TOAD}
+   \end{figure}
+
+   \if0%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+   \paragraph{P0D（Pi-zero Detector）}
+   \sout{P0Dはプラスチックシンチレータと水標的で構成される検出器である。電磁石内の上流に設置されている。中性カレント反応によって生じた$\pi^{0}$粒子を測定することができる。
+   水と鉛が入っている？
+   %
+   $\pi^{0} \rightarrow 2 \gamma$の崩壊によって生じた$\gamma$を検出する。}
+
+   \paragraph{FGD（Fine Grained Detector）}
+   \sout{エフジーディー。Fine Grained Detectorの略。}
+
+   \paragraph{TPC（Time Projection Chamber）}
+   \sout{ティーピーシー。Time Projection Chamberの略。}
+
+   \paragraph{ECAL（Electromagnetic CALorimeter）}
+   \sout{ECALはプラスチックシンチレーターと鉛フィルムから構成される検出器で、P0D、FGD、TPCの周りを囲むように設置されている。
+   $\pi^{0}$中間子の崩壊によって生じる$\gamma$を検出する。また電子ニュートリノによる荷電カレント反応によって生じた電子も検出できる。}
+
+   \paragraph{SMRD（Side Muon Range Detector）}
+   \sout{電磁石の鉄ヨークの隙間にプラスティックシンチレータが挟んである。ニュートリノ反応によるミューオンで、横方向にすり抜けてしまったものを検出する。}
+
+   \paragraph{電磁石}
+   \sout{T2K電磁石にはCERNのUA1実験のものを使用。約2900Aの電流を流し、0.2Tの磁場をかけ、ニュートリノ反応によって生じた荷電粒子の運動量を測定する。電磁石内部の大きさは3.5m$\times$3.6m$\times$7.0m}
+
+   \comment{オフアクシス検出器について簡単にまとめる。SKとは違うんだよ、ということを書く}
+   \fi
+
+
+   \if0 %%%%%%%%%% %%%%%%%%%%
+   \subsection{\sout{INGRID}}
+   ビーム軸に沿って設置。
+   10m x 10mの大きさの十字型。
+   ビーム中心がずれていないか測定。
+
+   \begin{figure}[htb]
+   \centering
+   \includegraphics[bb=0 0 319 287, scale=0.5]{fig/temp.pdf}
+   \caption[INGRID]{INGRID}
+   \label{INGRID}
+   \end{figure}
+
+   \fi %%%%%%%%%% %%%%%%%%%%
