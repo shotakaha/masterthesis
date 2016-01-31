@@ -9,14 +9,16 @@ Welcome to MizucheMT's documentation!
 .. toctree::
    :maxdepth: 2
 
-   abstract
-   preface
+   ..
+      abstract
+      preface
    t2k-experiment
-   mizuche
-   geant4
-   design
-   calibration
-   summary
+   ..
+      mizuche
+      geant4
+      design
+      calibration
+      summary
 
 
 Indices and tables
