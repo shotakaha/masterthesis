@@ -4,20 +4,25 @@
 
 T2K(Tokai to Kamioka)長基線ニュートリノ振動実験の概念図を\figref{T2KOverview}に示す。
 
-T2K実験\cite{jhfnu}は茨城県東海村にあるJ-PARC大強度陽子加速器施設で生成したミューオンニュートリノビームを岐阜県飛騨市のスーパーカミオカンデ検出器で観測する全長295 kmの長基線ニュートリノ振動実験である。本実験は2009年4月に稼働開始した。T2K実験では世界最大強度のニュートリノビームと世界最大の水チェレンコフ検出器スーパーカミオカンデを用いて、
-\begin{enumerate}
-\item ミューオンニュートリノ消失による混合角$\theta_{23}$及び$\Delta m_{23}$の精密測定
-\item 電子ニュートリノ出現モードによる混合角$\theta_{13}$の世界初観測
-\end{enumerate}
+T2K実験\cite{jhfnu}は茨城県東海村にあるJ-PARC大強度陽子加速器施設で生成した
+ミューオンニュートリノビを岐阜県飛騨市のスーパーカミオカンデ検出器で観測する
+全長295kmの長基線ニュートリノ振動実験である。
+本実験は2009年4月に稼働開始した。
+T2K実験では世界最大強度のニュートリノビーと世界最大の水チェレンコフ検出器スーパーカミオカンデを用いて、
+
+#. ミューオンニュートリノ消失による混合角 :math:`\theta_{23}` 及び :math:`\Delta m_{23}` の精密測定
+#. 電子ニュートリノ出現モードによる混合角 :math:`\theta_{13}` の世界初観測
+
 を世界最高感度で実現することを目標としている。
 
-\begin{figure}[htbp]
-\centering
-%\includegraphics[bb=54 392 539 489, width=1\textwidth]{fig/T2KOverview.pdf}
-\includegraphics[bb=131 315 483 418, width=1\textwidth]{fig/T2KOverview2.pdf}
-\caption[T2K実験の概要]{T2K実験の概要。茨城県東海村のJ-PARC加速器施設で生成した人工ミューオンニュートリノを、295km離れたスーパーカミオカンデで観測し、ニュートリノ振動測定を行う。}
-\label{T2KOverview}
-\end{figure}
+..
+   \begin{figure}[htbp]
+   \centering
+   %\includegraphics[bb=54 392 539 489, width=1\textwidth]{fig/T2KOverview.pdf}
+   \includegraphics[bb=131 315 483 418, width=1\textwidth]{fig/T2KOverview2.pdf}
+   \caption[T2K実験の概要]{T2K実験の概要。茨城県東海村のJ-PARC加速器施設で生成した人工ミューオンニュートリノを、295km離れたスーパーカミオカンデで観測し、ニュートリノ振動測定を行う。}
+   \label{T2KOverview}
+   \end{figure}
 
 ニュートリノ振動解析
 ==================================================
