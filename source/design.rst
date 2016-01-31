@@ -168,26 +168,28 @@ FVの胴回りにハネのような形状のサポートを2セット取り付�
 
 %\subsubsection{内タンクの外タンクへの固定}
 
-\newpage
-\subsection{光電子増倍管}
+
+光電子増倍管
+--------------------------------------------------
+
 \label{PhotoTube}
 チェレンコフ光を検出する光電子増倍管には浜松ホトニクス社製R1652-01ASSYを使用する。R1652-01ASSYの外観を\figref{LGPMT}に示す。
 この光電子増倍管は過去にTRISTANのTOPAZ実験や、K2K実験の鉛ガラス検出器で使用されていたものの再利用である。
 
 \begin{figure}[htbp]
-  \begin{minipage}{0.47\textwidth}
-    \subfigure[光電面：直径約80 mm（有効径70 mm）]{
+\begin{minipage}{0.47\textwidth}
+\subfigure[光電面：直径約80 mm（有効径70 mm）]{
 \includegraphics[bb=0 0 400 300, width=1\textwidth]{fig/P1040620.JPG}
 %\includegraphics[bb=0 0 400 300, width=1\textwidth]{fig/P1040621.JPG}
-   \label{LGPMT1}}
-  \end{minipage}
-  \hfill
-  \begin{minipage}{0.47\textwidth}
-    \subfigure[側面：全長約60 mm]{\includegraphics[bb=0 0 400 300, width=1\textwidth]{fig/P1040622.JPG}
-   \label{LGPMT2}}
-  \end{minipage}
-    \caption{R1652-01ASSY}
-  \label{LGPMT}
+\label{LGPMT1}}
+\end{minipage}
+\hfill
+\begin{minipage}{0.47\textwidth}
+\subfigure[側面：全長約60 mm]{\includegraphics[bb=0 0 400 300, width=1\textwidth]{fig/P1040622.JPG}
+\label{LGPMT2}}
+\end{minipage}
+\caption{R1652-01ASSY}
+\label{LGPMT}
 \end{figure}
 
 光電面にバイアルカリとコパールガラスを使用している透過型光電子増倍管で、その有効受光面積は約70mmである。300nm〜650nmの波長に対して感度\footnote{光電子増倍管の一般的な分光感度特性を\figref{Bialkali}に示す}があり、チェレコンフ光の波長ピークと同じ420nm周辺に感度のピークを持っている。ダイノードはファインメッシュとベネチアンブラインドを組み合わせた形をしており、印加電圧1100 Vでの典型的な電流増幅率は$2 \times 10^{5}$程度である。
@@ -205,7 +207,7 @@ FVの胴回りにハネのような形状のサポートを2セット取り付�
 有効径 & $\phi$70mm \\
 量子効率 & 19\% \\
 ダイノード形状 & ファインメッシュ +\\
- & ベネチアンブラインド \\
+& ベネチアンブラインド \\
 ダイノード材質 & バイアルカリ \\
 ダイノード段数 & 10 \\
 電流増幅率 & $ 2 \times 10^{5}$ （印加電圧1100V）\\
@@ -307,27 +309,27 @@ FVの胴回りにハネのような形状のサポートを2セット取り付�
 \end{description}
 
 \begin{figure}[htbp]
-  \begin{minipage}{0.47\textwidth}
-    \subfigure[手順１：光電子増倍管とアクリル窓2をオプティカルセメントで接着する。]{\includegraphics[bb=0 0 400 300, clip, width=1\textwidth]{fig/P1070378.JPG}
-   \label{PMTAssyProcedure1}}
-  \end{minipage}
-  \hfill
-  \begin{minipage}{0.47\textwidth}
-    \subfigure[手順２：アクリル窓1の上に光電子増倍管を配置する。間にシリコンクッキーを挟む。]{\includegraphics[bb=0 0 400 300, clip, width=1\textwidth]{fig/P1070381.JPG}
-   \label{PMTAssyProcedure2}}
-  \end{minipage}
-  \hfill
-  \begin{minipage}{0.47\textwidth}
-    \subfigure[手順３：ミューメタルをかぶせ、PMT接合部品2を通す。]{\includegraphics[bb=0 0 400 300, clip, width=1\textwidth]{fig/P1070390.JPG}
-   \label{PMTAssyProcedure3}}
-  \end{minipage}
-  \hfill
-  \begin{minipage}{0.47\textwidth}
-    \subfigure[手順４：トルクを管理しながらネジで締め付け、光電子増倍管を押さえつける。]{\includegraphics[bb=0 0 400 300, clip, width=1\textwidth]{fig/P1070392.JPG}
-   \label{PMTAssyProcedure4}}
-  \end{minipage}
-    \caption{光電子増倍管取り付け手順}
-  \label{PMTAssyProcedure}
+\begin{minipage}{0.47\textwidth}
+\subfigure[手順１：光電子増倍管とアクリル窓2をオプティカルセメントで接着する。]{\includegraphics[bb=0 0 400 300, clip, width=1\textwidth]{fig/P1070378.JPG}
+\label{PMTAssyProcedure1}}
+\end{minipage}
+\hfill
+\begin{minipage}{0.47\textwidth}
+\subfigure[手順２：アクリル窓1の上に光電子増倍管を配置する。間にシリコンクッキーを挟む。]{\includegraphics[bb=0 0 400 300, clip, width=1\textwidth]{fig/P1070381.JPG}
+\label{PMTAssyProcedure2}}
+\end{minipage}
+\hfill
+\begin{minipage}{0.47\textwidth}
+\subfigure[手順３：ミューメタルをかぶせ、PMT接合部品2を通す。]{\includegraphics[bb=0 0 400 300, clip, width=1\textwidth]{fig/P1070390.JPG}
+\label{PMTAssyProcedure3}}
+\end{minipage}
+\hfill
+\begin{minipage}{0.47\textwidth}
+\subfigure[手順４：トルクを管理しながらネジで締め付け、光電子増倍管を押さえつける。]{\includegraphics[bb=0 0 400 300, clip, width=1\textwidth]{fig/P1070392.JPG}
+\label{PMTAssyProcedure4}}
+\end{minipage}
+\caption{光電子増倍管取り付け手順}
+\label{PMTAssyProcedure}
 \end{figure}
 
 
@@ -460,12 +462,17 @@ FVの胴回りにハネのような形状のサポートを2セット取り付�
 強度解析
 ==================================================
 
-\subsection{目的}
+目的
+--------------------------------------------------
+
 本検出器はその内部に最大約2.5トンの水を使用するため、耐水圧仕様の構造にしなければならない。そこで強度解析ツールによる強度解析シミュレーションを行い、その結果を元に構造の詳細を決定していった。
 
 強度解析ツールにはにはANSYS Inc.の有限要素法マルチフィジックス解析ツールANSYSを使用した。
 
-\subsection{有限要素法}
+有限要素法
+--------------------------------------------------
+
+
 有限要素法とは数値解析手法の１つであり、解析的に解くことが難しい微分方程式の近似解を数値的に得る方法の１つである。
 複雑な形状・性質を持つ物体を、単純な形状・性質の要素に分割し、その１つ１つの要素に対して、境界条件などを考慮した連立方程式を立て、そのれら全てが成立する解を求めることによって、全体の挙動を予測することができる。
 
@@ -483,7 +490,9 @@ ANSYSを使った実際に手順は以下の通りである。
 \item （1.に戻って繰り返す）
 \end{enumerate}
 
-\subsection{材料特性}
+材料特性
+==================================================
+
 検出器の材料には主に鉄、ステンレス、アクリルを用いた。それぞれの材料特性は\tabref{MaterialProperty}のとおりである。下記パラメータ（特に密度、ヤング率、ポアソン比）を与えることにより、ANSYS空間に作成したモデルの材料を定義した。
 
 \begin{table}[htbp]
@@ -493,7 +502,7 @@ ANSYSを使った実際に手順は以下の通りである。
 \hline \hline
 材料名 & JIS記号 & 密度 & ヤング率 & ずれ弾性率 & ポアソン比\\
 & & $D$ [kg/m$^{3}$] & $E$ [GPa] & $G$ [GPa] & $\sigma$\\
- \hline
+\hline
 鉄 & SS400 & $7.9 \times 10^{3}$& 206 & 79 & 0.3038\\
 ステンレス & SUS304 & $8.0 \times 10^{3}$ & 197 & 74 & 0.3311\\
 アクリル & & $1.19 \times 10^{3}$ & 3.2 & & 0.38\\
@@ -534,7 +543,9 @@ E = 2G(\sigma+1)
 \end{table}%
 
 
-\subsection{外タンク}
+外タンク
+==================================================
+
 FV水ありの状態の時、外タンクには自重の他に、水の質量約2.5トンの負荷がかかる。本解析では、主にその2つの荷重を考慮して、それらに耐えうる構造となるよう強度計算を行い構造を決定した。
 
 \subsubsection{二次元円筒モデル}
@@ -600,16 +611,17 @@ P & = & \rho g h\\
 
 \subsubsection{Mizucheモデル}
 
-\if0
-\begin{wrapfigure}{r}{0.5\textwidth}
-\begin{center}
-\includegraphics[bb=0 0 264 500, height=0.5\textwidth]{fig/AnsysModel2.pdf}
-%\includegraphics[bb=0 0 705 504, width=1\textwidth]{fig/AnsysModel3.pdf}
-\caption[``Mizuche''モデル]{``Mizuche''モデル。}
-\label{AnsysModel3}
-\end{center}
-\end{wrapfigure}
-\fi
+..
+   \if0
+   \begin{wrapfigure}{r}{0.5\textwidth}
+   \begin{center}
+   \includegraphics[bb=0 0 264 500, height=0.5\textwidth]{fig/AnsysModel2.pdf}
+   %\includegraphics[bb=0 0 705 504, width=1\textwidth]{fig/AnsysModel3.pdf}
+   \caption[``Mizuche''モデル]{``Mizuche''モデル。}
+   \label{AnsysModel3}
+   \end{center}
+   \end{wrapfigure}
+   \fi
 
 次に、\figref{AnsysModel3}のような、よりMizuche検出器実機を想定したモデルを作成した。解析時間短縮のため対称化可能な部分はカットし、実機の1/4をモデル化してある。
 
@@ -712,22 +724,22 @@ P & = & \rho g h\\
 
 \if0%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{figure}[htbp]
-  \begin{minipage}{1\textwidth}
-    \subfigure[脚を取り付ける場所による相当応力の比較１。フタの位置を基準に脚を取り付ける位置を変化させた。フタに近くなるにつれ、最大相当応力が小さくなることが分かる。]{\includegraphics[bb=0 0 927 353, width=1\textwidth]{fig/AnsysLeg.pdf}
-   \label{AnsysLeg1}}
-  \end{minipage}
-  \hfill
-  \begin{minipage}{0.47\textwidth}
-    \subfigure[脚を取り付ける場所による相当応力の比較２。光電子増倍管を取り付けることを考慮して、再度脚を取り付ける水平位置の検討を行った。フタからの距離300mmに配置することに決定した。]{\includegraphics[bb=0 0 534 489, height=0.85\textwidth]{fig/AnsysLeg2.pdf}
-   \label{AnsysLeg2}}
-  \end{minipage}
-  \hfill
-  \begin{minipage}{0.47\textwidth}
-    \subfigure[脚を取り付ける場所による相当応力の比較３。光電子増倍管を取り付けることを考慮して、脚を取り付ける垂直位置の検討を行った。フタ中心からの距離480mmに配置することに決定した。]{\includegraphics[bb=0 0 541 457, height=0.85\textwidth]{fig/AnsysLeg3.pdf}
-   \label{AnsysLeg3}}
-  \end{minipage}
-    \caption{脚を取り付ける場所による相当応力の比較}
-  \label{AnsysLeg}
+\begin{minipage}{1\textwidth}
+\subfigure[脚を取り付ける場所による相当応力の比較１。フタの位置を基準に脚を取り付ける位置を変化させた。フタに近くなるにつれ、最大相当応力が小さくなることが分かる。]{\includegraphics[bb=0 0 927 353, width=1\textwidth]{fig/AnsysLeg.pdf}
+\label{AnsysLeg1}}
+\end{minipage}
+\hfill
+\begin{minipage}{0.47\textwidth}
+\subfigure[脚を取り付ける場所による相当応力の比較２。光電子増倍管を取り付けることを考慮して、再度脚を取り付ける水平位置の検討を行った。フタからの距離300mmに配置することに決定した。]{\includegraphics[bb=0 0 534 489, height=0.85\textwidth]{fig/AnsysLeg2.pdf}
+\label{AnsysLeg2}}
+\end{minipage}
+\hfill
+\begin{minipage}{0.47\textwidth}
+\subfigure[脚を取り付ける場所による相当応力の比較３。光電子増倍管を取り付けることを考慮して、脚を取り付ける垂直位置の検討を行った。フタ中心からの距離480mmに配置することに決定した。]{\includegraphics[bb=0 0 541 457, height=0.85\textwidth]{fig/AnsysLeg3.pdf}
+\label{AnsysLeg3}}
+\end{minipage}
+\caption{脚を取り付ける場所による相当応力の比較}
+\label{AnsysLeg}
 \end{figure}
 \fi%%%%%%%%%%%%%%%%%%%
 
@@ -837,32 +849,32 @@ FV水なしの状態のときに、内タンクにかかる水圧は最も大き
 フタに取り付けるリブの大きさを変更して、変形量（特にZ成分）の比較を行った結果を\figref{AnsysFVf}にまとめた。リブの幅を大きくするにつれ、Z方向の変形量が小さくなっているのが分かる。そこでリブの幅は300 mm\footnote{内タンクをインストール時のクリアランスを考慮し、最終的には287 mmに変更した}に決定した。
 
 \begin{figure}[htbp]
-  \begin{minipage}{0.47\textwidth}
-    \subfigure[リブ幅10 mm]{\includegraphics[bb=0 0 603 506, width=1\textwidth]{fig/AnsysFVf10mmUz.pdf}
-   \label{AnsysFVf10mm}}
-  \end{minipage}
-  \hfill
-  \begin{minipage}{0.47\textwidth}
-    \subfigure[リブ幅50 mm]{\includegraphics[bb=0 0 603 506, width=1\textwidth]{fig/AnsysFVf50mmUz.pdf}
-   \label{AnsysFVf50mm}}
-  \end{minipage}
-  \hfill
-  \begin{minipage}{0.47\textwidth}
-    \subfigure[リブ幅100 mm]{\includegraphics[bb=0 0 603 506, width=1\textwidth]{fig/AnsysFVf100mmUz.pdf}
-   \label{AnsysFVf100mm}}
-  \end{minipage}
-  \hfill \begin{minipage}{0.47\textwidth}
-    \subfigure[リブ幅200 mm]{\includegraphics[bb=0 0 603 506, width=1\textwidth]{fig/AnsysFVf200mmUz.pdf}
-   \label{AnsysFVf200mm}}
-  \end{minipage}
-  \hfill
-  \begin{minipage}{0.47\textwidth}
-    \subfigure[リブ幅300 mm]{\includegraphics[bb=0 0 603 506, width=1\textwidth]{fig/AnsysFVf300mmUz.pdf}
-   \label{AnsysFVf300mm}}
-  \end{minipage}
-  \hfill
-    \caption{フタに取り付けるリブの大きさを変えたときのZ方向の変形量の比較}
-  \label{AnsysFVf}
+\begin{minipage}{0.47\textwidth}
+\subfigure[リブ幅10 mm]{\includegraphics[bb=0 0 603 506, width=1\textwidth]{fig/AnsysFVf10mmUz.pdf}
+\label{AnsysFVf10mm}}
+\end{minipage}
+\hfill
+\begin{minipage}{0.47\textwidth}
+\subfigure[リブ幅50 mm]{\includegraphics[bb=0 0 603 506, width=1\textwidth]{fig/AnsysFVf50mmUz.pdf}
+\label{AnsysFVf50mm}}
+\end{minipage}
+\hfill
+\begin{minipage}{0.47\textwidth}
+\subfigure[リブ幅100 mm]{\includegraphics[bb=0 0 603 506, width=1\textwidth]{fig/AnsysFVf100mmUz.pdf}
+\label{AnsysFVf100mm}}
+\end{minipage}
+\hfill \begin{minipage}{0.47\textwidth}
+\subfigure[リブ幅200 mm]{\includegraphics[bb=0 0 603 506, width=1\textwidth]{fig/AnsysFVf200mmUz.pdf}
+\label{AnsysFVf200mm}}
+\end{minipage}
+\hfill
+\begin{minipage}{0.47\textwidth}
+\subfigure[リブ幅300 mm]{\includegraphics[bb=0 0 603 506, width=1\textwidth]{fig/AnsysFVf300mmUz.pdf}
+\label{AnsysFVf300mm}}
+\end{minipage}
+\hfill
+\caption{フタに取り付けるリブの大きさを変えたときのZ方向の変形量の比較}
+\label{AnsysFVf}
 \end{figure}
 
 \newpage
@@ -908,26 +920,26 @@ FV水なしの状態のときに、内タンクにかかる水圧は最も大き
 \fi%%%%%%%%%%
 
 \begin{figure}[htbp]
-  \begin{minipage}{0.47\textwidth}
-    \subfigure[ハネを四角にした場合の相当応力]{\includegraphics[bb=0 0 603 506, width=1\textwidth]{fig/AnsysFVSquareSeqv.pdf}
-   \label{AnsysFVSquareSeqv}}
-  \end{minipage}
-  \hfill
-  \begin{minipage}{0.47\textwidth}
-    \subfigure[ハネを四角にした場合の変形量]{\includegraphics[bb=0 0 603 506, width=1\textwidth]{fig/AnsysFVSquareUsum.pdf}
-   \label{AnsysFVSquareUsum}}
-  \end{minipage}
-  \hfill
-  \begin{minipage}{0.47\textwidth}
-    \subfigure[ハネを円形にした時の相当応力]{\includegraphics[bb=0 0 603 506, width=1\textwidth]{fig/AnsysFVCircSeqv.pdf}
-   \label{AnsysFVCircSeqv}}
-  \end{minipage}
-  \hfill \begin{minipage}{0.47\textwidth}
-    \subfigure[ハネを円形にした時の変形量]{\includegraphics[bb=0 0 603 506, width=1\textwidth]{fig/AnsysFVCircUsum.pdf}
-   \label{AnsysFVCircUsum}}
-  \end{minipage}
-    \caption{ハネの形状を変化させたときの相当応力・変形量の比較}
-  \label{AnsysFVSqCirc}
+\begin{minipage}{0.47\textwidth}
+\subfigure[ハネを四角にした場合の相当応力]{\includegraphics[bb=0 0 603 506, width=1\textwidth]{fig/AnsysFVSquareSeqv.pdf}
+\label{AnsysFVSquareSeqv}}
+\end{minipage}
+\hfill
+\begin{minipage}{0.47\textwidth}
+\subfigure[ハネを四角にした場合の変形量]{\includegraphics[bb=0 0 603 506, width=1\textwidth]{fig/AnsysFVSquareUsum.pdf}
+\label{AnsysFVSquareUsum}}
+\end{minipage}
+\hfill
+\begin{minipage}{0.47\textwidth}
+\subfigure[ハネを円形にした時の相当応力]{\includegraphics[bb=0 0 603 506, width=1\textwidth]{fig/AnsysFVCircSeqv.pdf}
+\label{AnsysFVCircSeqv}}
+\end{minipage}
+\hfill \begin{minipage}{0.47\textwidth}
+\subfigure[ハネを円形にした時の変形量]{\includegraphics[bb=0 0 603 506, width=1\textwidth]{fig/AnsysFVCircUsum.pdf}
+\label{AnsysFVCircUsum}}
+\end{minipage}
+\caption{ハネの形状を変化させたときの相当応力・変形量の比較}
+\label{AnsysFVSqCirc}
 \end{figure}
 
 \subsubsection{ハネの枚数の決定}
@@ -956,17 +968,17 @@ FV水なしの状態のときに、内タンクにかかる水圧は最も大き
 
 
 \begin{figure}[htbp]
-  \begin{minipage}{0.47\textwidth}
-    \subfigure[円形のハネを3枚にした時の相当応力]{\includegraphics[bb=0 0 653 506, width=1\textwidth]{fig/AnsysFVCirc2Seqv.pdf}
-   \label{AnsysFVCirc2Seqv}}
-  \end{minipage}
-  \hfill
-  \begin{minipage}{0.47\textwidth}
-    \subfigure[円形のハネを3枚にした時の変形量]{\includegraphics[bb=0 0 653 506, width=1\textwidth]{fig/AnsysFVCirc2Usum.pdf}
-   \label{AnsysFVCirc2Usum}}
-  \end{minipage}
-    \caption{ハネの枚数を変えたときの相当応力・変形量の比較}
-  \label{AnsysFVCirc2}
+\begin{minipage}{0.47\textwidth}
+\subfigure[円形のハネを3枚にした時の相当応力]{\includegraphics[bb=0 0 653 506, width=1\textwidth]{fig/AnsysFVCirc2Seqv.pdf}
+\label{AnsysFVCirc2Seqv}}
+\end{minipage}
+\hfill
+\begin{minipage}{0.47\textwidth}
+\subfigure[円形のハネを3枚にした時の変形量]{\includegraphics[bb=0 0 653 506, width=1\textwidth]{fig/AnsysFVCirc2Usum.pdf}
+\label{AnsysFVCirc2Usum}}
+\end{minipage}
+\caption{ハネの枚数を変えたときの相当応力・変形量の比較}
+\label{AnsysFVCirc2}
 \end{figure}
 
 
@@ -1003,17 +1015,17 @@ FV水なしの状態のときに、内タンクにかかる水圧は最も大き
 
 
 \begin{figure}[htbp]
-  \begin{minipage}{0.47\textwidth}
-    \subfigure[ハネを３分割した場合の相当応力]{\includegraphics[bb=0 0 603 506, width=1\textwidth]{fig/AnsysFVOverlapSeqv.pdf}
-   \label{AnsysFVOverlapSeqv}}
-  \end{minipage}
-  \hfill
-  \begin{minipage}{0.47\textwidth}
-    \subfigure[ハネを３分割した場合の変形量]{\includegraphics[bb=0 0 603 506, width=1\textwidth]{fig/AnsysFVOverlapUsum.pdf}
-   \label{AnsysFVOverlapUsum}}
-  \end{minipage}
-    \caption{ハネを３分割したときの相当応力・変形量}
-  \label{AnsysFVOverlap3}
+\begin{minipage}{0.47\textwidth}
+\subfigure[ハネを３分割した場合の相当応力]{\includegraphics[bb=0 0 603 506, width=1\textwidth]{fig/AnsysFVOverlapSeqv.pdf}
+\label{AnsysFVOverlapSeqv}}
+\end{minipage}
+\hfill
+\begin{minipage}{0.47\textwidth}
+\subfigure[ハネを３分割した場合の変形量]{\includegraphics[bb=0 0 603 506, width=1\textwidth]{fig/AnsysFVOverlapUsum.pdf}
+\label{AnsysFVOverlapUsum}}
+\end{minipage}
+\caption{ハネを３分割したときの相当応力・変形量}
+\label{AnsysFVOverlap3}
 \end{figure}
 
 
@@ -1058,7 +1070,8 @@ FV水なしの状態のときに、内タンクにかかる水圧は最も大き
 
 両モデルとも自重として-Y方向に1G、そして、X方向加速モデルには+X方向に0.5GとZ方向加速モデルには+Z方向に0.5Gを与えた。また、水圧はそれらの加速度を足しあわせた方向にを考慮して定義した（図中の虹色のグラデーションは水圧の勾配を示す）。
 
-\subsection{震度と重力加速度}
+震度と重力加速度
+==================================================
 地震の震度と、それに対応する重力加速度は\figref{SeismicClass}のとおりである。今回は0.5 Gの加速度を与えたので、約震度5強相当の地震に耐えられることになる。
 
 \begin{table}[htbp]
@@ -1079,22 +1092,23 @@ gal & [cm/s$^{2}$] & 100 & 240 & 520 & 830 & 1100 & 1500\\
 
 
 
-\subsection{横方向のゆれに対する解析}
+横方向のゆれに対する解析
+==================================================
 X方向に加速度を与えて解析を行った結果を\figref{Xmatome}に示す。\figref{SEQVX}は相当応力、\figref{USUMX}は変形量に対する結果を表している。また、\figref{SeismicX}に最大相当応力のかかる部分の拡大図を示す。
 変形量、応力ともに脚の部分がもっとも大きくなるが、最大変形量は0.892 mm（0.09\%）と問題なく、最大相当応力は181 MPaとなり安全強度を越えているが、一時的にかかる応力なので問題ないと判断した。
 
 \begin{figure}[htbp]
-  \begin{minipage}{0.47\textwidth}
-      \subfigure[総変形量]{\includegraphics[bb=0 0 900 700, width=1\textwidth]{fig/AnsysSeismicXusum2.pdf}
-   \label{USUMX}}
-  \end{minipage}
-  \hfill
-  \begin{minipage}{0.47\textwidth}
-      \subfigure[相当応力]{\includegraphics[bb=0 0 900 700, width=1\textwidth]{fig/AnsysSeismicXseqv2.pdf}
-   \label{SEQVX}}
-  \end{minipage}
-    \caption{X方向加速度モデルの解析結果}
-  \label{Xmatome}
+\begin{minipage}{0.47\textwidth}
+\subfigure[総変形量]{\includegraphics[bb=0 0 900 700, width=1\textwidth]{fig/AnsysSeismicXusum2.pdf}
+\label{USUMX}}
+\end{minipage}
+\hfill
+\begin{minipage}{0.47\textwidth}
+\subfigure[相当応力]{\includegraphics[bb=0 0 900 700, width=1\textwidth]{fig/AnsysSeismicXseqv2.pdf}
+\label{SEQVX}}
+\end{minipage}
+\caption{X方向加速度モデルの解析結果}
+\label{Xmatome}
 \end{figure}
 
 \if0%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1126,23 +1140,24 @@ X方向に加速度を与えて解析を行った結果を\figref{Xmatome}に示
 \end{figure}
 
 
-\subsection{長さ方向のゆれに対する解析}
+長さ方向のゆれに対する解析
+==================================================
 
 Z方向に加速度を与えて解析を行った結果を\figref{SEQVZ}、\figref{USUMZ}に示す。\figref{SEQVZ}は応力、\figref{USUMZ}は変形量に対する結果を表している。また、\figref{SeismicZ}に最大相当応力のかかる部分の拡大図を示す。
 相当応力は脚の部分でもっとも大きくなり、最大相当応力272 MPaは安全強度を超えているが、一時的にかかる応力なのでX方向加速度モデルと同じく問題ないと判断した。変形量はフタ中心で最大4.178 mm（0.56\%）であり問題ないと判断した。
 
 \begin{figure}[htbp]
-  \begin{minipage}{0.47\textwidth}
-      \subfigure[総変形量]{\includegraphics[bb=0 0 900 700, width=1\textwidth]{fig/AnsysSeismicZusum2.pdf}
-   \label{USUMZ}}
-  \end{minipage}
-  \hfill
-  \begin{minipage}{0.47\textwidth}
-      \subfigure[相当応力]{\includegraphics[bb=0 0 900 700, width=1\textwidth]{fig/AnsysSeismicZseqv2.pdf}
-   \label{SEQVZ}}
-  \end{minipage}
-    \caption{Z方向加速度モデルの解析結果}
-  \label{Zmatome}
+\begin{minipage}{0.47\textwidth}
+\subfigure[総変形量]{\includegraphics[bb=0 0 900 700, width=1\textwidth]{fig/AnsysSeismicZusum2.pdf}
+\label{USUMZ}}
+\end{minipage}
+\hfill
+\begin{minipage}{0.47\textwidth}
+\subfigure[相当応力]{\includegraphics[bb=0 0 900 700, width=1\textwidth]{fig/AnsysSeismicZseqv2.pdf}
+\label{SEQVZ}}
+\end{minipage}
+\caption{Z方向加速度モデルの解析結果}
+\label{Zmatome}
 \end{figure}
 
 
@@ -1181,7 +1196,8 @@ Z方向に加速度を与えて解析を行った結果を\figref{SEQVZ}、\figr
 \newpage
 \section{水漏れ試験・インストレーション}
 
-\subsection{水漏れ試験}
+水漏れ試験
+==================================================
 \figref{WaterTest}は外タンク製作現場にて水漏れ試験をしたときの様子である。タンク内を水道水で満たし、水漏れする箇所がないかを実際に立ち会って確認した。
 このとき、板ゴムの繋ぎ目\footnote{板ゴムは周長が大きく一体物の作成が出来なかったため、４分割品を繋ぎあわせてある}部分から少量の水漏れと、光電子増倍管取り付け用窓３箇所から水漏れが生じた（\figref{WaterTestItagomu}、\figref{WaterTestMado}）。
 
@@ -1222,7 +1238,7 @@ Z方向に加速度を与えて解析を行った結果を\figref{SEQVZ}、\figr
 \begin{tabular}{clcc}
 \hline \hline
 & & ANSYS & 実測値 \\
- \hline
+\hline
 フタ中心の変形量 & [mm] & +1.6 & +1.3\\
 本体中心下の変形量 & [mm] & +0.2 & +0.4 \\
 \hline \hline
@@ -1231,7 +1247,8 @@ Z方向に加速度を与えて解析を行った結果を\figref{SEQVZ}、\figr
 \label{CompDeform}
 \end{table}
 
-\subsection{インストレーション}
+インストレーション
+==================================================
 2010年11月2日と4日に外タンクと内タンクを前置検出器ホールの地下2階に降ろす作業を行った。\figref{InstallOuterTank}は外タンクを、\figref{InstallInnerTank}は内タンクをそれぞれクレーンで吊り降ろしているところである。
 
 地下に降ろされた後、外タンクは指定した位置（\figref{MCPosition}）に運ばれ、アンカーボルトで固定した。内タンクはまだ外タンク内部には設置されておらず、今後設置作業をする予定である。
