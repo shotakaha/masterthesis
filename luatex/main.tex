@@ -1,0 +1,2782 @@
+\documentclass[11pt]{jreport}
+%\documentclass[11pt, draft]{jreport}
+
+\usepackage{geometry}	% See geometry.pdf to learn the layout options. There are lots.
+\geometry{a4paper}    % ... or a4paper or a5paper or ...
+
+%余白の設定
+\setlength{\textwidth}{40zw}
+%\setlength{\textheight}{44\baselineskip}
+\setlength{\textheight}{40\baselineskip}
+\addtolength{\textheight}{\topskip}
+%\setlength{\hoffset}{0.46cm}
+%\addtolength{\textheight}{2.4cm}
+
+\usepackage[dvipdfmx]{graphicx, color}
+\usepackage{wrapfig}
+\usepackage{mediabb}
+\usepackage{subfigure}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+\usepackage{wallpaper}
+\usepackage{utf}
+\usepackage{ulem}
+%\usepackage{umoline}
+%\usepackage{epstopdf}
+\usepackage{float}
+\usepackage{lineno}
+%\linenumbers
+\usepackage{amsmath, amssymb}
+\usepackage{type1cm}
+
+\西暦
+
+\bibliographystyle{jplain}
+
+\usepackage[dvipdfm,%
+bookmarks=false,%
+bookmarksnumbered=true,%
+bookmarkstype=toc,%
+colorlinks=true,%
+linkcolor=black,%
+citecolor=black,%
+pdftitle={Mizucheの開発},
+pdfauthor={Shota TAKAHASHI},
+pdfkeywords={T2K, Mizuche, neutrino, Kyoto University}]{hyperref}
+
+% bookmark(しおり)の文字化け対策
+\ifnum 42146=\euc"A4A2
+\AtBeginDvi{\special{pdf:tounicode EUC-UCS2}}\else
+\AtBeginDvi{\special{pdf:tounicode 90ms-RKSJ-UCS2}}\fi
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ===== particles =====
+\newcommand{\pizero}{$\pi^{0}$}
+
+% ===== neutrino interaction =====
+\newcommand{\ccqe}{$\nu + p \rightarrow \mu + n$}
+\newcommand{\ncqe}{$\nu + N \rightarrow \nu + N$}
+\newcommand{\ccp}{$\nu + p \rightarrow \mu + n + \pi^{0}$}
+%\newcommand{\nc1p}
+%\newcommand{\dis}
+
+% = math sequences =
+% \bra and \ket must be used in math mode
+\newcommand{\bra}[1]{\langle #1 |}
+\newcommand{\ket}[1]{ | #1 \rangle}
+
+% = units =
+\newcommand{\cmcm}{cm$^{2}$}
+
+% = Tips =
+\newcommand{\figref}[1]{図\ref{#1}}
+\newcommand{\tabref}[1]{表\ref{#1}}
+\newcommand{\equref}[1]{式(\ref{#1})}
+\newcommand{\secref}[1]{第\ref{#1}章}
+\renewcommand{\bibname}{参考文献}
+
+% = Mizuche Original=
+\newcommand{\fv}{\mathrm{FV}}
+\newcommand{\ov}{\mathrm{OV}}
+\newcommand{\ww}{\mathrm{(w/ FVwater)}}
+\newcommand{\wow}{\mathrm{(w/o FVwater)}}
+\newcommand{\photon}{\mathrm{photon}}
+\newcommand{\pe}{\mathrm{p.e.}}
+\newcommand{\nd}{\mathrm{ND}}
+\newcommand{\sk}{\mathrm{SK}}
+\newcommand{\miz}{\mathrm{Miz}}
+
+% = color =
+\newcommand{\red}[1]{\textcolor{red}{\textbf{#1}}}
+\newcommand{\comment}[1]{\red{#1}\footnote{\red{#1}}}
+\newcommand{\memo}[1]{\footnote{\red{#1}}}
+
+% = subfigure
+\renewcommand*{\thesubfigure}{（\arabic{subfigure}）}
+
+% = subsubsubsection =
+%\setcounter{secnumdepth}{6}
+%\makeatletter
+%\newcommand{\subsubsubsection}{\@startsection{paragraph}{4}{\z@}%
+%  {1.5\Cvs \@plus.5\Cdp \@minus.2\Cdp}%
+%  {.5\Cvs \@plus.3\Cdp}%
+%  {\reset@font\normalsize\sffamily}
+%}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+
+%\ThisCenterWallPaper{.5}{fig/06_1.jpg}
+\begin{titlepage}
+
+\title{修士論文\\ニュートリノ反応数測定のための\\小型水チェレンコフ検出器"Mizuche"の開発}
+\author{京都大学大学院理学研究科　物理学・宇宙物理学専攻\\
+物理学第二教室　高エネルギー物理学研究室\\
+\UTF{9AD9}橋 将太}
+\date{\today}
+
+%\ThisULCornerWallPaper{.3}{fig/shota-pooh_christmas.pdf}
+%\begin{figure}[!h]
+%\centering
+%\includegraphics[width=0.2\textwidth]{fig/06_1.jpg}
+%\end{figure}
+
+\end{titlepage}
+
+\maketitle
+
+\pagenumbering{roman}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+\end{abstract}
+
+\tableofcontents
+%\listoffigures
+%\listoftables
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{はじめに}
+\pagenumbering{arabic}
+\pagestyle{bothstyle}
+%%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{T2K長基線ニュートリノ振動実験}
+
+
+%%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%%
+\section{実験概要・目的}
+T2K(Tokai to Kamioka)長基線ニュートリノ振動実験の概念図を\figref{T2KOverview}に示す。
+
+T2K実験\cite{jhfnu}は茨城県東海村にあるJ-PARC大強度陽子加速器施設で生成したミューオンニュートリノビームを岐阜県飛騨市のスーパーカミオカンデ検出器で観測する全長295 kmの長基線ニュートリノ振動実験である。本実験は2009年4月に稼働開始した。T2K実験では世界最大強度のニュートリノビームと世界最大の水チェレンコフ検出器スーパーカミオカンデを用いて、
+\begin{enumerate}
+\item ミューオンニュートリノ消失による混合角$\theta_{23}$及び$\Delta m_{23}$の精密測定
+\item 電子ニュートリノ出現モードによる混合角$\theta_{13}$の世界初観測
+\end{enumerate}
+を世界最高感度で実現することを目標としている。
+
+\begin{figure}[htbp]
+\centering
+%\includegraphics[bb=54 392 539 489, width=1\textwidth]{fig/T2KOverview.pdf}
+\includegraphics[bb=131 315 483 418, width=1\textwidth]{fig/T2KOverview2.pdf}
+\caption[T2K実験の概要]{T2K実験の概要。茨城県東海村のJ-PARC加速器施設で生成した人工ミューオンニュートリノを、295km離れたスーパーカミオカンデで観測し、ニュートリノ振動測定を行う。}
+\label{T2KOverview}
+\end{figure}
+
+\subsection{ニュートリノ振動解析}
+
+生成点直後と長距離飛行後のニュートリノの状態をそれぞれ前置検出器、後置検出器で測定を行う。
+前置検出器での測定結果を外挿して、後置検出器の結果を予測し、その値を後置検出器の測定結果と比較することにより、ニュートリノ振動解析を行う。このとき、振動確率を表す\equref{nuchange}より、混合角は主にニュートリノ反応数の増減から、質量二乗差は主にエネルギースペクトルの歪みから求められる。
+
+T2K実験では、ニュートリノ生成点から280m下流に配置した前置検出器と、295 km離れた後置検出器にスーパーカミオカンデを使用する。
+前置検出器での結果$N_{\nd}^{obs}$を外挿して、スーパーカミオカンデでのニュートリノ反応数予測$N_{\sk}^{exp}$を求める式は次のようになる。
+\begin{equation}
+N_{\sk}^{exp}  =  R_{Far/Near} \times N_{\nd}^{obs}
+\label{Extrapolation}
+\end{equation}
+
+ここで$R_{Far/Near}$はF/N比（Far-to-Near ratio）と呼ばれるもので、モンテカルロシミュレーションにより求めた前置検出器、スーパーカミオカンデの、それぞれのニュートリノ反応数$N_{\nd}^{MC}, N_{\sk}^{MC}$を用いて次式で定義される数である。
+
+\begin{equation}
+R_{Far/Near} \equiv \frac{N_{\sk}^{MC}}{N_{\nd}^{MC}} = \frac{\int \Phi_{\sk}^{MC} \times \sigma \times \epsilon_{\sk}}{\int \Phi_{\nd}^{MC} \times \sigma \times \epsilon_{\nd}}
+\label{FN}
+\end{equation}
+
+ここで、右辺の各変数は以下の通りである。
+\begin{description}
+\item [$\blacksquare\ \Phi_{\sk, \nd}^{MC}$] $\cdots$ MCによるスーパーカミオカンデ、前置検出器でのエネルギースペクトル
+\item [$\blacksquare\ \sigma$] $\cdots$ ニュートリノ反応断面積
+\item [$\blacksquare\ \epsilon_{\sk, \nd}$] $\cdots$ スーパーカミオカンデ、前置検出器の検出効率
+\end{description}
+
+\equref{FN}より前置検出器のエネルギースペクトル、反応標的、検出効率などをスーパーカミオカンデのそれに近づけることで、それらに付いてくる不定性がお互い打ち消しあい、F/N比の系統誤差を小さくすることができる。その結果、スーパーカミオカンデでのニュートリノ反応数予測の精度を向上させることができる。
+
+
+
+%%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%%
+\section{J-PARC加速器及びニュートリノビームライン}
+
+\subsection{J-PARC加速器}
+J-PARC加速器の構成を\figref{JPARC}に示す。
+全長330 m の線形加速器リニアック（LINAC）で加速された陽子は、全周350 m の 3 GeV陽子シンクロトロン（RCS）、全周1600 m の陽子シンクロトロン（MR）の順に加速され、最終的にビームエネルギー30G eV、ビーム強度750 kW （デザイン値）にまで到達する。
+その後、超伝導磁石を用いた速い取り出し（FX）によって2 $\sim$ 4秒の間隔でニュートリノビームラインへと蹴り出される。1スピルあたり8バンチ、1バンチの幅58 nsec、バンチ間隔581 nsecのビーム構造をしている。
+これらのJ-PARC加速器の陽子ビームパラメータを\tabref{JPARCBeamlineSpec}にまとめた。なお、ビームエネルギー30 GeV、ビーム強度750 kWを達成するために、今後これらのパラメータを変更する可能性もある。
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[bb=0 0 432 274, width=0.7\textwidth]{fig/T2KJPARCBL.jpg}
+\caption[J-PARC加速器の構成]{J-PARC加速器の構成。LINAC、RCS、MRで徐々に加速された陽子は最終的に30 GeVのエネルギーに達する。（図はJ-PARC公式HPより）}
+\label{JPARC}
+\end{figure}
+
+\begin{table}[htbp]
+\caption[J-PARC加速器ビームパラメータのデザイン値]{J-PARC加速器ビームパラメータのデザイン値}
+\begin{center}
+\begin{tabular}{ccl}
+\hline \hline
+ビームエネルギー & 30 & [GeV]\\
+ビーム強度 & 750 &[kW] （現在は約100 kW）\\
+1スピル当たりの陽子数 & $3.3 \times 10^{14}$ & [pps] （現在は$7\times10^{7}$ pps）\\
+スピル周期 & 2.11 & [sec] （現在は3.2 sec）\\
+スピル構造 & 8 &[bunches/spill]\\
+バンチ間隔 & 581 & [nsec]\\
+バンチ幅 & 58 & [nsec] （現在は半値幅10 nsec）\\
+\hline \hline
+\multicolumn{3}{r}{pps = protons/spill}\\
+\end{tabular}
+\end{center}
+\label{JPARCBeamlineSpec}
+\end{table}%
+
+\newpage
+\subsection{ニュートリノビームライン}
+ニュートリノビームラインの構成を\figref{T2KNeutrinoBeamline}に示す。MRで30GeVまで加速された陽子は、超電導磁石によって曲げられ、ニュートリノビームラインに導かれる。その後、陽子ビームは炭素標的に衝突し$\pi$中間子、K中間子を生成する。これらの荷電粒子を電磁ホーンによって収束させてから、崩壊トンネルに入射させる。崩壊トンネル内では、粒子の崩壊によってニュートリノやその他の粒子が生成する。ニュートリノ以外の粒子はビームダンプによって堰き止められるため、ニュートリノのみが、前置検出器群よびスーパーカミオカンデに向かって飛んでいくことができる。
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[bb=0 0 970 208, width=1\textwidth]{fig/T2KNBL2.pdf}
+\caption[ニュートリノビームラインの構成]{ニュートリノビームラインの構成。MRで30 GeVまで加速された陽子は、超電導磁石によって曲げられたのち、炭素標的に衝突し荷電粒子を生成する。荷電粒子は電磁ホーンによって収束させられ、崩壊トンネル中でニュートリノへと崩壊し、前置検出器群・スーパーカミオカンデへと飛んでいく。}
+\label{T2KNeutrinoBeamline}
+\end{figure}
+
+%\paragraph{炭素標的}
+%\sout{T2Kニュートリノビームラインでは炭素をニュートリノ生成標的として用いている。陽子ビームと炭素の散乱で、大量の$\pi$中間子やK中間子が生成する。この$\pi$中間子やK中間子の崩壊反応を利用してニュートリノを生成する}
+
+%\paragraph{電磁ホーン}
+%\sout{大強度のニュートリノビームを作るためには、電磁ホーンという装置を使ってニュートリノビームを収束させる必要がある。T2Kビームラインには合計3つの電磁ホーンが建設されており、そえぞれに最大320kAの大電流を流すことができる。（ただし、現段階は250kAで運転）
+%
+%第１ホーン内部には炭素標的があり、陽子ビームが衝突して二次粒子（主に荷電パイオンと荷電ケーオン）を生成すると同時に、それらを収束させる。第２、第３ホーンはさらに生成粒子を収束させる。}
+
+%\paragraph{崩壊空洞}
+%\sout{Decay Volume。ニュートリノ生成点（炭素標的のある位置）から下流約100mには、内部を真空に引かれた空洞を用意してある。この空洞内で、$\pi$中間子は、ミューオンとミューオンニュートリノに２体崩壊する。このときのニュートリノを集めてビームとする。}
+
+
+\if0  %%%%%%%%%% %%%%%%%%%%
+\subsection{\sout{MUMON}}
+
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[bb=0 0 319 287, scale=0.5]{fig/temp.pdf}
+\caption[MUMON]{MUMON}
+\label{MUMON}
+\end{center}
+\end{figure}
+
+\fi %%%%%%%%%% %%%%%%%%%%
+
+%%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%%
+\section{T2K前置検出器群}
+\subsection{INGRID}
+INGRIDはニュートリノビーム軸上に置かれた検出器である。合計14個のモジュールからなる大質量の検出器である。ニュートリノビームの軸中心がどの方向を向いているのかを毎日確認することができる。
+
+
+\subsection{オフアクシス検出器}
+オフアクシス検出器はニュートリノ生成点から下流280 mに設置されており、ビーム軸からずれたスーパーカミオカンデ方向を向いている。
+その断面図を\figref{TOAD}に示す。オフアクシス検出器はP0D、TPC、FGD、ECAL、SMRDの５つの検出器で構成される複合型検出器である。飛跡検出をメインに、運動量再構成、エネルギー再構成、粒子識別を行い、振動前のニュートリノのフラックスおよびエネルギーの測定を行う。測定結果を基にスーパーカミオカンデでのフラックスおよびエネルギースペクトルを予測する。
+
+\begin{figure}[htbp]
+\centering
+%\includegraphics[bb=189 528 418 758, width=0.8\textwidth]{fig/T2KOAD.pdf}
+\includegraphics[bb=0 0 873 773, width=0.7\textwidth]{fig/T2KND280.png}
+%\includegraphics[bb=0 0 1213 1073, width=0.8\textwidth]{fig/T2KND280.pdf}
+%\includegraphics[bb=14 14 4864 4305, clip, width=0.8\textwidth]{fig/T2KND280.eps}
+\caption[T2Kオフアクシス検出器]{T2Kオフアクシス検出器}
+\label{TOAD}
+\end{figure}
+
+\if0%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\paragraph{P0D（Pi-zero Detector）}
+\sout{P0Dはプラスチックシンチレータと水標的で構成される検出器である。電磁石内の上流に設置されている。中性カレント反応によって生じた$\pi^{0}$粒子を測定することができる。
+水と鉛が入っている？
+%
+$\pi^{0} \rightarrow 2 \gamma$の崩壊によって生じた$\gamma$を検出する。}
+
+\paragraph{FGD（Fine Grained Detector）}
+\sout{エフジーディー。Fine Grained Detectorの略。}
+
+\paragraph{TPC（Time Projection Chamber）}
+\sout{ティーピーシー。Time Projection Chamberの略。}
+
+\paragraph{ECAL（Electromagnetic CALorimeter）}
+\sout{ECALはプラスチックシンチレーターと鉛フィルムから構成される検出器で、P0D、FGD、TPCの周りを囲むように設置されている。
+$\pi^{0}$中間子の崩壊によって生じる$\gamma$を検出する。また電子ニュートリノによる荷電カレント反応によって生じた電子も検出できる。}
+
+\paragraph{SMRD（Side Muon Range Detector）}
+\sout{電磁石の鉄ヨークの隙間にプラスティックシンチレータが挟んである。ニュートリノ反応によるミューオンで、横方向にすり抜けてしまったものを検出する。}
+
+\paragraph{電磁石}
+\sout{T2K電磁石にはCERNのUA1実験のものを使用。約2900Aの電流を流し、0.2Tの磁場をかけ、ニュートリノ反応によって生じた荷電粒子の運動量を測定する。電磁石内部の大きさは3.5m$\times$3.6m$\times$7.0m}
+
+\comment{オフアクシス検出器について簡単にまとめる。SKとは違うんだよ、ということを書く}
+\fi
+
+
+\if0 %%%%%%%%%% %%%%%%%%%%
+\subsection{\sout{INGRID}}
+ビーム軸に沿って設置。
+10m x 10mの大きさの十字型。
+ビーム中心がずれていないか測定。
+
+\begin{figure}[htb]
+\centering
+\includegraphics[bb=0 0 319 287, scale=0.5]{fig/temp.pdf}
+\caption[INGRID]{INGRID}
+\label{INGRID}
+\end{figure}
+
+\fi %%%%%%%%%% %%%%%%%%%%
+
+
+\newpage
+%%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%%
+\section{後置検出器：スーパーカミオカンデ}
+
+T2K実験ではスーパーカミオカンデを、ニュートリノ発生点から295kmの地点に置かれた後置検出器として使用する。
+
+スーパーカミオカンデは、岐阜県飛騨市神岡町の神岡鉱山茂住坑内に、東京大学宇宙線研究所付属の観測装置として建設された、水チェレンコフ光検出器である。宇宙線起源のミューオンによるバックグラウンドを減らすため、池の山山頂の地下1000m（2700m w.q.e）に建設された。実際に検出器付近での宇宙線ミューオンの強度は、地表での強度の約$10^{-5}$となっており、スーパーカミオカンデにおける宇宙線ミューオン事象の頻度は4Hzにまで抑えられている。
+
+スーパーカミオカンデ検出器の全体図を\figref{SuperKamiokande}に示す。スーパーカミオカンデ検出器の本体となるタンクは、直径39.3m、高さ41.4mの円筒形をしており、その中は総質量５万トンの超純水で満たされている。タンクの内部は光学的に内タンク（直径33.8m、高さ36.2m、有効体積22.5トン）と外タンクに分けられており、内タンクには直径20インチの光電子増倍管約11200本が内向きに、外タンクには直径8インチの光電子増倍管約1900本が外向きに、それぞれ取り付けられている。
+
+内タンクは粒子検出の主となる部分であり、タンクの中もしくは外で起こった反応により生じた荷電粒子が、水中を通過する際に放出するチェレンコフ光を、内タンク壁面に並べられた光電子増倍管で検出し、その光量・到達時間・リングパターンなどから、粒子の種類・エネルギー・発生点・運動方向などを決定する。
+
+外タンクは、岩盤からの$\gamma$線や中性子によるバックグラウンド事象の除去および外部から入射する粒子（主に宇宙線ミューオン）や外部に抜ける粒子の識別、のために利用されている。
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[bb=86 439 501 740, width=1\textwidth]{fig/T2KSK.pdf}
+\caption[スーパーカミオカンデ]{スーパーカミオカンデ}
+\label{SuperKamiokande}
+\end{figure}
+
+現在までにスーパーカミオカンデは、そのずば抜けた性能により、太陽ニュートリノ・大気ニュートリノなどの自然から来るニュートリノを観測し、ニュートリノの質量に関する多くの情報をもたらしている
+
+\if0
+\section{T2K実験の現状}
+余力があればNsk/Nndの最近の結果(INGRID, Off-Axis)に触れて、cancellationをdemonstrateする
+
+\begin{quote}
+余力があればNsk/Nndの最近の結果(INGRID, Off-Axis)に触れて、cancellationをdemonstrateする
+\end{quote}
+
+余力があればNsk/Nndの最近の結果(INGRID, Off-Axis)に触れて、cancellationをdemonstrateする
+\fi
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{小型水チェレンコフ検出器 Mizuche}
+
+%%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%%
+\section{Mizucheの概要}
+Mizuche実験とは、J-PARC加速器によって生成された直後のニュートリノビーム中のニュートリノの個数を、後置検出器であるスーパーカミオカンデと同じ水チェレンコフ光検出器で測定する実験である。
+
+ニュートリノ振動測定の精密測定には、ニュートリノビームのフラックス、ニュートリノと反応標的の反応断面積、検出器の検出効率の不定性に起因する系統誤差を低く抑えることが必要となってくる。そこで、生成直後のニュートリノビームの性質を、前置検出器で測定し、スーパーカミオカンデに外挿することにより、これらの系統誤差を小さく抑えることができる。特に、スーパーカミオカンデと同じ測定原理・検出装置を持つ水チェレンコフ光検出器で測定することにより、これらの系統誤差を削減することができる。
+
+実際に、過去のK2K実験では1キロトンの水チェレンコフ光検出器を使用することで、系統誤差をキャンセルした測定に大きく貢献している。しかし、T2K実験の場合は、ニュートリノビーム強度がK2K実験よりも２桁強いため、ニュートリノ反応レートが大きくなり、１キロトンもの大容積では、1バンチ内で多数のニュートリノが反応してしまい、バンチ毎にイベントを区別して測定することが困難になってしまう。そこで、本実験では容積を2.5トンと小型化し、ニュートリノ反応数を数えることに特化した検出器の開発を行うことにした。
+
+\section{Mizucheの目的}
+
+本実験は後置検出器であるスーパーカミオカンデと同じタイプの水チェレンコフ検出器を用いて前置検出器部分でのニュートリノ反応数測定を行い、外挿することで、系統誤差を低く抑えたニュートリノ反応数予測を目指す実験である。
+それに向けて、本実験では次の2つを目標にしている。
+\begin{enumerate}
+\item 前置検出器部分で水チェレンコフ光検出器を用いたニュートリノ反応数測定\\（目標精度2\%）
+\item スーパーカミオカンデでのニュートリノ反応数予測の精度向上
+\end{enumerate}
+
+第一目標として、前置検出器部分でのニュートリノ反応数測定の精度を2\%で行うことを目指すことを掲げている。まずここまでで、T2K実験の大強度ニュートリノビームに対しても水チェレンコフ検出器が有効であることを実証する。
+次の目標としては、ここまでに得られた結果を元に、本検出器をT2K前置検出器群と合わせて利用し、
+スーパーカミオカンデでのニュートリノ反応数予測を行う。ここで、\figref{MizuSKFlux}に本検出器とスーパーカミオカンデで予測されるニュートリノフラックスを示した。このように、ほぼ同じ形のフラックス、同じニュートリノ反応標的（水）、同じ検出原理（チェレンコフ光）を用いることで、最終的には、系統誤差を抑えた外挿を行うことにより、T2K実験の測定感度の向上に貢献したいと考えている。
+
+\begin{figure}[htbp]
+  \begin{minipage}{0.47\textwidth}
+    \subfigure[Mizuche]{
+\includegraphics[bb=128 475 450 708, width=1\textwidth]{fig/MCNeutrinoFlux.pdf}
+   \label{MizuFlux}}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.47\textwidth}
+    \subfigure[スーパーカミオカンデ]{
+\includegraphics[bb=255 191 822 575, width=1\textwidth]{fig/MizucheSKFlux3.pdf}
+   \label{SKFlux}}
+  \end{minipage}
+    \caption[Mizucheとスーパーカミオカンデでのニュートリノフラックス]{Mizucheとスーパーカミオカンデでのニュートリノフラックス}
+  \label{MizuSKFlux}
+\end{figure}
+
+
+
+%\subsubsection{振動解析と系統誤差}
+%以下に、とある振動解析の手法と、Mizucheを使用した場合に、どのような系統誤差を抑えることができるのかを示す。
+%\begin{equation}
+%N_{SK}^{exp}  =  R_{Far/Near} \times N_{Miz}^{obs}
+%\label{Extrapolation}
+%\end{equation}
+%ここで、
+%\begin{equation}
+%R_{Far/Near} = \frac{N_{SK}^{MC}}{N_{Miz}^{MC}} = \frac{\int \Phi_{SK}^{MC} \times \sigma_{SK} \times \epsilon_{SK}}{\int \Phi_{Miz}^{MC} \times \sigma_{Miz} \times \epsilon_{Miz}}
+%\label{Extrapolation2}
+%\end{equation}
+
+%\begin{itemize}
+%\item $N_{SK}^{exp} \cdots $ SKでのニュートリノ反応の予測数
+%\item $N_{Miz}^{obs} \cdots $ Mizucheでの実際のニュートリノ反応観測数
+%\item $R_{Far/Near} \cdots$ Far - Near比
+%\item $N_{SK, Miz}^{MC} \cdots$ MCのよるSK, Mizucheでのニュートリノ反応数
+%\item $\Phi_{SK, Miz}^{MC} \cdots$ MCのよるSK, Mizucheでのエネルギースペクトル
+%\item $\sigma_{SK, Miz} \cdots$ SK, Mizucheでのニュートリノ反応断面積
+%\item $\epsilon_{SK, Miz} \cdots$ SK, Mizucheでの検出効率
+%\end{itemize}
+
+%%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%%
+\section{Mizucheの実験原理}
+
+本検出器は、水中を高速で走る荷電粒子が放出するチェレンコフ光をとらえることにより粒子を検出する、スーパーカミオカンデと同じ水チェレンコフ光検出器である。
+
+ニュートリノが水中の水素原子核や酸素原子核と反応し荷電粒子が生成される。その時の荷電粒子（主にミューオン）が水中を進むことによって放出されるチェレンコフ光を、検出器の周りに配置した光電子増倍管で観測する。
+%\comment{反応の絵}
+
+
+本検出器は\figref{TankConcept}のような、外タンク（直径1400 mm、長さ1600 mm）の内側に、一回り小さな内タンク（直径800 mm、長さ1000 mm）を抱えた、２層構造をしている。内タンクの容積約0.5 m$^{3}$（= 500 kg）を有効体積（fiducial volume: FV）と定義する。
+
+FV内でのニュートリノ反応数は、(1) FV内に水がある状態と、(2) FV内に水がない状態の２状態で測定を行い、その残差から求める。この測定原理の詳細については後述する。
+
+\begin{figure}[htb]
+\centering
+%\includegraphics[bb=0 0 575 320, scale=0.5]{fig/MizucheTankConcept.pdf}
+\includegraphics[bb=0 0 1012 578, width=1\textwidth]{fig/MizucheTankConcept2.pdf}
+\caption[Mizuche検出器の概念設計図]{Mizuche検出器の概念設計図。青：内タンク（$\phi$800 mm$\times$1000 mm）；水：外タンク（$\phi$1400 mm$\times$1600mm）；桃：3in. 光電子増倍管$\times$164本。FVの端でのニュートリノ反応によるチェレンコフ光を観測できるよう、外タンクと内タンクの間には300mmの領域（Outer Volume: OV）を設定した。}
+\label{TankConcept}
+\end{figure}
+
+
+\subsection{チェレンコフ放射}
+チェレンコフ放射とは、荷電粒子が媒質中を運動する時、その速度が媒質中の光速度よりも速い場合に光を放射する現象である。1934年にP. A. チェレンコフによって発見されたことからその名が付いている。
+
+\subsubsection{チェレンコフ角とエネルギー閾値}
+媒質の屈折率を$n$、荷電粒子の進行方向とチェレンコフ光の放出方向のなす角度を$\theta_{c}$とすると、$\theta_{c}$は荷電粒子の速度$\beta c$によって決まり、以下の関係が成り立つ。%(\equref{CherenkovAngle})
+\begin{equation}
+\cos \theta_{c} = \frac{1}{n\beta}
+\label{CherenkovAngle}
+\end{equation}
+
+チェレンコフ光は、荷電粒子の進行方向を軸とする円錐面に沿って放出される。荷電粒子のエネルギーが十分大きく、その速度が光速に近い速度（$\beta =1$）であるとき、チェレンコフ角$\theta_{c}$は最大となる。また、エネルギーが小さくなるにつれ、チェレンコフ角$\theta_{c}$は狭くなり、エネルギーが低すぎるとチェレンコフ光は放出されない。チェレンコフ光が放出される最低速度$\beta_{t}$(threshold velocity)と、そのときのエネルギー閾値$E_{t}$(energy threshold)は次式で表すことができる（\equref{ThresholdVelocity}、\equref{EnergyThreshold}）。
+
+\begin{equation}
+\beta_{t} = \frac{1}{n}
+\label{ThresholdVelocity}
+\end{equation}
+
+%\begin{eqnarray}
+%\frac{p_{t}}{E_{t}} & = & \frac{1}{n}\\
+%\frac{\sqrt{E_{t}^{2}-m^{2}}}{E_{t}}  & = & \frac{1}{n} \\
+%n^{2} (E_{t}^{2}-m^{2}) & = & E_{t}^{2} \\
+%n^{2}E_{t}^{2} - n^{2}m^{2} & = & E_{t}^{2} \\
+%(n^{2}-1)E_{t}^{2} & = & n^{2}m^{2} \\
+%E_{t}^{2} & = & \frac{n^{2}m^{2}}{n^{2}-1}\\
+%
+%\end{eqnarray}
+
+\begin{equation}
+E_{t} = \frac{nm}{\sqrt{n^{2}-1}}
+\label{EnergyThreshold}
+\end{equation}
+
+%\begin{eqnarray}
+%p_{t} & = & \sqrt{E_{t}^{2}-m^{2}}\\
+%& = & \sqrt{\frac{n^{2}m^{2}}{n^{2}-1}-m^{2}}\\
+%& = & \sqrt{\frac{n^{2}m^{2}-m^{2}(n^{2}-1)}{n^{2}-1}}\\
+%& = & \sqrt{\frac{m^{2}}{n^{2}-1}}\\
+%& = & \frac{m}{\sqrt{n^{2}-1}} \ (= \beta_{t} E_{t})
+%\end{eqnarray}
+
+水の場合、屈折率$n\sim1.33$なので、最大チェレンコフ角$\theta_{c} \sim 42^{\circ}$、$\beta_{t} \sim 0.75$となる。
+また、\tabref{ThresholdByParticle}に主な粒子別のエネルギーと運動量の閾値をまとめた。
+
+
+\begin{table}[htbp]
+\caption[主な粒子の水に対するチェレンコフ光放出のエネルギー閾値と運動量閾値]{主な粒子の水に対するチェレンコフ光放出のエネルギー閾値$E_{t}$と運動量閾値$p_{t}$}
+\begin{center}
+\begin{tabular}{c|ccc}
+\hline \hline
+& 静止質量 $m$ [MeV/c$^{2}$] & $E_{t}$ [MeV] & $p_{t}$ [MeV/c]\\
+ \hline
+e$^{\pm}$	& 0.511	& 0.775 & 0.583\\
+$\mu^{\pm}$	& 105.7 & 160.3 & 120.5\\
+$\pi^{\pm}$	& 139.6 & 211.7 & 159.2 \\
+p$^{+}$	& 938.2	& 1423 & 1070\\
+\hline \hline
+\end{tabular}
+\end{center}
+\label{ThresholdByParticle}
+\end{table}%
+
+\subsubsection{単位長さあたりに放出されるチェレンコフ光子数}
+荷電粒子の電荷が$ze$ [C]であるとき、単位飛程、単位波長あたりに放出される光子数$N_{\photon}$は次のように表すことができる（\equref{dNdXdL}）。
+%\begin{eqnarray}
+%\frac{d^{2}N_{photon}}{dxd\lambda} & = & \frac{2 \pi \alpha z^{2}}{\lambda^{2}} \left( 1 - \frac{1}{\beta^{2}n^{2}(\lambda)}\right) \\
+%& = & \frac{2 \pi \alpha z^{2}}{\lambda^{2}} \sin^{2} \theta_{c}
+%\end{eqnarray}
+
+\begin{equation}
+\frac{d^{2}N_{\photon}}{dxd\lambda} =  \frac{2 \pi \alpha z^{2}}{\lambda^{2}} \sin^{2} \theta_{c}
+\label{dNdXdL}
+\end{equation}
+ここで、$\lambda$はチェレンコフ光の波長、$\alpha \simeq 1/137$は微細構造定数である。
+これを波長で積分すると、次式が得られる（\equref{dNdX}）。
+
+\begin{equation}
+\frac{dN_{\photon}}{dx} =  2 \pi \alpha z^{2} \sin^{2} \theta_{c} \left( \frac{1}{\lambda_{1}}-\frac{1}{\lambda_{2}} \right) \ , (\lambda_{1} < \lambda_{2})
+\label{dNdX}
+\end{equation}
+
+これまでの式から荷電粒子がエネルギーを失うに従って、チェレンコフ角$\theta_{c}$が小さくなると共に、チェレンコフ光の強度も減少していくことが分かる。
+
+典型的な光電子増倍管で検出可能な波長は300 nm $\sim$ 650 nmである。この範囲を考慮すると、運動量 1 GeV/c の荷電粒子が単位長さ進むときに放出する光子数は$N_{\photon}/dx \sim 823\sin^{2}\theta_{c}\ $ [photon/cm]程度と見積もることができる。
+ミューオン、電子のそれぞれに対して、運動量とチェレンコフ角の関係と、荷電粒子が単位長さ進むあたりに放出されるチェレンコフ光子数の関係をそれぞれ\figref{MizucheCheDeg}と\figref{MizuchedPhoton}に図示した。
+
+また、本検出器表面積の約6\%が光電子増倍管で覆われていることと、光電子増倍管の量子効率が約20\%であると仮定して、荷電粒子が単位長さ進んだときに期待される光量（光電子数）を見積もったものを\figref{MizuchedPE}に図示する。これから1 cmあたり$3\sim4$ photon しか放出されないことが分かる。そのため、内タンク（FV）の外側に300 cmのバッファー層（OV）を設けることで、FVで生じた荷電粒子が、検出するのに十分な光量のチェレンコフ光を放射することを保証した。30 cm進んだ際に検出できる光量を\figref{MizuchePE}に示す。これらの検出器設計詳細については後述する。
+
+\begin{figure}[htbp]
+\begin{minipage}{0.47\textwidth}
+\centering
+\includegraphics[bb=0 0 500 484, width=1\textwidth]{fig/MizucheCheDeg.pdf}
+\caption[ミューオンと電子の運動量とチェレンコフ角の関係]{ミューオンと電子の運動量とチェレンコフ角の関係。黒線はミューオン、赤線は電子を表す。}
+\label{MizucheCheDeg}
+\end{minipage}
+%\end{figure}
+\hfil
+%\begin{figure}[htbp]
+\begin{minipage}{0.47\textwidth}
+\centering
+\includegraphics[bb=0 0 500 484, width=1\textwidth]{fig/MizuchedPhoton.pdf}
+\caption[ミューオンと電子の運動量と単位飛程あたりに放出されるチェレンコフ光子数の関係]{ミューオンと電子の運動量と単位飛程あたりに放出されるチェレンコフ光子数の関係。黒線はミューオン、赤線は電子を表す。}
+\label{MizuchedPhoton}
+\end{minipage}
+\end{figure}
+
+
+\begin{figure}[htbp]
+\begin{minipage}{0.47\textwidth}
+\centering
+\includegraphics[bb=0 0 500 484, width=1\textwidth]{fig/MizuchedPE.pdf}
+\caption[Mizucheで検出できる単位飛程あたりの光電子数]{Mizucheで検出できる単位飛程あたり光電子数。光電被覆率 6.24\%、量子効率19\%とした。黒線はミューオン、赤線は電子を表す。}
+\label{MizuchedPE}
+\end{minipage}
+%\end{figure}
+\hfil
+%\begin{figure}[htbp]
+\begin{minipage}{0.47\textwidth}
+\centering
+\includegraphics[bb=0 0 500 484, width=1\textwidth]{fig/MizuchePE.pdf}
+\caption[荷電粒子が 300 mm 進むときに期待される光電子数数]{荷電粒子が 300 mm 進むときに期待される光電子数。黒線はミューオン、赤線は電子を表す。}
+\label{MizuchePE}
+\end{minipage}
+\end{figure}
+
+\newpage
+\subsection{測定原理}
+前述したように、本検出器は、次の２状態で測定を行い、その残差を求める。
+\begin{enumerate}
+\item FV内に水がある状態（FV水あり）
+\item FV内に水がない状態（FV水なし）
+\end{enumerate}
+
+この測定原理について、\figref{EventCategory}を用いて詳しく説明する。
+上段の図は(1) FV内に水がある状態での測定、下段の図は(2) FV内に水がない状態での測定を表している。それぞれの場合でチェレンコフ光が発生する要因によって４つに場合分けして図示した。
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[bb=16 103 971 616, width=1\textwidth]{fig/MizucheEventCategory.pdf}
+\caption[測定原理の概略]{測定原理の概略。上段：FV水ありの測定、下段：FV水なしの測定。チェレンコフ光が発生する要因によって4つに場合分けした。}
+\label{EventCategory}
+\end{figure}
+
+\subsubsection{1. FV内で起こるニュートリノ反応（左端の図）}
+本検出器のシグナルイベントである。FV内でのニュートリノ反応は、FV水ありの状態でしか起こらないため、その残差はFV内での反応数、すなわちシグナルイベントとなる。
+
+
+\subsubsection{2. FV外で起こるニュートリノ反応（左から２番目の図）}
+FV外（OV）でのニュートリノ反応は、FV水あり、FV水なしとも起こるため、両状態の検出効率が全く等しい場合、差をとれば反応数は相殺する。相殺しなかった場合は、バックグラウンドとなる。それぞれの場合で期待される検出効率については、\secref{MonteCalro}の検出器シミュレーションにて詳述する。
+
+\subsubsection{3. 砂ミューオンによるチェレンコフ放射（左から３番目の図）}
+砂ミューオンが発生するチェレンコフ光によるイベントである。砂ミューオンとは、前置検出器ホールの壁とニュートリノが反応したことにより生じたミューオンのことである。このイベントはFV水あり、水なしでも起こるため、OVで起こるニュートリノ反応同様、差をとれば反応数は相殺する。相殺しなかった場合はバックグラウンドとなる。
+
+\subsubsection{4. 検出器外からの中性粒子による反応（右端の図）}
+砂ミューオンの発生同様、前置検出器ホールの壁とニュートリノが反応したことによる中性粒子（主に中性子）が、検出器内の水と反応し、荷電粒子を生成するイベントである。
+FV内でこの反応が生じた場合、差をとるとバックグラウンドとして残ることになる（OVで生じた反応は相殺する）。中性子による反応がどの程度起きるかは検出器シミュレーションにより見積もる。
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{簡単なニュートリノ反応数の見積もり}
+
+\subsection{有効体積内でのニュートリノ反応頻度}
+T2Kニュートリノビームのデザイン強度で、FV内でのニュートリノ反応数を見積もった。ニュートリノビームのフラックスを$\Phi_{\nu}$、反応断面積を$\sigma_{\nu}$、標的粒子数を$n$とすると、ニュートリノ反応数$N_{\nu}$は次の式で表すことができる。
+\begin{equation}
+N_{\nu}  = \Phi_{\nu} \times \sigma_{\nu} \times n
+\end{equation}
+
+陽子ビーム強度750 kWの時のニュートリノフラックス$\Phi_{\nu}=1.85 \times 10^{6}\ \mathrm{[/cm^{2}/sec]}$、$\ \sigma_{\nu}=0.63 \times 10^{-38}\ \mathrm{[cm^{2}/nucleon]}$、水500 kg中の核子数$n=3.01\times10^{29}\ \mathrm{[nucleon]}$より、$3.5\times10^{-3}\ \mathrm{[events/sec]}$が期待されると見積もった。\tabref{EventRateEstimation}に計算に用いた条件をまとめた。
+
+\begin{table}[htbp]
+\caption{ニュートリノ反応数の見積もりに使用した条件}
+\begin{center}
+\begin{tabular}{ccl}
+\hline \hline
+陽子ビームエネルギー & 30 & [GeV]\\
+%陽子ビーム数 & $3.3 \times 10^{14}$ & [/\cmcm/spill]\\
+陽子ビーム強度 & 0.75 &[MW] \\
+%ビーム周期（スピル間隔） & 2.11 & [sec] \\
+%1スピル当たりの陽子数 & $3.3 \times 10^{14}$ & [protons/spill]\\
+%ニュートリノビームフラックス & $6.5 \times 10^{6}$ & [/\cmcm /spill] \\
+ニュートリノビームフラックス & $1.85 \times 10^{6}$ & [/\cmcm /sec] \\
+ニュートリノエネルギー & 0.7 & [GeV]\\
+水反応断面積 & $0.63 \times 10^{-38}$ & [\cmcm/nucleon]\\
+FV質量 & 0.5 & [ton] \\
+核子数 & $3.01\times10^{29}$ & [nucleon]\\
+\hline
+ニュートリノ反応頻度 & $3.50 \times 10^{-3}$ & [events/sec]\\
+\hline \hline
+\end{tabular}
+\end{center}
+\label{EventRateEstimation}
+\end{table}%
+
+\subsection{測定時間による統計誤差}
+限られたビームタイムの中で、FV内に水がある状態とない状態の2状態の測定を行わなければならない。そこで、それぞれの測定時間による統計誤差が最小となるよう、最適な水あり／水なしの測定時間の比を見積もった。
+
+ニュートリノフラックスを$\Phi_{\nu}$、反応断面積を$\sigma_{\nu}$、アボガドロ数を$N_{A}$とし、FV水ありの時の体積を$V_{1}$・測定時間を$T_{1}$・ニュートリノ反応数を$N_{1}$、FV水なしでの体積を$V_{2}$・測定時間を$T_{2}$・ニュートリノ反応数を$N_{2}$とすると、
+それぞれの状態でのニュートリノ反応数は次のようになる。
+
+\begin{description}
+\item [FV水あり]%
+\begin{equation}
+%N_{1}=\sigma_{\nu}F_{\nu}n_{1}T_{1}=\sigma_{\nu}F_{\nu}N_{A}V_{1}T_{1}
+N_{1} = \sigma_{\nu}\Phi_{\nu}N_{A}V_{1}T_{1}
+\label{Nww}
+\end{equation}
+%
+\item [FV水なし]
+\begin{equation}
+%N_{2}=\sigma_{\nu}F_{\nu}n_{2}T_{2}=\sigma_{\nu}F_{\nu}N_{A}V_{2}T_{2}
+N_{2} = \sigma_{\nu}\Phi_{\nu}N_{A}V_{2}T_{2}
+\label{Nwow}
+\end{equation}
+\end{description}
+
+ここで、測定時間の比を$T_{1}:T_{2}=a:b$とすると、FV内でのニュートリノ反応数は次のようになる（測定時間をFV水ありに合わせた）。
+
+\begin{equation}
+N_{\fv} = N_{1}-\frac{T_{1}}{T_{2}}N_{2} = N_{1}-\frac{a}{b}N_{2}
+\label{Nfv}
+\end{equation}
+
+$N_{1}$、$N_{2}$はポアソン過程だと仮定すると、それぞれの統計誤差は次のようになる。
+\begin{eqnarray}
+\sigma_{N_{1}} & = & \sqrt{N_{1}} \label{sigma1}\\
+\sigma_{N_{2}} & = & \sqrt{N_{2}} \label{sigma2}
+\end{eqnarray}
+
+また、誤差の伝播式より、$N_{\fv}$の統計誤差は次のようになる。
+\begin{equation}
+\sigma_{N_{\fv}} = \sqrt{\sigma_{N_{1}}^{2}+\left(\frac{a}{b}\right)^{2}\sigma_{N_{2}}^{2}} \label{sigmafv}
+\end{equation}
+
+全体に対する統計誤差の割合を計算すると、
+\begin{eqnarray}
+\frac{\sigma_{N_{\fv}}}{N_{\fv}} & = & \frac{\sqrt{\sigma_{N_{1}}^{2}+\left(\frac{a}{b}\right)^{2}\sigma_{N_{2}}^{2}}}{N_{1}-\frac{a}{b}N_{2}}\\
+%
+& = & \frac{\sqrt{N_{1} + \left(\frac{a}{b}\right)^{2}N_{2}}}{N_{1}-\frac{a}{b}N_{2}}\\
+& = & \frac{1}{\sqrt{N_{1}}} \cdot%
+\frac{1}{\sqrt{V_{1}}} \cdot%
+\frac{\sqrt{V_{1}+\frac{a}{b}V_{2}}} {V_{1}-V_{2}}\\
+\end{eqnarray}
+
+ここで、$\sqrt{V_{1}+\frac{a}{b}V_{2}}$が最小となる$a$、$b$を考える。
+\\
+\\
+相加平均・相乗平均の定理より、
+\begin{eqnarray}
+A + B & \ge & 2\sqrt{AB} \ \text{（等号成立は$A=B$）} \label{sksj}\\
+V_{1} + \frac{a}{b}V_{2} & \ge & 2\sqrt{V_{1}\frac{a}{b}V_{2}}\\
+\text{等号成立は} & & V_{1} = \frac{a}{b}V_{2} \Rightarrow a:b=V_{1}:V_{2}\\
+\text{（このとき} & & V_{1}+\frac{a}{b}V_{2} = 2V_{1}\text{\ ）}
+\end{eqnarray}
+
+したがって、
+\begin{equation}
+T_{1}:T_{2} = V_{1}:V_{2}
+\end{equation}
+測定時間による統計誤差を最小にするためには、測定時間を測定状態の体積比に配分すれば良いことが分かった。
+
+\subsection{1年間で期待されるニュートリノ反応数}
+1年のビームタイムを100日と仮定し、前節のとおりに測定時間を配分したときに期待されるニュートリノ反応数を見積もった。FV水ありの体積は2.5トン、FV水なしの体積は2.0トンであるので、測定時間はそれぞれ56日と44日になる。ビーム強度を100 kW（750 kW）と仮定したときのイベント数を\tabref{EventEstimationYear}にまとめた。FV内でのニュートリノ反応は1日あたり41（304）イベントが期待できる。
+
+
+\begin{table}[htdp]
+\caption[期待されるニュートリノ反応数]{期待されるニュートリノ反応数}
+\begin{center}
+\begin{tabular}{cccc}
+\hline \hline
+測定状態 & 測定日数 & ニュートリノ反応頻度 & ニュートリノ反応数\\
+& [days] & [events/day] & [events]\\
+\hline
+FV水あり & 56 & 199 (1490) & 11,065 (82,985)\\
+FV水なし & 44 & 158 (1186) &\ 7,009 (52,570)\\
+\hline
+FV内 & & 41 (304) &\\
+\hline \hline
+\multicolumn{4}{r}{測定日数100日で計算、( )内は750kWの時}\\
+\end{tabular}
+\end{center}
+\label{EventEstimationYear}
+\end{table}%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{GEANT4による検出器シミュレーション}
+\label{MonteCalro}
+\section{目的・目標}
+
+本実験では検出器の有効体積（FV）内での反応数$N^{obs}_{\fv}$は\equref{obs}のように、FV水ありの状態での測定数$N^{obs}_{\ww}$と、FV水なしの状態での測定数$N^{obs}_{\wow}$の残差を求めることで算出する。
+
+\begin{equation}
+N^{obs}_{\fv} = N^{obs}_{\ww} - N^{obs}_{\wow}
+\label{obs}
+\end{equation}
+
+ここで、$N^{obs}_{\ww}$、$N^{obs}_{\wow}$は、実際には以下のように、FV内での反応検出数と、FV外（OV）での反応検出数からなる。
+
+\begin{eqnarray}
+N^{obs}_{\ww} \ =&\ N_{\fv} \times \epsilon_{\fv} \ +& \ N_{\ov} \times \epsilon^{\ww}_{\ov}
+\label{wFVwater}\\
+N^{obs}_{\wow} \ =& & \ N_{\ov} \times \epsilon^{\wow}_{\ov}
+\label{woFVwater}
+\end{eqnarray}
+
+
+水あり／なしの残差でニュートリノ反応数を求める場合、\equref{wFVwater}、\equref{woFVwater}において、水ありの場合の検出効率$\epsilon^{\ww}_{\ov}$と、水なしの場合の検出効率$\epsilon^{\wow}_{\ov}$は一致している必要がある。
+一致していない場合は、残差を求めてもOVでのニュートリノ反応数がうまく打ち消し合わず、バックグラウンドとして残ることになる。
+
+そこで、ニュートリノ反応に対する本検出器の検出効率をモンテカルロシミュレーション（MC）によって見積もった。
+
+\section{検出器シミュレーションの概要}
+
+\figref{MCOverview}にニュートリノ反応に対するMizche検出器の検出器シミュレーションの概略を示す。今回行ったシミュレーションは次の３つのステップからなる。
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[bb=10 311 784 540, width=1\textwidth]{fig/MCOverview.pdf}
+\caption[検出器シミュレーションの概略]{検出器シミュレーションの概略}
+\label{MCOverview}
+\end{figure}
+
+
+\subsubsection{1.ニュートリノフラックスの作成}
+T2K実験で使用されているビームラインシミュレーション JNUBEAM を使用して、本検出器の設置場所での予測ニュートリノフラックスを作成した。
+%Jnubeam 10cのフラックスファイルから、numu fluxのみを1e5 triggers x 100 files (1e7 イベント分？) 使用した。
+
+\subsubsection{2.ニュートリノ反応の生成}
+JNUBEAM で作成したフラックスを元に、T2K実験やスーパーカミオカンデで使用されているニュートリノ反応シミュレーション NEUT を使用して、水とニュートリノの反応をシミュレートさせた。
+
+\subsubsection{3.検出器内での反応}
+GEANT4空間内に検出器を再現し、ニュートリノ反応によって生成された粒子の水中での運動や、物理プロセス（主にチェレンコフ放射）をシミュレートさせた。
+また、生成したニュートリノ反応を全てのモードについてGEANT4でシミュレートさせた。
+
+\if0
+\begin{table}[!htbp]
+\caption[シミュレーションプログラムのバージョン]{それぞれのシミュレーションに使用したプログラムのバージョン}
+\begin{center}
+\begin{tabular}{rll}
+\hline \hline
+ビームラインシミュレーション & JNUBEAM &10c\\
+%ND10 & Mizucheの位置での140cm x 140cmの領域\\
+ニュートリノ反応シミュレーション & NEUT & 5.0.6\\
+検出器シミュレーション & GEANT4 & 4.9.3.patch01\\
+\hline \hline
+\end{tabular}
+\end{center}
+\label{MCProgramTable}
+\end{table}%
+\fi
+
+\section{検出器シミュレーションのモデル}
+\subsection{検出器のジオメトリ}
+\figref{MCGeometry}のようにGEANT4内に検出器をモデル化した。\figref{TankConcept}と同じように、外タンクは直径1400 mm$\times$長さ1600 mm、FVの材質にはアクリルを定義し、直径800 mm$\times$長さ1000 mm$\times$厚さ5 mm（ただし、フタ部分は厚さ8 mm）となっている。光電子増倍管164本も実機と全く同じになるよう配置した。
+外タンクとFVの間の媒質には水を定義した。FV内の媒質は水および空気を定義することで、FV水あり／なしの状態を再現した。
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[bb=0 0 908 460, width=0.9\textwidth]{fig/MCGeometry.pdf}
+\caption[MC内での検出器のジオメトリ]{MC内での検出器のジオメトリ。}
+\label{MCGeometry}
+\end{figure}
+
+\subsection{物理プロセス}
+
+\subsubsection{チェレンコフ光の伝播}
+チェレンコフ光の伝播は以下の条件で行った。
+
+\begin{itemize}
+\item 外タンク内壁で光は反射しない\footnote{検出器の外タンク内壁は（マットな）黒色に塗装}ように設定
+\item アクリルの表面は滑らかであると仮定し、理想的な反射・屈折を行うように設定
+%\item 境界での屈折・反射にはフレネルの公式を使用（フレネルの公式の説明）
+\item アクリル・水の屈折率は\tabref{RefractiveIndex}のように設定
+	\begin{itemize}
+	\item 水の屈折率はなるべく現実に即した値に設定（波長に依存）
+	\item 一般的なアクリルの屈折率を設定（定数値）
+	\end{itemize}
+\item 水中での光子の吸収率は波長に応じて変化するよう設定
+\end{itemize}
+
+
+\begin{table}[htbp]
+\caption[GEANT4で設定した水とアクリルの屈折率]{GEANT4で設定した水とアクリルの屈折率}
+\begin{center}
+\begin{tabular}{ccl}
+\hline \hline
+媒質 & 屈折率 & \\
+\hline
+水 & 1.34〜1.36 & 光の波長に依存して変化\\%\comment{→図}\\
+アクリル & 1.49 & 一定値\\
+\hline \hline
+\end{tabular}
+\end{center}
+\label{RefractiveIndex}
+\end{table}%
+
+
+
+\subsubsection{光電子増倍管の量子効率}
+\figref{MCQE}に光電面の量子効率を示す。これは浜松ホトニクスのハンドブックから値を読み取り反映させた（\figref{Bialkali}）。MCの中では横軸を波長からエネルギーに変換したテーブルを作成し、それを使用した。
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[bb=6 274 394 552, width=0.8\textwidth]{fig/MCQE.pdf}
+\caption[MCで定義した量子効率]{MCで定義した量子効率。浜松ホトニクス・ホトマルハンドブックの値を読み取った。}
+\label{MCQE}
+\end{figure}
+
+
+
+\subsection{典型的なイベントディスプレイ}
+
+FVに水あり／なしの状態でのニュートリノ反応のイベントディスプレイを\figref{MCEvtDsp}に示す。入射エネルギー$E_{\nu}=0.56\ $GeVのニュートリノが、OVで反応し、ミューオン（運動量$\sim$510 MeV/c）が生成し、検出器内を通過した。このミューオンによって期待されるチェレンコフ光量はそれぞれの状態で、860 p.e.と273 p.e.であった。
+
+\begin{figure}[htbp]
+  \begin{minipage}{0.47\textwidth}
+    \subfigure[FV水あり状態のイベントディスプレイ。入射ニュートリノエネルギー$E_{\nu}$=0.56 GeV、生成したミューオンの運動量$p_{\mu}$=510 MeV/c、光電子増倍管に入射した全光電子数860 p.e.]{
+\includegraphics[bb=403 98 794 450, clip, height=0.9\textwidth]{fig/MCEvtDsp.pdf}
+   \label{MCEvtDsp1}}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.47\textwidth}
+    \subfigure[FV水なし状態のイベントディスプレイ。入射ニュートリノエネルギー$E_{\nu}$=0.56 GeV、生成したミューオンの運動量$p_{\mu}$=510 MeV/c、光電子増倍管に入射した全光電子数273 p.e.]{
+    \includegraphics[bb=412 96 787 451, clip, height=0.9\textwidth]{fig/MCEvtDsp2.pdf}
+   \label{MCEvtDsp2}}
+  \end{minipage}
+    \caption{ニュートリノ反応のイベントディスプレイ}
+  \label{MCEvtDsp}
+\end{figure}
+
+
+\section{シグナルイベントのシミュレーション}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[bb=0 0 629 673, width=0.6\textwidth]{fig/MCPosition.pdf}
+\caption[Mizucheの設置場所]{Mizucheの設置場所。緑矢印：ニュートリノビーム軸；青四角：本検出器設置位置、オフアクシス角約２度を確保}
+\label{MCPosition}
+\end{figure}
+
+\subsection{ニュートリノビームフラックス}
+本検出器の設置場所を\figref{MCPosition}に示す。本検出器は前置検出器ホール地下2階（地下約40 m）の、ニュートリノビーム軸から約19 m離れた位置に設置する。この場所でオフアクシス角は約2度程度になる。これはオフアクシス検出器とほぼ同じオフアクシス角である。
+
+この場所で予想されるニュートリノビームフラックスを\figref{MizuFlux2}に示す。また、スーパーカミオカンデで位置でのニュートリノフラックスを\figref{SKFlux2}に示す。どちらのフラックスも0.6GeV付近にピークがあり、幅も狭く、非常によく似ていることが分かる。
+
+\begin{figure}[htbp]
+  \begin{minipage}{0.47\textwidth}
+    \subfigure[Mizuche]{
+\includegraphics[bb=128 475 450 708, width=1\textwidth]{fig/MCNeutrinoFlux.pdf}
+   \label{MizuFlux2}}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.47\textwidth}
+    \subfigure[スーパーカミオカンデ]{
+\includegraphics[bb=255 191 822 575, width=1\textwidth]{fig/MizucheSKFlux3.pdf}
+   \label{SKFlux2}}
+  \end{minipage}
+    \caption[Mizucheとスーパーカミオカンデでのニュートリノフラックス]{Mizucheとスーパーカミオカンデでのニュートリノフラックス}
+  \label{MizuSKFlux2}
+\end{figure}
+
+\subsection{ニュートリノ反応エネルギー分布}
+
+\figref{MCNeutrinoInteracted}にMizuche検出器内で反応したニュートリノの反応モードとそのエネルギー分布を示す。色の違いは反応モードの違いを表し、赤網掛け線は荷電カレント反応、青網掛け線は中性カレント反応の場合を示す。
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[bb=128 135 457 365, width=0.8\textwidth]{fig/MCNeutrinoInteracted.pdf}
+\caption[Mizuche検出器内で反応するニュートリノのエネルギー分布]{Mizuche検出器内で反応するニュートリノのエネルギー分布。赤線：荷電カレント(CC)反応、青線：中性カレント(NC)反応を表す。}
+\label{MCNeutrinoInteracted}
+\end{figure}
+
+\subsection{ニュートリノ反応に対する総光量分布}
+タンク内でのニュートリノ反応に対して予測される総光量分布を示す。総光量とは、ヒットがあった光電子増倍管で測定した光量の和（total p.e.）を意味する。今回のスタディでは、一つの光電子増倍管で2 p.e.以上の光量を測定できた場合に、その光電子増倍管にヒットがあったと判断するように設定した（i.e. ヒット閾値(hit threshold) = 2 p.e.）。
+FV水あり、水なしの２状態でシミュレーションしたときに検出される全光電子数分布を\figref{MCTotalPElog}に示す。
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[bb=45 36 719 508, width=0.8\textwidth]{fig/MCTotalPElog.pdf}
+\caption[予想される全光電子数分布]{予想される全光電子数分布。黒と緑が測定可能な分布である。線の色の違いについては本文を参照。}
+\label{MCTotalPElog}
+\end{figure}
+
+
+\figref{MCTotalPElog}の線の色の違いは以下の通りである。
+
+\begin{description}
+\item [黒：] FV水ありの状態で、検出器全体（FV＋OV）に反応点があるイベント
+\item [緑：] FV水なしの状態で、検出器全体（i.e. OVのみ）に反応点があるイベント
+\item [赤：]  FV水ありの状態で、FVに反応点があるイベント
+\item [青：]  FV水ありの状態で、OVに反応点があるイベント
+\end{description}
+
+これらのうち、測定可能な分布は黒と緑の２種類であり、黒は赤＋青である。
+
+赤の分布において0付近にピークが見られるが、これは中性カレント反応で荷電粒子が全く出ない場合や、荷電カレント反応で荷電粒子が生成されてもチェレンコフ光を出すエネルギーがない場合\footnote{\tabref{EnergyThreshold}主な粒子のエネルギー閾値}の光量である。
+また、緑と青を比べてみると、200 p.e.以下の低光量側で良く一致しているのが分かる。
+
+\subsection{ニュートリノ反応の種類による検出効率の違い}
+\subsubsection{検出効率の定義}
+実際の測定では光電子増倍管のノイズによる偶発的なイベントが起こりうる。そのようなバックグラウンドイベントを落としてニュートリノ反応によるシグナルイベントのみを数えるために、得られた総光量に対してある光量以上のイベントを選択する「光量カット(p.e. cut)」を行った。しかし、光量カットを掛けることで、シグナルイベントの一部も落ちてしまう。このとき、どの程度のシグナルイベントが残るのか、その検出効率を見積もった。
+
+検出効率は次のように定義した。
+
+\begin{equation}
+\text{検出効率} = \frac{\text{光量カット後に残るイベント数}}{\text{ニュートリノ反応数}}
+\end{equation}
+\mbox{}\\
+
+\figref{MCEffThreshold}は、横軸が光量カットをかけた全光電子数の値(threshold p.e.)に対し、縦軸に検出効率をプロットしたものである。50 p.e.$\sim$200 p.e. の範囲で光量カットをかければ、OVで反応するニュートリノに対する検出効率は、FV水ありの場合$\left(\epsilon_{\ov}^{\ww}\right)$でも、水なしの場合$\left(\epsilon_{\ov}^{\wow}\right)$でもほぼ同じであることがわかる。
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[bb=26 45 728 519, width=0.7\textwidth]{fig/MCEffThreshold.pdf}
+\caption[光量カットの閾値と検出効率の関係]{光量カットの閾値と検出効率の関係。横軸は光量カット閾値(threshold p.e.)、縦軸はニュートリノ反応に対する検出効率を表す。50 p.e.$\sim$200 p.e. の範囲では赤線（水ありOV）と青線（水なしOV）がほぼ一致している。}
+\label{MCEffThreshold}
+\end{figure}
+
+
+FV外の水の層は30cmであり、600$\sim$800 MeV/cのミューオンがその領域を通過した場合に観測される総光量は$\sim$150 p.e.であることが手計算から見積もれる。以下では、150 p.e. で光量カットをかけた場合に測定できるニュートリノのエネルギー分布と検出効率について述べる。
+
+\subsubsection{光量カット後のニュートリノエネルギー分布}
+
+\figref{MCTotalPECut}は150 p.e.で光量カットをでかけた場合のニュートリノエネルギー分布を示す。
+
+黒色の分布が実験で測定可能なニュートリノエネルギー分布であり、FV水あり／なしのそれぞれの場合で、検出器全体で反応したニュートリノに対し光量カットをかけた後、水ありの場合のエネルギー分布から水なしの場合のエネルギー分布の差を求めたものである。
+
+一方、赤色は測定したいニュートリノのエネルギー分布であり、FV水ありの場合に、FVのみで反応したしたニュートリノに対して光量カットをかけたときのエネルギー分布である。
+
+\figref{MCTotalPECut}よのうに黒色と赤色の分布がよく一致していることから、水あり／なしの測定数の差を求めることにより、FVで反応したニュートリノと同じエネルギー分布のニュートリノの数を測定出来ることが分かる。また、このときに測定できるニュートリノエネルギー分布のピークは約750 MeVである。
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[bb=126 474 460 709, width=0.7\textwidth]{fig/MCTotalPECut150.pdf}
+\caption[光量カット後のニュートリノエネルギー分布]{光量カット後のニュートリノエネルギー分布。150 p.e.以上で光量カットをかけた。線の色の違いに関しては本文参照。全エネルギー領域で黒と赤が良く一致していることが分かる。}
+\label{MCTotalPECut}
+\end{figure}
+
+\subsubsection{FV内でのニュートリノ反応に対する検出効率}
+
+FV内で反応したニュートリノの検出効率を\figref{MCEffFV}に示す。線の色の違いは反応モードの違いを表す。黒線は全ニュートリノ反応に対する検出効率、赤線は荷電カレント反応のみに対する検出効率を表す。荷電カレントに対しては200 MeV付近から検出効率が急激に立ち上がり、700 MeV以上では90 \%以上の高い検出効率が期待される。
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[bb=40 21 733 501, width=0.7\textwidth]{fig/MCEffFV.pdf}
+\caption[FV内での検出効率]{FV内での検出効率。黒色：全ニュートリノ反応に対する検出効率、赤色：荷電カレント反応に対する検出効率を表す。}
+\label{MCEffFV}
+\end{figure}
+
+\newpage
+\subsubsection{FV外（OV内）でのニュートリノ反応に対する検出効率}
+
+FV外（OV内）でのニュートリノ反応に対する検出効率を、FV水あり／水なしの場合について見積もったものを\figref{MCEffOut}に示す。
+全エネルギー領域において、FV水ありの場合と、水なしの場合の検出効率がMCの統計誤差の範囲内で一致していることが分かる。
+
+このことから、外部からのバックグラウンドがないと仮定すると、実験原理の通り、FV水あり・水なしで測定した数の差をとることで、FV内でのニュートリノ反応のみを数えることが期待できる。
+
+\begin{figure}[!h]
+\centering
+\includegraphics[bb=43 22 732 504, width=0.7\textwidth]{fig/MCEffOut.pdf}
+\caption[FV外での検出効率]{FV外での検出効率。黒色：FV水あり、赤色：FV水なしの状態を表す。}
+\label{MCEffOut}
+\end{figure}
+
+\subsection{シグナルに対するOV混入イベントの割合}
+OVで反応したニュートリノイベントで、水の抜き差しでも残ってしまうイベント（＝OV混入イベント）が、FV内で反応したニュートリノイベント（＝シグナル）に対して、どの程度存在するかを見積もった。
+
+シグナル（S）に対するOV混入イベント（N）の割合を次の式で定義した。
+
+\begin{equation}
+N/S = \frac{N_{\ov}^{\ww}\ \text{(after p.e. cut)}-N_{\ov}^{\wow}\ \text{(after p.e. cut)}}{N_{\fv}^{\ww}\ \text{(after p.e. cut)}}
+\end{equation}
+
+\figref{MCSNpe}は各光量カットの閾値に対するN/Sを表す。光量カット閾値$<$200 p.e.の場合、OV混入イベントはシグナルに対して小さいことがわかる。
+
+
+\begin{figure}[htbp]
+\begin{minipage}{0.47\textwidth}
+\centering
+\includegraphics[bb=57 79 699 501, width=1\textwidth]{fig/MCSNpe.pdf}
+\caption[N/Sとp.e. threshold]{N/Sと光量カット閾値}
+\label{MCSNpe}
+\end{minipage}
+\hfill%%%%
+\begin{minipage}{0.47\textwidth}
+\centering
+\includegraphics[bb=70 46 714 440, width=1\textwidth]{fig/MCSNEne.pdf}
+\caption[N/SとEnergy]{N/Sとニュートリノエネルギー}
+\label{MCSNEne}
+\end{minipage}
+\end{figure}
+
+
+\figref{MCSNEne}は光量カット$>$150 p.e.をかけた場合のN/Sのニュートリノエネルギー依存性を表す。このプロットより、測定出来るエネルギーの分布のピーク付近ではN/Sが約３\%とOV混入イベントに対しては低いバックグラウンド環境下での測定が期待できる。
+
+
+\subsection{シグナルイベントシミュレーションのまとめ}
+本章で述べてきた検出器シミュレーションの結果より、
+p.e. threshold = 150 p.e.での光量カットを行えば、OVで反応したニュートリノに対する検出効率はFV水あり／なしで等しくなることが分かった。
+
+これにより、FV水あり／なしの残差からFV内のニュートリノ反応数を計数するという測定原理が有効であることが分かった。さらに、シグナルに対するOV混入イベントの割合3\%と非常に高いS/N比での測定が期待できることが分かった。
+
+
+\if0%%%%%%%%%%%%%%%%%%%%%
+\section{バックグラウンドイベントのシミュレーション}
+
+バックグラウンドの主な要因は中性子による偽反応が考えられる。
+そこで、中性子を入射させたときに観測できる光量を見積もってみた。
+
+中性子の生成方法
+
+前置検出器ホールの壁でニュートリノ反応させる
+
+Mizucheに入射する中性子数の見積もり
+
+壁で反応したニュートリノによって生じた中性子の中から、前方に散乱した中性子数を数える。ホール壁の面積とMizuch検出器の面積に換算する
+
+\begin{equation}
+\text{Mizucheに入射する中性子数} = \frac{\text{前方に散乱した中性子の数}}{\text{ホール壁の面積}} \times \text{Mizuche検出器の面積}
+\end{equation}
+
+そうして見積もると、$1.5\times10^{4}\ \mathrm{neutrons/10^{21}POT}$の中性子が飛び込んでくる。100kWは$10^{13}\ \mathrm{POT}$相当なので、それに換算すると、$6.6\times 10^{-4}\ \mathrm{neutrons/10^{13}POT}$
+
+
+\section{宇宙線ミューオンのチェレンコフ光観測}
+\fi%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Mizuche検出器の設計}
+\section{検出器の構成}
+Mizuche検出器全体を\figref{TankOverview}に示す。外タンクの胴体およびフタはステンレスで、それを支える架台は鉄で作製した。胴体およびフタには合計164本の光電子増倍管がほぼ等間隔に配置されている。本検出器は２層構造になっており、内部には紫外光が透過可能なUVTアクリル\footnote{UVT：UltraViolet Transparent; 紫外線吸収剤を含まないため、紫外光が透過可能なアクリル}で作製した内タンクが入っている。
+
+
+\begin{figure}[htbp]
+\centering
+%\includegraphics[bb=0 0 865 503, width=1\textwidth]{fig/TankOverview5.pdf}
+\includegraphics[bb=0 0 906 516, width=1\textwidth]{fig/TankOverview6.pdf}
+\caption[Mizuche検出器全体図]{Mizuche検出器全体図。（左）正面図。胴体およびフタはステンレス製、架台は鉄製。164本の光電子増倍管をほぼ等間隔に配置。（右）側面断面図。検出器内部は２層構造。内タンクはUVTアクリル製。}
+\label{TankOverview}
+\end{figure}
+
+\if0%%%%%%%%%% %%%%%%%%%%
+\begin{figure}[htbp]
+\centering
+\includegraphics[bb=115 433 728 770, width=1\textwidth]{fig/TankOverview2.pdf}
+\caption[Mizuche検出器全体]{Mizuche検出器全体。（左）外タンク。胴体およびフタはステンレス製、架台は鉄製。合計164本の光電子増倍管が等間隔に配置されている。（右）２層構造の検出器。内タンクはUVTアクリル製。}
+\label{TankOverview}
+\end{figure}
+\fi%%%%%%%%%% %%%%%%%%%%
+
+
+\if0%%%%% %%% %%%%% %%% %%%%% %%%
+\begin{figure}[htbp]
+\begin{minipage}{0.47\textwidth}
+\centering
+\includegraphics[bb=121 431 395 758, width=1\textwidth]{fig/TankOverview3.pdf}
+\caption[Mizuche検出器の外観]{外タンク胴体はステンレス製で、鉄製の架台によって支えられている。その外周およびフタには合計164本の光電子増倍管が約23cm間隔で配置されている。}
+\label{fig:one}
+\end{minipage}
+\hfil
+\begin{minipage}{0.47\textwidth}
+\centering
+\includegraphics[bb=459 442 727 765, width=50mm]{fig/TankOverview4.pdf}
+\caption[Mizuche検出器の外観（フタを取った状態）]{本検出器は２層構造になっており、ステンレス製の外タンク内部、UVTアクリル製の内タンクが入っている。}
+\label{fig:two}
+\end{minipage}
+\end{figure}
+\fi%%%%% %%% %%%%% %%% %%%%% %%%
+
+\subsection{外タンク}
+
+\subsubsection{胴体部分}
+
+\figref{TankOuterBody}に外タンク胴体部分の図面を示す。胴体はステンレスSUS304で作製した。円筒の大きさは直径1400mm、長さ1600mm、厚さ5mmである。両端には幅50mm、厚さ9mmのフランジを取り付けた\footnote{最初は厚さ6mmで設計したが、作製段階で9mmに変更した}。胴体下部には幅50mm、厚さ4.5mmのリブ（鉄）を2箇所取り付けた（\figref{TankOverview}参照）。
+
+タンク上部に２つ、下部に２つ外タンクと内タンクの水を常時循環させるのに必要な配管口を取り付けた。上部にはさらに２つ空気穴を用意した。またタンク上部に３つのキャリブレーションポートを取り付けた。このポートはタンク内にLED光源をいれて、本検出器のキャリブレーションに使用する予定である。
+
+円筒の壁には光電子増倍管を取り付けるための窓を、円周方向に18個、長さ方向に6個の合計108個空けた。先に述べたようにタンク上部と下部には配管口などを取り付けたため、窓は鉛直方向に対して10度傾けて取り付けた。
+
+
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[bb=62 219 1051 800, width=1\textwidth]{fig/TankOuterBody.pdf}
+\caption[外タンク胴体部分の図面]{外タンク胴体部分の図面。円筒部、フランジはステンレスで作製。リブは鉄で作製。光電子増倍管取り付け用窓108個。水循環、キャリブレーション用の配管も用意。}
+\label{TankOuterBody}
+\end{figure}
+
+\subsubsection{フタ部分}
+\figref{TankOuterCap}にフタ部分の図面を示す。フタはステンレスで作製した。直径1500mm、厚さ6mmのステンレスの円板に、光電子増倍管を取り付けるための窓を28個空けた。また厚さ4.5mm、幅50mm、長さ1500mmの鉄板を十字に取り付けて補強した\footnote{鉄の板の端には穴があいており、フタを取り外すときなどに、アイボルトとして使えるようになっている}。鉄はSS400を使用した。
+
+水漏れを防ぐため、胴体とフタの間には板ゴムを挟み、ボルトで36箇所固定する。必要な箇所には板ナットを使用して、できるだけ均等な力で固定できるようにする。
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[bb=48 147 872 795, width=0.8\textwidth]{fig/TankOuterCap.pdf}
+\caption[外タンクフタ部分の図面]{外タンクフタ部分の図面。ステンレス製。リブを十字に取り付けて補強。光電子増倍管取り付け用窓28個。}
+\label{TankOuterCap}
+\end{figure}
+
+\subsubsection{タンク架台}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[bb=51 73 832 490, width=1\textwidth]{fig/TankLeg.pdf}
+\caption[外タンク架台部分の図面]{外タンク架台部分の図面。鉄製}
+\label{TankLeg}
+\end{figure}
+
+\figref{TankLeg}にタンク架台部分の図面を示す。胴体部分と架台は溶接した。タンク架台は鉄で作製した。鉄はSS400を使用し、防錆剤を塗布した。
+
+検出器の移動を容易にするために、架台底面には８個のボールベアリング\footnote{オリイメック社製キャリセット CS-6（ロングボルト仕様）}を取り付けた。測定中はアンカーボルトで固定できるようになっている。
+
+
+\newpage
+\subsection{内タンク}
+内タンクの形状を\ref{InnerTankOverview}に示す。
+
+内タンクの材質には全てUVTアクリルを使用した。
+内タンクのFV部分は外径800mm、長さ1000mm、厚さ5mmである。FVには上部に２つ、下部に１つ、水を循環させるための配管口を取り付けた（上部１つは空気穴用）。これらは外タンクの配管口と透明なホースで接続する。
+
+フタ部分は直径800mm、厚さ8mmのアクリル円板を使用し、長さ800mm、幅287mm、厚さ8mmのリブを十字に取り付けた\footnote{リブは当初5mmで設計していたが、材料の在庫と納期の都合で厚さ8mmに変更した}。
+FVの胴回りにハネのような形状のサポートを2セット取り付けた。
+ハネの大きさは半径400mm、幅300mm、厚さ5mmである。4分割して溶着してある。
+
+\begin{figure}[htbp]
+\centering
+%\includegraphics[bb=478 62 730 291, width=0.5\textwidth=1]{fig/TankInnerOverview2.pdf}
+%\includegraphics[bb=0 0 613 503, width=0.5\textwidth=1]{fig/TankInnerOverview3.pdf}
+%\includegraphics[bb=0 0 808 329, width=1\textwidth=1]{fig/TankInnerOverview4.pdf}
+\includegraphics[bb=0 0 808 329, width=1\textwidth=1]{fig/TankInnerOverview4a.pdf}
+\caption[内タンク形状]{内タンク形状}
+\label{InnerTankOverview}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\if0%%%%%%%%%%%%%%%%%%%%
+\newpage
+\subsubsection{胴体部分}
+
+\figref{TankInnerBody}に胴体部分の図面を示す。
+胴体部分は直径800mm（外径）、長さ1000mm、板さ5mmの円筒である。胴体上部２箇所と下部１箇所に水循環用の配管口を取り付けた。これらは外タンクの配管口と透明なホースで接続する。
+
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[bb=37 323 651 669, width=0.8\textwidth]{fig/TankInnerBody.pdf}
+\caption[内タンク胴体部分の図面]{内タンク胴体部分の図面}
+\label{TankInnerBody}
+\end{figure}
+%\fi%%%%%%%%%%%%%%%%%%%%
+
+
+\subsubsection{フタ部分}
+%\if0%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[htbp]
+\centering
+\includegraphics[bb=0 0 869 625, width=0.8\textwidth]{fig/TankInnerCap.pdf}
+\caption[内タンクフタ部分の図面]{内タンクフタ部分の図面}
+\label{TankInnerCap}
+\end{figure}
+%\fi%%%%%%%%%%%%%%%%%%%%
+
+フタ部分は直径800mm、板さ8mmのUVTアクリル円板である。フタの外側には、長さ800mm、幅約300mm、厚さ8mmのリブを十字に取り付けた\footnote{リブは当初5mmで設計していたが、材料の関係で厚さ8mmに変更した}。
+
+%\subsubsection{羽根}
+外タンクの内側に内タンクを固定するため、内タンクの外周にUVTアクリル製のサポートを取り付けた。\figref{TankInnerWing}にその図面を示す。
+%\if0%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[htb]
+\centering
+\includegraphics[bb=0 0 924 473, width=0.8\textwidth]{fig/TankInnerWing.pdf}
+\caption[内タンク羽根部分の図面]{内タンク羽根部分の図面}
+\label{TankInnerWing}
+\end{figure}
+\fi%%%%%%%%%%%%%%%%%%%%
+
+%\subsubsection{内タンクの外タンクへの固定}
+
+\newpage
+\subsection{光電子増倍管}
+\label{PhotoTube}
+チェレンコフ光を検出する光電子増倍管には浜松ホトニクス社製R1652-01ASSYを使用する。R1652-01ASSYの外観を\figref{LGPMT}に示す。
+この光電子増倍管は過去にTRISTANのTOPAZ実験や、K2K実験の鉛ガラス検出器で使用されていたものの再利用である。
+
+\begin{figure}[htbp]
+  \begin{minipage}{0.47\textwidth}
+    \subfigure[光電面：直径約80 mm（有効径70 mm）]{
+\includegraphics[bb=0 0 400 300, width=1\textwidth]{fig/P1040620.JPG}
+%\includegraphics[bb=0 0 400 300, width=1\textwidth]{fig/P1040621.JPG}
+   \label{LGPMT1}}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.47\textwidth}
+    \subfigure[側面：全長約60 mm]{\includegraphics[bb=0 0 400 300, width=1\textwidth]{fig/P1040622.JPG}
+   \label{LGPMT2}}
+  \end{minipage}
+    \caption{R1652-01ASSY}
+  \label{LGPMT}
+\end{figure}
+
+光電面にバイアルカリとコパールガラスを使用している透過型光電子増倍管で、その有効受光面積は約70mmである。300nm〜650nmの波長に対して感度\footnote{光電子増倍管の一般的な分光感度特性を\figref{Bialkali}に示す}があり、チェレコンフ光の波長ピークと同じ420nm周辺に感度のピークを持っている。ダイノードはファインメッシュとベネチアンブラインドを組み合わせた形をしており、印加電圧1100 Vでの典型的な電流増幅率は$2 \times 10^{5}$程度である。
+これら一般特性を\tabref{R1652-spec}にまとめた。
+
+\begin{table}[htbp]
+\caption[R1652-01ASSYの一般特性]{R1652-01ASSYの一般特性}
+\begin{center}
+\begin{tabular}{rl}
+\hline \hline
+光電面窓材 & コパールガラス \\
+光電面材質 & バイアルカリ \\
+分光感度特性 & 300nm - 650nm \\
+(ピーク) & (420nm) \\
+有効径 & $\phi$70mm \\
+量子効率 & 19\% \\
+ダイノード形状 & ファインメッシュ +\\
+ & ベネチアンブラインド \\
+ダイノード材質 & バイアルカリ \\
+ダイノード段数 & 10 \\
+電流増幅率 & $ 2 \times 10^{5}$ （印加電圧1100V）\\
+\hline \hline
+\end{tabular}
+\end{center}
+\label{R1652-spec}
+\end{table}%
+
+本検出器ではこの光電子増倍管は合計164本使用する。検出器表面積に対する光電面の被覆率は6.2\%である。検出効率の一様性をを考慮して、光電子増倍管は約23cmの一定間隔で取り付けた。光電子増倍管の取り付け方法については次に述べる。
+
+また今回使用する全ての光電子増倍管に対して、それぞれの電流増幅率曲線、相対的な量子効率の測定を行った。その測定方法・結果については\secref{PMTCalibration}で詳しく述べる。
+
+\begin{figure}[!h]
+\centering
+\includegraphics[bb=94 397 425 661, width=0.8\textwidth]{fig/bialkali.pdf}
+\caption[光電子増倍管の一般的な分光感度特性]{透過型光電子増倍管の一般的な分光感度特性。400Kが本検出器で用いる光電面・入射窓の組み合わせ（バイアルカリ＋コパールガラス）。浜松ホトニクス・ホトマルハンドブック4.1章より}
+\label{Bialkali}
+\end{figure}
+
+
+\if0
+\begin{figure}[htbp]
+\centering
+\includegraphics[bb=36 84 802 444, width=1\textwidth]{fig/R1652-01ASSY_overview.pdf}
+\caption[R1652-01ASSYの寸法]{R1652-01ASSYの図面}
+\label{LGPMT}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[bb=60 119 811 483, width=1\textwidth]{fig/R1652-01ASSY_circuit.pdf}
+\caption[R1652-01ASSYの回路図]{R1652-01ASSYの回路図}
+\label{LGPMTciruit}
+\end{figure}
+\fi
+
+
+\subsection{光電子増倍管取り付け部分}
+
+光電子増倍管を取り付ける部分の形状を\figref{SetPMT}に示す。
+タンク内壁にはアクリル窓１を接着し、タンク外壁にはPMT接合部品１（鉄）をスポット溶接する。溶接したPMT接合部品１とタンク外壁に生じる隙間は、シリコン系のコーキング剤を注入することによって遮光する。
+
+アクリル窓１はタンク内壁に合わせた曲率を持った円板であり、その接着にはエポキシ接着剤を使用した。その接着能力は実際にタンク壁面の試作を作製して確認した。最初、接着剤にアラルダイトを使用したのだが、長時間経過\footnote{6月から10月までの約4ヶ月間}すると剥離してしまった。温度変化によってアクリルと鉄が収縮したことによって、接着強度限界以上のひずみ生じたことが原因と考え、より柔軟性のある接着剤セメダイン EP-001に変更した。セメダイン EP-001は耐水性に不安があったため、水に触れないようシリコン系のコーキング剤を上塗りした。また接着面をサンドブラストによって梨地に加工することで接着表面積を増やした。これに対して恒温槽を使用した加速試験\footnote{温度：0$^{\circ}$C$\sim$40$^{\circ}$C、周期：２時間、繰り返し回数：10セット}を行ったのち、荷重を掛けても剥がれないことを確認した。
+
+アクリル窓２は光電面より一回り大きく設計した平らな円板であり、光電子増倍管とオプティカルセメントで接着する。光電面より一回り大きいため、接着後にはでっぱりが生じる。このでっぱりを利用して、ミューメタルを被せ、さらにPMT接合部品２（四角板）で抑えこみ、PMT接合部品１にネジ留めすることにより、光電子増倍管をタンク壁に取り付ける。ネジの締め過ぎによりアクリル窓１の接着が剥がれるのを防ぐため、トルク管理を行う。
+
+
+
+\begin{figure}[!h]
+\centering
+\includegraphics[bb=88 551 767 808, width=1\textwidth]{fig/TankOuterPMT.pdf}
+\caption[光電子増倍管取り付け部分の図面]{光電子増倍管取り付け部分の図面。}
+\label{SetPMT}
+\end{figure}
+
+\if0
+\begin{figure}[htbp]
+\begin{minipage}{0.47\textwidth}
+\centering
+\includegraphics[bb=0 0 400 300, clip, width=1\textwidth]{fig/P1070378.JPG}
+\caption[光電子増倍管取り付け手順1]{光電子増倍管取り付け手順1:光電子増倍管とアクリル窓2をオプティカルセメントで接着する。}
+\label{SetPMTTest}
+\end{minipage}
+\hfil%%%
+\begin{minipage}{0.47\textwidth}
+\centering
+\includegraphics[bb=0 0 400 300, clip, width=1\textwidth]{fig/P1070381.JPG}
+\caption[光電子増倍管取り付け手順2]{光電子増倍管取り付け手順2:アクリル窓1の上に光電子増倍管を配置する。間にシリコンクッキーを挟む。}
+\label{SetPMTTest}
+\end{minipage}
+\end{figure}
+%
+\begin{figure}[htbp]
+\begin{minipage}{0.47\textwidth}
+\centering
+\includegraphics[bb=0 0 400 300, clip, width=1\textwidth]{fig/P1070390.JPG}
+\caption[光電子増倍管取り付け手順3]{光電子増倍管取り付け手順3:ミューメタルをかぶせ、PMT接合部品2を通す。}
+\label{SetPMTTest}
+\end{minipage}
+\hfil%%%
+\begin{minipage}{0.47\textwidth}
+\centering
+%\includegraphics[bb=0 0 400 300, clip, width=1\textwidth]{fig/P1070391.JPG}
+\includegraphics[bb=0 0 400 300, clip, width=1\textwidth]{fig/P1070392.JPG}
+\caption[光電子増倍管取り付け手順4]{光電子増倍管取り付け手順4:トルクを管理しながらネジで締め付け、光電子増倍管を押さえつける。}
+\label{SetPMTTest}
+\end{minipage}
+\end{figure}
+\fi
+
+光電子増倍管を取り付ける手順を以下に説明する（\figref{PMTAssyProcedure}参照）
+\begin{description}
+\item[\figref{PMTAssyProcedure1}] 光電子増倍管とアクリル窓２をオプティカルセメントで接着した様子。写真のように5mm程度のでっぱりが生じる。
+\item[\figref{PMTAssyProcedure2}] タンク壁に接着されたアクリル窓２の上に（１）の光電子増倍管をセットする。アクリル窓２は曲率を持っているが、アクリル窓１は平面なため、隙間と同じ形状をしたシリコンクッキーを挿入して空気層ができないようにする（シリコンクッキーの材質には信越シリコンKE-103を使用した。透過率は$86\sim90\ \%\ (300\sim400\ \mathrm{nm})$\%程度である）。
+\item[\figref{PMTAssyProcedure3}] ミューメタル、PMT接合部品２の順番に装着する。
+\item[\figref{PMTAssyProcedure4}] トルク管理を行いながら、ネジで均等に固定する。
+\end{description}
+
+\begin{figure}[htbp]
+  \begin{minipage}{0.47\textwidth}
+    \subfigure[手順１：光電子増倍管とアクリル窓2をオプティカルセメントで接着する。]{\includegraphics[bb=0 0 400 300, clip, width=1\textwidth]{fig/P1070378.JPG}
+   \label{PMTAssyProcedure1}}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.47\textwidth}
+    \subfigure[手順２：アクリル窓1の上に光電子増倍管を配置する。間にシリコンクッキーを挟む。]{\includegraphics[bb=0 0 400 300, clip, width=1\textwidth]{fig/P1070381.JPG}
+   \label{PMTAssyProcedure2}}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.47\textwidth}
+    \subfigure[手順３：ミューメタルをかぶせ、PMT接合部品2を通す。]{\includegraphics[bb=0 0 400 300, clip, width=1\textwidth]{fig/P1070390.JPG}
+   \label{PMTAssyProcedure3}}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.47\textwidth}
+    \subfigure[手順４：トルクを管理しながらネジで締め付け、光電子増倍管を押さえつける。]{\includegraphics[bb=0 0 400 300, clip, width=1\textwidth]{fig/P1070392.JPG}
+   \label{PMTAssyProcedure4}}
+  \end{minipage}
+    \caption{光電子増倍管取り付け手順}
+  \label{PMTAssyProcedure}
+\end{figure}
+
+
+\subsection{水循環系}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[bb=56 212 1132 744, width=1\textwidth]{fig/TankWater.pdf}
+\caption[水循環系統図]{水循環系統図。}
+\label{WaterCirculation}
+\end{figure}
+
+検出器の水を循環させるための配管系統図を\figref{WaterCirculation}に示す。
+
+地上にある蛇口を使用して、水道水を３台のバッファータンクに貯水した。バッファータンクに貯水された水はポンプを用いて循環させる。ポンプから吐出された水はイオン交換樹脂によって濾過され、純水となり検出器に運ばれる。検出器の外タンクと内タンクはそれぞれ独立に循環できるようになっている。検出器内を通った純水は再び同じ系統に戻り、1台目のバッファータンクへと戻ってくる。
+
+循環させる途中で冷凍機を通すことにより、水温は一定に保たれている。また、ポンプ吐出直後とイオン交換樹脂後には圧力計を設置し、イオン交換樹脂に圧力がかかりすぎないように監視できるようになっている。特にポンプ吐出直後は接点付き圧力計を使用し、圧力が設定値を超えた場合はポンプを停止するようフィードバックをかけるようにする。
+
+
+\figref{IonFilter}にイオン交換樹脂周辺の様子を示す。
+イオン交換樹脂本体にはオルガノ製純水器G-10Cを使用する。水中の微粒子を濾しとるフィルターを前後に取り付け、前フィルターにはFAC-2、後フィルターにはミクロポアーEUタイプを使用する。水の純度は電気伝導率計によってモニターしており、電気伝導度が1$\mu$S以上になるとのアラームが鳴るようになっている。
+
+\figref{BufferTank}にバッファータンク周辺の様子を示す。
+容積1000Lを３台、合計3000Lのバッファータンクを使用する。３つのバッファータンクは隣り合ったものどうしお互いにタンク上部と下部でホースにより接続されている。検出器に最も近い1つを水の常時循環用に使用し、残り2つは検出器から水を抜く際や水が漏れた場合の緊急時に水を逃がすために使用する予定である。
+
+\if0
+\begin{table}[htdp]
+\caption[水循環系で使用した装置一覧]{水循環系で使用した装置一覧}
+\begin{center}
+\begin{tabular}{cc}
+\hline \hline
+ポンプ１ & イワキマグネットポンプ MDR-R15T100\\
+接点付圧力計 & \\
+前フィルター & オルガノ FAC-2\\
+イオン交換樹脂 & オルガノ G-10C\\
+電気伝導率計 & RG-12\\
+後フィルター & オルガノ ミクロポアーEUタイプ\\
+圧力計 & \\
+検出器 & \\
+ポンプ２ & 寺田ポンプ HP-50\\
+冷凍機 & \\
+バッファータンク & \\
+\hline \hline
+\end{tabular}
+\end{center}
+\label{WaterEquip}
+\end{table}%
+\fi
+
+
+\begin{figure}[htbp]
+\begin{minipage}{0.47\textwidth}
+\centering
+\includegraphics[bb=0 0 400 300, clip, width=1\textwidth]{fig/P1100090.JPG}
+\caption[イオン交換樹脂]{イオン交換樹脂全体。イオン交換樹脂にはオルガノ製純水器G-10C、前フィルターにはFAC-2、後フィルターにはミクロポアーEUタイプを使用する。電気伝導率計を使用して純化を監視しており、電気伝導度が1$\mu$S以上になるとのアラームが鳴る。水は図の右から左へと流れる。}
+\label{IonFilter}
+\end{minipage}
+%\end{figure}
+\hfil
+%\begin{figure}[htbp]
+\begin{minipage}{0.47\textwidth}
+\centering
+\includegraphics[bb=0 0 400 300, clip, width=1\textwidth]{fig/P1100093.JPG}
+\caption[バッファータンク]{合計3000Lのバッファータンク。３つのバッファータンクは互いにタンク上部と下部でホースにより接続されている。検出器に最も近い1つを水の常時循環用に使用し、残り2つは検出器から水を抜く際や水が漏れた場合の緊急時に水を逃がす用途で用いる予定である。}
+\label{BufferTank}
+\end{minipage}
+\end{figure}
+
+
+\if0
+%\if0 %%%%%%%%%% %%%%%%%%%%
+\begin{figure}[htbp]
+\begin{minipage}{0.47\textwidth}
+\begin{center}
+\includegraphics[bb=0 0 400 300, clip, width=1\textwidth]{fig/P1100099.JPG}
+\caption[イオン交換樹脂：前フィルター]{オルガノ製マエデトリーノ}
+\label{SetPMTTest}
+\end{center}
+\end{minipage}
+%\end{figure}
+\hfill
+%\begin{figure}[htbp]
+\begin{minipage}{0.47\textwidth}
+\begin{center}
+\includegraphics[bb=0 0 400 300, clip, width=1\textwidth]{fig/P1100100.JPG}
+\caption[イオン交換樹脂：後フィルター]{オルガノ製アトデトルーノ}
+\label{SetPMTTest}
+\end{center}
+\end{minipage}
+\end{figure}
+
+%\hfill
+\begin{figure}[htbp]
+%\begin{minipage}{0.3\textwidth}
+%\begin{left}
+\includegraphics[bb=0 0 400 300, clip, width=0.47\textwidth]{fig/P1100101.JPG}
+\caption[電気伝導計]{電気伝導計。電気伝導度が1$\mu$S以上になるとアラームが鳴る。}
+\label{SetPMTTest}
+%\end{left}
+%\end{minipage}
+\end{figure}
+%\fi %%%%%%%%%% %%%%%%%%%%
+\fi
+
+\if0
+\subsubsection{バッファータンク}
+容積1000Lのタンクを３つ、合計3000L分用意する。これら3つのバッファータンクはお互いタンク上部と下部でホースにより接続されている。この中で検出器に最も近い1つを水の常時循環用に使用する。残り2つは検出器から水を抜く際や水が漏れた場合の緊急時に水を逃がす用途で用いる予定である。
+\fi
+
+
+
+
+\if0
+\hfill
+%\begin{figure}[htbp]
+\begin{minipage}{0.47\textwidth}
+\begin{center}
+\includegraphics[bb=0 0 400 300, clip, width=1\textwidth]{fig/P1100097.JPG}
+\caption[バッファータンク]{バッファータンク}
+\label{SetPMTTest}
+\end{center}
+\end{minipage}
+\end{figure}
+\fi
+
+
+\newpage
+%%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%%
+\section{強度解析}
+\subsection{目的}
+本検出器はその内部に最大約2.5トンの水を使用するため、耐水圧仕様の構造にしなければならない。そこで強度解析ツールによる強度解析シミュレーションを行い、その結果を元に構造の詳細を決定していった。
+
+強度解析ツールにはにはANSYS Inc.の有限要素法マルチフィジックス解析ツールANSYSを使用した。
+
+\subsection{有限要素法}
+有限要素法とは数値解析手法の１つであり、解析的に解くことが難しい微分方程式の近似解を数値的に得る方法の１つである。
+複雑な形状・性質を持つ物体を、単純な形状・性質の要素に分割し、その１つ１つの要素に対して、境界条件などを考慮した連立方程式を立て、そのれら全てが成立する解を求めることによって、全体の挙動を予測することができる。
+
+
+ANSYSを使った実際に手順は以下の通りである。
+
+\begin{enumerate}
+\item モデルを作成
+\item 材料特性の設定
+\item 荷重・拘束の定義
+\item メッシュ分割
+\item 強度計算
+\item 結果を記録
+\item 結果を参考にモデルを修正
+\item （1.に戻って繰り返す）
+\end{enumerate}
+
+\subsection{材料特性}
+検出器の材料には主に鉄、ステンレス、アクリルを用いた。それぞれの材料特性は\tabref{MaterialProperty}のとおりである。下記パラメータ（特に密度、ヤング率、ポアソン比）を与えることにより、ANSYS空間に作成したモデルの材料を定義した。
+
+\begin{table}[htbp]
+\caption[鉄、ステンレス、アクリルの材料特性]{鉄、ステンレス、アクリルの材料特性}
+\begin{center}
+\begin{tabular}{cccccc}
+\hline \hline
+材料名 & JIS記号 & 密度 & ヤング率 & ずれ弾性率 & ポアソン比\\
+& & $D$ [kg/m$^{3}$] & $E$ [GPa] & $G$ [GPa] & $\sigma$\\
+ \hline
+鉄 & SS400 & $7.9 \times 10^{3}$& 206 & 79 & 0.3038\\
+ステンレス & SUS304 & $8.0 \times 10^{3}$ & 197 & 74 & 0.3311\\
+アクリル & & $1.19 \times 10^{3}$ & 3.2 & & 0.38\\
+\hline \hline
+\end{tabular}
+\end{center}
+\label{MaterialProperty}
+\end{table}%
+
+ここで、ポアソン比$\sigma$はヤング率Eとずれ弾性率Gから次式を使って求めた。
+\begin{equation}
+E = 2G(\sigma+1)
+\label{PoissonRatio}
+\end{equation}
+
+\subsubsection{引張強度と安全強度}
+材料に力を加わるとひずみが生じる。ひずみが小さいとき、ひずみと応力は比例する（弾性）。ひずみが大きくなると、ひずみと応力の関係は比例しなくなり、応力を取り除いてもひずみが残る場合がある（降伏）。さらにひずみが大きくなると材料は破断する。破断する前に材料に表れる最大の引張応力を引張強度と呼ぶ。
+
+本解析では、引張強度に対して安全係数3を設定して強度解析を行った。\tabref{SafeStress}に鉄とステンレスのそれぞれの引張強度と、設定した安全強度をまとめた。
+
+
+
+\begin{table}[htbp]
+\caption[引張強度と安全強度]{引張強度と安全強度}
+\begin{center}
+\begin{tabular}{ccc}
+\hline \hline
+& 引張強度 & 安全強度\\
+& [MPa] & [MPa] \\
+\hline
+鉄 & 400 & 130\\
+ステンレス & 520 & 170\\
+アクリル & 65-76 & 21-25\\
+\hline \hline
+\end{tabular}
+\end{center}
+\label{SafeStress}
+\end{table}%
+
+
+\subsection{外タンク}
+FV水ありの状態の時、外タンクには自重の他に、水の質量約2.5トンの負荷がかかる。本解析では、主にその2つの荷重を考慮して、それらに耐えうる構造となるよう強度計算を行い構造を決定した。
+
+\subsubsection{二次元円筒モデル}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[bb=0 0 1077 810, width=0.7\textwidth]{fig/2D_tank_v01j000.pdf}
+\caption[２次元円筒モデル]{２次元円筒モデル。ANSYS空間内で仮想的な奥行き無限の２次元の円筒を作成。モデルの内壁には0$\sim$13720 Pa の圧力がかかっている。図中の矢印の色・大きさ・方向はそれぞれの部分でかかっている圧力を表す。}
+\label{Ansys2D}
+\end{figure}
+
+簡単のために、まず奥行き無限の二次元円筒モデルを作成し、強度解析を行った。材料に鉄を定義し、荷重に水圧を定義し、必要な厚みを見積もった。
+
+\if0
+\begin{eqnarray}
+P & = & \rho g h\\
+& = & 1000 \mathrm{kg/m^{3}} \times 9.8 \mathrm{m/s^{2}} \times 1.4 \mathrm{m}\\
+& = & 10^{3} \times 1.372 \times 10^{1}\ \mathrm{\frac{kg}{m^{3}} \cdot \frac{m}{s^{2}} \cdot \frac{m}{}}\\
+& = & 1.372 \times 10^{4} \ \mathrm{\frac{kg\cdot m}{s^{2}} \cdot \frac{m}{m^{3}}}\\
+& = & 1.372 \times 10^{4} \ \mathrm{N/m^{2}}\\
+& = & 1.372 \times 10^{4} \ \mathrm{Pa}
+\end{eqnarray}
+\fi
+
+
+
+
+水圧が一番大きくなるのはタンク最下部で、水の密度$\rho$=1000 $\mathrm{kg/m^{3}}$ 、最下部の水深1.4mより、水圧$P$=13720 $\mathrm{Pa}$がかかる。また水圧が一番小さいのはタンク最上部で0 Paである。
+２次元モデルの内壁にはかかる圧力に勾配をもたせ、この範囲（0〜13720 Pa）で勾配を持っ圧力がかかるように定義した。\figref{Ansys2D}にその様子を示す。
+
+この設定で円筒の厚みを5$\sim$10 mmに変化させたときの、それぞれの相当応力の最大値を\tabref{Ansys2DResult}にまとめた。この表から鉄の円筒だけで約2.5トンの水に耐えるには、円筒の厚みが10mm以上必要になることが分かる。
+
+\begin{table}[htbp]
+\caption[円筒の厚さの違いによる相当応力の大きさの比較]{円筒の厚さの違いによる相当応力の大きさの比較}
+\begin{center}
+\begin{tabular}{clcccccc}
+\hline \hline
+円筒の厚み & [mm] & 5 & 6 & 7 & 8 & 9 & 10 \\
+\hline
+相当応力 & [MPa] & 488 & 330 & 248 & 185 & 146 & 118\\
+\hline \hline
+\end{tabular}
+\end{center}
+\label{Ansys2DResult}
+\end{table}%
+
+%\tabref{Ansys2DResult}に２次元モデルの厚みを変化させたときの応力の変化をまとめた。材料に鉄を使用すると、10mm以上の厚みが必要になる。これでは検出器の重量が無駄に大きくなり、地下への移動を伴う設置が困難になると判断したので、タンクの縁にフランジを取り付けることにした。
+
+\subsubsection{３次元円筒モデル}
+今度は、奥行きを持たせた３次元円筒モデルを作成し、強度解析を行った。２次元円筒モデルと同じように、材料には鉄を定義し、荷重には水圧を定義した。
+
+２次元円筒モデルの結果より、円筒の厚みは10mm以上にすれば良いことが分かったが、検出器が不必要に重たくなるのを避けるため\footnote{本検出器の場合、重量が増えるとアンバランスになる可能性があるため。また材料が増えることにより、必然とコストが増すため。}、円筒にフランジを取り付けることで、円筒が厚みを抑えることができないか検討した。
+
+フランジをつけて強度計算を行った結果を\figref{AnsysCylinder}（左）に示す。局所的には安全強度を越えている部分はあるものの、全体的には厚さ4.5mmでも問題ないことが分かる。
+\figref{AnsysCylinder}（右）はフランジの他にフタも取り付けた場合である。この場合も同様の結果が得られた。
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[bb=0 0 611 391, width=0.8\textwidth]{fig/AnsysCylinder.pdf}
+\caption[３次元円筒モデル]{３次元円筒モデル。左：奥行きを持たせた円筒にフランジを取り付けたモデル、右：さらにフタを取り付けたモデル。図下のカラーバーは相当応力の大きさを表す（単位はPa）}
+\label{AnsysCylinder}
+\end{figure}
+
+\subsubsection{Mizucheモデル}
+
+\if0
+\begin{wrapfigure}{r}{0.5\textwidth}
+\begin{center}
+\includegraphics[bb=0 0 264 500, height=0.5\textwidth]{fig/AnsysModel2.pdf}
+%\includegraphics[bb=0 0 705 504, width=1\textwidth]{fig/AnsysModel3.pdf}
+\caption[``Mizuche''モデル]{``Mizuche''モデル。}
+\label{AnsysModel3}
+\end{center}
+\end{wrapfigure}
+\fi
+
+次に、\figref{AnsysModel3}のような、よりMizuche検出器実機を想定したモデルを作成した。解析時間短縮のため対称化可能な部分はカットし、実機の1/4をモデル化してある。
+
+タンク本体の円筒にはフランジを取り付け、腹部にはリブを取り付けた。円筒は架台の上にのせ、フタも取り付けた。
+
+最初、材料には鉄を定義\footnote{ステンレスは鉄より高価なため、開発当初は鉄に防錆剤（黒）を塗る方針だった}し、厚みは基本的に4.5 mmとした。これはこの厚みの鉄材が既製品として存在していたからである。この厚みの既製品がない場合は、それに近いものを使用した。以下ではこのMizucheモデルに修正を加えながら、強度解析を繰り返し行った。
+
+\if0 %%%%%%%%%% %%%%%%%%%%
+\begin{figure}[htbp]
+\begin{minipage}{0.47\textwidth}
+\begin{center}
+\includegraphics[bb=0 0 234 500, height=7cm]{fig/AnsysModel.pdf}
+\caption[強度解析モデルのスケッチ]{強度解析モデルのスケッチ}
+\label{AnsysModel}
+\end{center}
+\end{minipage}
+\begin{minipage}{0.47\textwidth}
+\begin{center}
+\includegraphics[bb=0 0 264 500, height=7cm]{fig/AnsysModel2.pdf}
+\caption[強度解析モデル]{解析用モデル。実際にANSYS空間内に作成したモデル。フタも付け、光電子増倍管を取り付ける窓用の穴も空けた。}
+\label{AnsysModel2}
+\end{center}
+\end{minipage}
+\end{figure}
+\fi %%%%%%%%%% %%%%%%%%%%
+
+%\if0
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[bb=0 0 264 500, height=0.5\textwidth]{fig/AnsysModel2.pdf}
+%\includegraphics[bb=0 0 705 504, width=1\textwidth]{fig/AnsysModel3.pdf}
+\caption[Mizucheモデル]{Mizucheモデル}
+\label{AnsysModel3}
+\end{center}
+\end{figure}
+%\fi
+
+\subsubsection{拘束条件と荷重定義}
+
+
+本モデルに定義した拘束条件の箇所と荷重を\figref{AnsysDef}にまとめた。
+1/4モデルにしたことで、YZ断面、XY断面にはそれぞれ対称拘束条件を定義\footnote{「対称（sys）」というANSYSコマンドがある}した。また、脚先のXZ平面は全軸固定の拘束条件を定義した。
+
+モデル内壁の面に対して水圧を定義し、また重力加速度を下向きに与えることで自重を定義した。
+
+\begin{figure}[h]
+\centering
+\includegraphics[bb=0 0 906 578, width=0.8\textwidth]{fig/AnsysDef.pdf}
+%\includegraphics[bb=0 0 705 504, width=1\textwidth]{fig/AnsysModel3.pdf}
+\caption[拘束条件と荷重定義]{モデルに与えた拘束条件と定義した荷重のまとめ。YZ断面、XY断面にはそれぞれ対称拘束条件を、脚先のXZ平面は全軸固定の拘束条件を定義した。荷重としてタンク自重とタンク内壁面に水圧を定義した。}
+\label{AnsysDef}
+\end{figure}
+
+
+%\subsubsection{フランジの大きさの検討}
+%\subsubsection{リブ位置の検討}
+
+
+\subsubsection{光電子増倍管取り付け用窓の配置}
+光電子増倍管を取り付けるための窓を空けたときの相当応力を計算した（\figref{AnsysPMTwindow}）。約230 mmの等間隔になるよう全部で40箇所の窓を配置した。窓周辺のひずみを確認したところ、全ての部分で70 MPa以下（図の緑マーカー）であった。これは設定した安全強度の範囲内である。また、円筒部（\figref{AnsysPMTwindow}右）を見ると、円型の窓を空けることによるひずみはそれほど生じないことが分かる。
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[bb=0 0 601 561, width=0.5\textwidth]{fig/AnsysPMTwindow.pdf}
+\caption[光電子増倍管取り付け用窓を空けたときの相当応力]{光電子増倍管取り付け用窓を空けたときの相当応力}
+\label{AnsysPMTwindow}
+\end{figure}
+
+
+\subsubsection{脚を取り付ける水平・垂直位置の検討}
+これまでのMizucheモデルの強度解析より、脚の付け根で相当応力が最大となることが分かってきた。そこで、検出器を支える架台の脚を取り付ける位置を変えて相当応力を計算した。
+
+水平位置はフタからの距離を基準に、350 mm、300 mm、250 mm（\figref{AnsysLeg1}）と550 mm、300 mm（\figref{AnsysLeg2}）で解析を行った。\figref{AnsysLeg1}と\figref{AnsysLeg2}の違いは光電子増倍管取り付け用窓の穴あけを考慮する前と後である。\figref{AnsysLeg1}より、フタに近づけた方が最大相当応力が小さくなることが分かる。しかし、光電子増倍管を取り付けることによる空間的制限のため、最終的には\figref{AnsysLeg2}のように、フタからの距離 300mmに設置することにした。
+
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[bb=0 0 927 353, width=1\textwidth]{fig/AnsysLeg.pdf}
+\caption[脚を取り付ける場所による相当応力の比較１]{脚を取り付ける場所による相当応力の比較１。フタの位置を基準に脚を取り付ける位置を変化させた。フタに近くなるにつれ、最大相当応力が小さくなることが分かる。}
+\label{AnsysLeg1}
+\end{figure}
+
+\begin{figure}[htbp]
+\begin{minipage}{0.47\textwidth}
+\centering
+\includegraphics[bb=0 0 534 489, height=0.8\textwidth]{fig/AnsysLeg2.pdf}
+\caption[脚を取り付ける場所による相当応力の比較２]{脚を取り付ける場所による相当応力の比較２。光電子増倍管を取り付けることを考慮して、再度脚を取り付ける水平位置の検討を行った。フタからの距離300mmに配置することに決定した。}
+\label{AnsysLeg2}
+\end{minipage}
+%\end{figure}
+\hfill
+%\begin{figure}[htbp]
+\begin{minipage}{0.47\textwidth}
+\centering
+\includegraphics[bb=0 0 541 457, height=0.8\textwidth]{fig/AnsysLeg3.pdf}
+\caption[脚を取り付ける場所による相当応力の比較３]{脚を取り付ける場所による相当応力の比較３。光電子増倍管を取り付けることを考慮して、脚を取り付ける垂直位置の検討を行った。フタ中心からの距離480 mmに配置することに決定した。}
+\label{AnsysLeg3}
+\end{minipage}
+\end{figure}
+
+\if0%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[htbp]
+  \begin{minipage}{1\textwidth}
+    \subfigure[脚を取り付ける場所による相当応力の比較１。フタの位置を基準に脚を取り付ける位置を変化させた。フタに近くなるにつれ、最大相当応力が小さくなることが分かる。]{\includegraphics[bb=0 0 927 353, width=1\textwidth]{fig/AnsysLeg.pdf}
+   \label{AnsysLeg1}}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.47\textwidth}
+    \subfigure[脚を取り付ける場所による相当応力の比較２。光電子増倍管を取り付けることを考慮して、再度脚を取り付ける水平位置の検討を行った。フタからの距離300mmに配置することに決定した。]{\includegraphics[bb=0 0 534 489, height=0.85\textwidth]{fig/AnsysLeg2.pdf}
+   \label{AnsysLeg2}}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.47\textwidth}
+    \subfigure[脚を取り付ける場所による相当応力の比較３。光電子増倍管を取り付けることを考慮して、脚を取り付ける垂直位置の検討を行った。フタ中心からの距離480mmに配置することに決定した。]{\includegraphics[bb=0 0 541 457, height=0.85\textwidth]{fig/AnsysLeg3.pdf}
+   \label{AnsysLeg3}}
+  \end{minipage}
+    \caption{脚を取り付ける場所による相当応力の比較}
+  \label{AnsysLeg}
+\end{figure}
+\fi%%%%%%%%%%%%%%%%%%%
+
+垂直位置はフタ中心を基準に、下向きに250 mmと480 mm（\figref{AnsysLeg3}）に変えて解析した結果を比較した。\figref{AnsysLeg3}からフタ中心から遠ざけるほど最大相当応力が小さくなることが分かる。しかし、外タンク真下付近にすると、検出器全体が不安定になってしまうので、フタ中心から下480 mmに配置することにした。
+
+
+\subsubsection{フタの厚みの検討}
+フタの厚みを変化させて相当応力を比較した。\figref{AnsysCapThick}にフタの厚みが（左）5 mm、（中）6 mm、（右）9 mmのときの相当応力を示す。またそのときの変形量の最大値（DMX）を図下に記した。
+
+フタにかかる相当応力はどの場合も67 MPa以下で安全強度を満たしている。その時の変形量の最大値はそれぞれ、4.2 mm、2.9 mm、1.7 mmで、長さ（750 mm\footnote{フタの半径を基準にした}）に対する変化の割合$\Delta L/L$はそれぞれ5.6\%、3.9\%、0.23\%であった。
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[bb=0 0 701 402, width=0.8\textwidth]{fig/AnsysCapThick.pdf}
+\caption[フタの厚みの違いによる相当応力と変形量の比較]{フタの厚みの違いによる相当応力と変形量の比較。フタの厚みは左から5mm、6mm、9mmである。その時の変形量の最大値（DMX）はそれぞれ、4.2mm、2.9mm、1.7mmであった。相当応力の大きさは図下のカラーバーで表す（単位はPa）。}
+\label{AnsysCapThick}
+\end{figure}
+
+6 mmと9 mmの場合には、フタにリブを取り付けた場合とそうでない場合の比較も行った。\figref{AnsysCRib2}にその結果を示す。両厚みとも相当応力は安全強度の範囲にあるが、9 mmの場合、$\Delta L/L$はリブあり／なしでそれぞれ0.23\%、 0.37\%と変化は見られないのに対し、6 mmの場合は0.39\%、1.1\%となり、リブを取り付けた方が良いことが分かる。
+
+\figref{AnsysCapThick}と\figref{AnsysCRib2}の結果と、質量の増加分を考慮し、フタの厚みは6 mmにし、リブを取り付けることにした。
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[bb=0 0 833 368, width=0.8\textwidth]{fig/AnsysCRib2.pdf}
+\caption[フタの厚みの違いとリブのある／なしよる相当応力と変形量の比較]{フタの厚みの違いとリブのある／なしによる相当応力と変形量の比較。フタの厚みは左から6mm（赤枠図）、9mm（青枠図）である。枠内の図はそれぞれ、リブあり（左図）、リブなし（右図）である。その時の変形量の最大値をDMXの値にしめす。相当応力は図下のカラーバーで表す（単位はPa）。}
+\label{AnsysCRib2}
+\end{figure}
+
+
+\subsubsection{フタのリブの形状の検討}
+フタのリブの幅は上から50 mm、100 mmである。その時のフタの最大変形量（\figref{AnsysCRib}右の赤い部分）はそれぞれ4.0 mm（0.53\%）、2.2 mm（0.29\%）であった。変形量の割合はどちらも問題ないと判断したので、リブの幅は50 mmにした。
+
+\begin{figure}[!h]
+\centering
+\includegraphics[bb=0 0 985 721, width=0.8\textwidth]{fig/AnsysCRib.pdf}
+\caption[フタを補強するリブの厚みによる相当応力・変形量の比較]{フタを補強するリブの厚みによる相当応力・変形量の比較。フタのリブの厚みは上から50mm、100mmである。その時のフタの最大変形量はそれぞれ4.0mm、2.2mmであった（図右の赤い部分）。相当応力の色のスケールは前の\figref{AnsysCapThick}と同じである。}
+\label{AnsysCRib}
+\end{figure}
+
+\newpage
+\subsubsection{外タンク構造の決定}
+これまでの強度解析から決定した各部位のサイズを\tabref{TableAnsysTankDesign}と\figref{AnsysTankDesign}にまとめた。これらを基に図面を作成し、業者に製作を依頼した。
+
+\begin{table}[!h]
+\caption[外タンク詳細設計のまとめ]{外タンク詳細設計のまとめ}
+\begin{center}
+\begin{tabular}{lccccccc}
+\hline \hline
+& 直径 & 長さ & 幅 & 厚さ & 個数 & 合計質量 & 材質 \\
+& [mm] & [mm] & [mm] & [mm] &  & [kg] &  \\
+\hline
+タンク本体 & 1400 & 1600 & --- & 5.0 & 1 & 282 &  SUS304\\
++フランジ & 1400 & --- & 50 & 9.0 & 2 & 16.7 & SUS304\\
++リブ & （700）& --- & 50 & 4.5 & 2 & 8.24 &SS400\\
+\hline
+フタ & 1500 & --- & --- & 6.0 & 2 & 170 & SUS304 \\
++リブ & --- & 1500 & 50 & 4.5 & 4 & 10.7& SS400\\
+\hline
+脚 & --- & 1000 & 100$\times$100 & 6.0 & 4 & 7.58 & SS400 角パイプ\\
+サイドバー & --- & 1600 & 150 & 4.5 & 2 & 8.24 & SS400\\
+\hline
+総質量 & --- & --- & --- & --- & --- & 511 & ---\\
+\hline \hline
+\end{tabular}
+\end{center}
+\label{TableAnsysTankDesign}
+\end{table}%
+
+\begin{figure}[!h]
+\centering
+%\includegraphics[bb=0 0 977 763, clip, width=10cm]{fig/AnsysTankDesign.pdf}
+%\includegraphics[bb=0 0 913 752, width=0.8\textwidth]{fig/AnsysTankDesign2.pdf}
+\includegraphics[bb=0 0 907 752, width=0.7\textwidth]{fig/AnsysTankDesign3.pdf}
+\caption[外タンク詳細設計のまとめ]{外タンク詳細設計のまとめ}
+\label{AnsysTankDesign}
+\end{figure}
+
+\subsection{内タンクモデル}
+FV水なしの状態のときに、内タンクにかかる水圧は最も大きくなると予想できる。そこで\figref{AnsysFVStress}に示したように、内タンクの外から内へ向かう向きに水圧を定義し、強度解析を行った。
+
+モデルの厚みは、円筒：5 mm、フタ：8 mm、フタに取り付けたリブ：5 mm、ハネ：5 mmである。\figref{AnsysFVUsum}では\figref{AnsysFVStress}の総変形量についての解析結果を示す。変形量が2 mm以上の部分はピンク色で表示される。\figref{AnsysFVUsum}より、フタ部分の変形量（凹む量）が大きいことが分かる。
+厚さ5 mmのアクリルの変形量の許容値として2 mmを設定した。
+
+
+\begin{figure}[htbp]
+\begin{minipage}{0.47\textwidth}
+\centering
+\includegraphics[bb=0 0 500 500, width=1\textwidth]{fig/AnsysFVStress.pdf}
+\caption[内タンクモデルに定義した水圧]{内タンクモデルに定義した水圧。FV水なしの状態を想定して強度解析を行った。}
+\label{AnsysFVStress}
+\end{minipage}
+\hfill
+\begin{minipage}{0.47\textwidth}
+\centering
+\includegraphics[bb=0 0 503 506, width=1\textwidth]{fig/AnsysFVUsum.pdf}
+\caption[\figref{AnsysFVStress}の解析結果（総変形量）]{\figref{AnsysFVStress}の解析結果（総変形量）。総変形量が2mmを超える部分はピンク色で表示される。}
+\label{AnsysFVUsum}
+\end{minipage}
+\end{figure}
+
+\subsubsection{フタに取り付けるリブの大きさの検討}
+フタ部分が最も水圧の影響を受け、凹むことが分かったので、水平方向にリブを増設して補強することにした。
+フタに取り付けるリブの大きさを変更して、変形量（特にZ成分）の比較を行った結果を\figref{AnsysFVf}にまとめた。リブの幅を大きくするにつれ、Z方向の変形量が小さくなっているのが分かる。そこでリブの幅は300 mm\footnote{内タンクをインストール時のクリアランスを考慮し、最終的には287 mmに変更した}に決定した。
+
+\begin{figure}[htbp]
+  \begin{minipage}{0.47\textwidth}
+    \subfigure[リブ幅10 mm]{\includegraphics[bb=0 0 603 506, width=1\textwidth]{fig/AnsysFVf10mmUz.pdf}
+   \label{AnsysFVf10mm}}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.47\textwidth}
+    \subfigure[リブ幅50 mm]{\includegraphics[bb=0 0 603 506, width=1\textwidth]{fig/AnsysFVf50mmUz.pdf}
+   \label{AnsysFVf50mm}}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.47\textwidth}
+    \subfigure[リブ幅100 mm]{\includegraphics[bb=0 0 603 506, width=1\textwidth]{fig/AnsysFVf100mmUz.pdf}
+   \label{AnsysFVf100mm}}
+  \end{minipage}
+  \hfill \begin{minipage}{0.47\textwidth}
+    \subfigure[リブ幅200 mm]{\includegraphics[bb=0 0 603 506, width=1\textwidth]{fig/AnsysFVf200mmUz.pdf}
+   \label{AnsysFVf200mm}}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.47\textwidth}
+    \subfigure[リブ幅300 mm]{\includegraphics[bb=0 0 603 506, width=1\textwidth]{fig/AnsysFVf300mmUz.pdf}
+   \label{AnsysFVf300mm}}
+  \end{minipage}
+  \hfill
+    \caption{フタに取り付けるリブの大きさを変えたときのZ方向の変形量の比較}
+  \label{AnsysFVf}
+\end{figure}
+
+\newpage
+\subsubsection{ハネの形状の決定}
+ハネの形状を、四角と円形に変化させ、相当応力・変形量の比較を行った結果を\figref{AnsysFVSqCirc}にまとめた。
+
+四角いハネの場合、ハネと胴体の接合部分に応力が集中しており、変形量も大きいことが分かる（\figref{AnsysFVSquareSeqv}、\figref{AnsysFVSquareUsum}）。
+
+それに比べると、円形にした場合は応力、変形量とも小さいので、ハネの形は円形に決定した（\figref{AnsysFVCircSeqv}、\figref{AnsysFVCircUsum}）。
+
+\if0%%%%%%%%%%
+\begin{figure}[htbp]
+\begin{minipage}{0.47\textwidth}
+\centering
+\includegraphics[bb=0 0 603 506, width=1\textwidth]{fig/AnsysFVSquareSeqv.pdf}
+\caption[ハネを四角にした場合の相当応力]{ハネを四角にした場合の相当応力。}
+\label{AnsysFVSquareSeqv}
+\end{minipage}
+\hfill
+\begin{minipage}{0.47\textwidth}
+\centering
+\includegraphics[bb=0 0 603 506, width=1\textwidth]{fig/AnsysFVSquareUsum.pdf}
+\caption[ハネを四角にした場合の変形量]{ハネを四角した場合の変形量。}
+\label{AnsysFVSquareUsum}
+\end{minipage}
+\end{figure}
+
+\begin{figure}[htbp]
+\begin{minipage}{0.47\textwidth}
+\centering
+\includegraphics[bb=0 0 603 506, width=1\textwidth]{fig/AnsysFVCircSeqv.pdf}
+\caption[ハネを円形にした時の相当応力]{ハネを円形にした時の相当応力。}
+\label{AnsysFVCircSeqv}
+\end{minipage}
+\hfill
+\begin{minipage}{0.47\textwidth}
+\centering
+\includegraphics[bb=0 0 603 506, width=1\textwidth]{fig/AnsysFVCircUsum.pdf}
+\caption[ハネを円形にした時の変形量]{ハネを円形にした時の変形量。}
+\label{AnsysFVCircUsum}
+\end{minipage}
+\end{figure}
+\fi%%%%%%%%%%
+
+\begin{figure}[htbp]
+  \begin{minipage}{0.47\textwidth}
+    \subfigure[ハネを四角にした場合の相当応力]{\includegraphics[bb=0 0 603 506, width=1\textwidth]{fig/AnsysFVSquareSeqv.pdf}
+   \label{AnsysFVSquareSeqv}}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.47\textwidth}
+    \subfigure[ハネを四角にした場合の変形量]{\includegraphics[bb=0 0 603 506, width=1\textwidth]{fig/AnsysFVSquareUsum.pdf}
+   \label{AnsysFVSquareUsum}}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.47\textwidth}
+    \subfigure[ハネを円形にした時の相当応力]{\includegraphics[bb=0 0 603 506, width=1\textwidth]{fig/AnsysFVCircSeqv.pdf}
+   \label{AnsysFVCircSeqv}}
+  \end{minipage}
+  \hfill \begin{minipage}{0.47\textwidth}
+    \subfigure[ハネを円形にした時の変形量]{\includegraphics[bb=0 0 603 506, width=1\textwidth]{fig/AnsysFVCircUsum.pdf}
+   \label{AnsysFVCircUsum}}
+  \end{minipage}
+    \caption{ハネの形状を変化させたときの相当応力・変形量の比較}
+  \label{AnsysFVSqCirc}
+\end{figure}
+
+\subsubsection{ハネの枚数の決定}
+胴回りに取り付けるハネの枚数を変化させて、相当応力・変形量の比較を行った結果を\figref{AnsysFVCirc2}にまとめた。
+ハネが２枚（\figref{AnsysFVCircSeqv}、\figref{AnsysFVCircUsum}と、３枚（\figref{AnsysFVCirc2Seqv}、\figref{AnsysFVCirc2Usum}）を比較しても応力の集中箇所と大きさ、変形量に変化が見られないことが分かった。
+
+ハネの枚数が多いとチェレンコフ光の進行の妨げになる可能性があること、また検出器内へのインストールの煩雑さを想像して、ハネは２枚に決定した。
+
+\if0%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[htbp]
+\begin{minipage}{0.47\textwidth}
+\centering
+\includegraphics[bb=0 0 653 506, width=1\textwidth]{fig/AnsysFVCirc2Seqv.pdf}
+\caption[円形のハネを3枚にした時の相当応力]{円形のハネを3枚にした時の相当応力。}
+\label{AnsysFVCirc2Seqv}
+\end{minipage}
+\hfill
+\begin{minipage}{0.47\textwidth}
+\centering
+\includegraphics[bb=0 0 653 506, width=1\textwidth]{fig/AnsysFVCirc2Usum.pdf}
+\caption[円形のハネを3枚にした時の変形量]{円形のハネを3枚にした時の変形量。}
+\label{AnsysFVCirc2Usum}
+\end{minipage}
+\end{figure}
+\fi%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{figure}[htbp]
+  \begin{minipage}{0.47\textwidth}
+    \subfigure[円形のハネを3枚にした時の相当応力]{\includegraphics[bb=0 0 653 506, width=1\textwidth]{fig/AnsysFVCirc2Seqv.pdf}
+   \label{AnsysFVCirc2Seqv}}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.47\textwidth}
+    \subfigure[円形のハネを3枚にした時の変形量]{\includegraphics[bb=0 0 653 506, width=1\textwidth]{fig/AnsysFVCirc2Usum.pdf}
+   \label{AnsysFVCirc2Usum}}
+  \end{minipage}
+    \caption{ハネの枚数を変えたときの相当応力・変形量の比較}
+  \label{AnsysFVCirc2}
+\end{figure}
+
+
+
+\subsubsection{ハネを分割した場合}
+ハネの直径、一体物の作成が困難という材料上の都合から、ハネを分割して作製できないか検討した。ハネを３分割にし、それぞれを\figref{AnsysFVOverlap}の示したように、10 mmののりしろで接着\footnote{実際のアクリルは溶着した；アクリルの接着面を溶かして貼り合わせる方法}したモデルを作成し解析を行った。
+
+一体物と比較すると、貼りあわせた部分の変形量が変化するものの、許容範囲と判断し、ハネを分割することに決定した。
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[bb=0 0 622 500, width=0.5\textwidth]{fig/AnsysFVOverlap.pdf}
+\caption[ハネを重ねた部分]{ハネを重ねた部分。10mm分重なっている。}
+\label{AnsysFVOverlap}
+\end{figure}
+
+\if0%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[htbp]
+\begin{minipage}{0.47\textwidth}
+\centering
+\includegraphics[bb=0 0 603 506, width=1\textwidth]{fig/AnsysFVOverlapSeqv.pdf}
+\caption[ハネを分割した場合の相当応力]{ハネを分割した場合の相当応力。}
+\label{AnsysFVOverlapSeqv}
+\end{minipage}
+\hfill
+\begin{minipage}{0.47\textwidth}
+\centering
+\includegraphics[bb=0 0 603 506, width=1\textwidth]{fig/AnsysFVOverlapUsum.pdf}
+\caption[ハネを分割した場合の変形量]{ハネを分割した場合の変形量。}
+\label{AnsysFVOverlapUsum}
+\end{minipage}
+\end{figure}
+\fi%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{figure}[htbp]
+  \begin{minipage}{0.47\textwidth}
+    \subfigure[ハネを３分割した場合の相当応力]{\includegraphics[bb=0 0 603 506, width=1\textwidth]{fig/AnsysFVOverlapSeqv.pdf}
+   \label{AnsysFVOverlapSeqv}}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.47\textwidth}
+    \subfigure[ハネを３分割した場合の変形量]{\includegraphics[bb=0 0 603 506, width=1\textwidth]{fig/AnsysFVOverlapUsum.pdf}
+   \label{AnsysFVOverlapUsum}}
+  \end{minipage}
+    \caption{ハネを３分割したときの相当応力・変形量}
+  \label{AnsysFVOverlap3}
+\end{figure}
+
+
+\if0
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[bb=0 0 400 300, clip, width=1\textwidth]{fig/P1090777.JPG}
+\caption[内タンク]{内タンクがトラックに載ってやってきた。}
+\label{InstallInnerTank}
+\end{center}
+\end{figure}
+\fi
+
+\section{耐震解析}
+%\subsection{目的}
+地震などによって、検出器が倒れないことを、水平方向に加速度を与えた静解析を行って確認した。このために\figref{XModel}と\figref{ZModel}の示すようにX方向加速モデルとZ方向加速モデルの2種類の1/2モデルを作成した。
+
+
+\begin{figure}[!h]
+\begin{minipage}{0.47\textwidth}
+\centering
+\includegraphics[bb=0 0 682 730, height=1\textwidth]{fig/AnsysSeismicX3.pdf}
+\caption[耐震解析モデル：X方向]{X方向の耐震解析モデル。XY平面で対称にした1/2モデルを作成した。検出器の自重（1G）の他に、X方向に+0.5Gの加速度を与えた。青〜赤色のグラデーションは水圧を表す。}
+\label{XModel}
+\end{minipage}
+%\end{figure}
+\hfill
+%\begin{figure}[htbp]
+\begin{minipage}{0.47\textwidth}
+\centering
+\includegraphics[bb=0 0 595 706, height=1\textwidth]{fig/AnsysSeismicZ3.pdf}
+\caption[耐震解析モデル：Z方向]{Z方向の耐震解析モデル。YZ平面で対称にした1/2モデルを作成した。検出器の自重（1G）の他に、Z方向に+0.5Gの加速度を与えた。青〜赤色のグラデーションは水圧を表す。}
+\label{ZModel}
+\end{minipage}
+\end{figure}
+
+
+
+
+両モデルとも自重として-Y方向に1G、そして、X方向加速モデルには+X方向に0.5GとZ方向加速モデルには+Z方向に0.5Gを与えた。また、水圧はそれらの加速度を足しあわせた方向にを考慮して定義した（図中の虹色のグラデーションは水圧の勾配を示す）。
+
+\subsection{震度と重力加速度}
+地震の震度と、それに対応する重力加速度は\figref{SeismicClass}のとおりである。今回は0.5 Gの加速度を与えたので、約震度5強相当の地震に耐えられることになる。
+
+\begin{table}[htbp]
+\caption[震度と重力加速度]{震度と重力加速度の対応}
+\begin{center}
+\begin{tabular}{rccccccc}
+\hline \hline
+\multicolumn{2}{c}{震度} & 4 & 5弱 & 5強 & 6弱 & 6強 & 7\\ \hline
+kine & [cm/s] & 4-10 & 10-20 & 20-40& 40-60 & 60-100 & 100-\\
+gal & [cm/s$^{2}$] & 100 & 240 & 520 & 830 & 1100 & 1500\\
+重力加速度 & [G] & 0.1 & 0.24 & 0.52 & 0.83 & 1.1 & 1.5\\
+\hline \hline
+\multicolumn{8}{r}{1 G = 9.8 m/s$^{2}$ = 980 gal}
+\end{tabular}
+\end{center}
+\label{SeismicClass}
+\end{table}%
+
+
+
+\subsection{横方向のゆれに対する解析}
+X方向に加速度を与えて解析を行った結果を\figref{Xmatome}に示す。\figref{SEQVX}は相当応力、\figref{USUMX}は変形量に対する結果を表している。また、\figref{SeismicX}に最大相当応力のかかる部分の拡大図を示す。
+変形量、応力ともに脚の部分がもっとも大きくなるが、最大変形量は0.892 mm（0.09\%）と問題なく、最大相当応力は181 MPaとなり安全強度を越えているが、一時的にかかる応力なので問題ないと判断した。
+
+\begin{figure}[htbp]
+  \begin{minipage}{0.47\textwidth}
+      \subfigure[総変形量]{\includegraphics[bb=0 0 900 700, width=1\textwidth]{fig/AnsysSeismicXusum2.pdf}
+   \label{USUMX}}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.47\textwidth}
+      \subfigure[相当応力]{\includegraphics[bb=0 0 900 700, width=1\textwidth]{fig/AnsysSeismicXseqv2.pdf}
+   \label{SEQVX}}
+  \end{minipage}
+    \caption{X方向加速度モデルの解析結果}
+  \label{Xmatome}
+\end{figure}
+
+\if0%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[htbp]
+\begin{minipage}{0.47\textwidth}
+\centering
+%\includegraphics[bb=0 0 3210 2410, width=1\textwidth]{fig/AnsysSeismicXseqv.pdf}
+\includegraphics[bb=0 0 900 700, width=1\textwidth]{fig/AnsysSeismicXseqv2.pdf}
+\caption[X方向に加速度を与えたときの相当応力]{X方向に加速度を与えたときの相当応力。}
+\label{SEQVX}
+%\end{figure}
+\end{minipage}
+\hfill
+\begin{minipage}{0.47\textwidth}
+%\begin{figure}[htb]
+\centering
+\includegraphics[bb=0 0 900 700, width=1\textwidth]{fig/AnsysSeismicXusum2.pdf}
+\caption[X方向に加速度を与えたときの総変形量]{X方向に加速度を与えたときの総変形量。}
+\label{USUMX}
+\end{minipage}
+\end{figure}
+\fi%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[bb=0 0 1022 730, width=0.75\textwidth]{fig/AnsysSeismicXsum.pdf}
+\caption[X方向に加速度を与えたときの総変形量と相当応力]{X方向に加速度を与えたときの総変形量（左）と相当応力（右）}
+\label{SeismicX}
+\end{figure}
+
+
+\subsection{長さ方向のゆれに対する解析}
+
+Z方向に加速度を与えて解析を行った結果を\figref{SEQVZ}、\figref{USUMZ}に示す。\figref{SEQVZ}は応力、\figref{USUMZ}は変形量に対する結果を表している。また、\figref{SeismicZ}に最大相当応力のかかる部分の拡大図を示す。
+相当応力は脚の部分でもっとも大きくなり、最大相当応力272 MPaは安全強度を超えているが、一時的にかかる応力なのでX方向加速度モデルと同じく問題ないと判断した。変形量はフタ中心で最大4.178 mm（0.56\%）であり問題ないと判断した。
+
+\begin{figure}[htbp]
+  \begin{minipage}{0.47\textwidth}
+      \subfigure[総変形量]{\includegraphics[bb=0 0 900 700, width=1\textwidth]{fig/AnsysSeismicZusum2.pdf}
+   \label{USUMZ}}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.47\textwidth}
+      \subfigure[相当応力]{\includegraphics[bb=0 0 900 700, width=1\textwidth]{fig/AnsysSeismicZseqv2.pdf}
+   \label{SEQVZ}}
+  \end{minipage}
+    \caption{Z方向加速度モデルの解析結果}
+  \label{Zmatome}
+\end{figure}
+
+
+\if0%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[htbp]
+\begin{minipage}{0.47\textwidth}
+\centering
+%\includegraphics[bb=0 0 3210 2410, width=1\textwidth]{fig/AnsysSeismicZseqv.pdf}
+\includegraphics[bb=0 0 900 700, width=1\textwidth]{fig/AnsysSeismicZseqv2.pdf}
+\caption[Z方向に加速度を与えたときの相当応力]{Z方向に加速度を与えたときの相当応力。}
+\label{SEQVZ}
+\end{minipage}
+%\end{figure}
+\hfil
+%\begin{figure}[htb]
+\begin{minipage}{0.47\textwidth}
+\begin{center}
+%\includegraphics[bb=0 0 3210 2410, width=1\textwidth]{fig/AnsysSeismicZusum.pdf}
+\includegraphics[bb=0 0 900 700, width=1\textwidth]{fig/AnsysSeismicZusum2.pdf}
+\caption[Z方向に加速度を与えたときの総変形量]{Z方向に加速度を与えたときの総変形量。}
+\label{USUMZ}
+\end{center}
+\end{minipage}
+\end{figure}
+\fi%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{figure}[htb]
+\centering
+\includegraphics[bb=0 0 1017 530, width=1\textwidth]{fig/AnsysSeismicZsum.pdf}
+\caption[Z方向に加速度を与えたときの総変形量と相当応力]{Z方向に加速度を与えたときの総変形量（左）と相当応力（右）}
+\label{SeismicZ}
+\end{figure}
+
+%%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%%
+\newpage
+\section{水漏れ試験・インストレーション}
+
+\subsection{水漏れ試験}
+\figref{WaterTest}は外タンク製作現場にて水漏れ試験をしたときの様子である。タンク内を水道水で満たし、水漏れする箇所がないかを実際に立ち会って確認した。
+このとき、板ゴムの繋ぎ目\footnote{板ゴムは周長が大きく一体物の作成が出来なかったため、４分割品を繋ぎあわせてある}部分から少量の水漏れと、光電子増倍管取り付け用窓３箇所から水漏れが生じた（\figref{WaterTestItagomu}、\figref{WaterTestMado}）。
+
+板ゴムからの水漏れに対しては、繋ぎ目が真下にならないよう板ゴムをずらして配置することと、板ナットを使用して固定することにした。
+窓部分からの水漏れに対しては、窓を接着した際の隙間が原因だったので、業者の方に修整と再接着をお願いし、後日再試験をした。
+
+また、水圧による変形量の実測値とANSYSとの比較を\tabref{CompDeform}にまとめた。フタ中心の変形量に関しては実測値はANSYS予測値を下回っているので、問題ないと判断した。本体中心下の変形量に関しては、実測値がANSYS予測値の2倍となっているが、理由はよく分からなかった。ただし、この変形量によるステンレスの伸びは$\Delta L/L=0.4/800=0.05$\%なので強度には問題ないと判断した。
+
+
+\begin{figure}[htbp]
+\centering
+%\includegraphics[bb=0 0 400 300, clip, width=10cm]{fig/P1090596.JPG}
+\includegraphics[bb=0 0 400 300, clip, width=0.8\textwidth]{fig/P1090589.JPG}
+\caption[外タンク水漏れ試験の様子]{外タンク水漏れ試験の様子。タンク製作現場にてタンク内を満水にし、水漏れする箇所がないか確認した。水はタンク上部から注水した。タンク前、両横、下にはマイクローメータを設置し、変形量を確認した。}
+\label{WaterTest}
+\end{figure}
+
+
+\begin{figure}[htbp]
+\begin{minipage}{0.47\textwidth}
+\centering
+\includegraphics[bb=0 0 400 300, clip, width=1\textwidth]{fig/P1090583.JPG}
+\caption[板ゴムのつなぎ目からの水漏れ箇所]{板ゴムのつなぎ目からの水漏れ箇所。図では分かりにくいが、板ゴムの隙間から少量だが水漏れをしている。板ゴムは1/4品を突き合わせで接着しているため、このような水漏れが生じたと見られる。繋ぎ目の位置を工夫することで調整した。}
+\label{WaterTestItagomu}
+\end{minipage}
+\hfil
+\begin{minipage}{0.47\textwidth}
+\centering
+\includegraphics[bb=0 0 400 300, clip, width=1\textwidth]{fig/P1090595.JPG}
+\caption[窓部分からの水漏れ箇所]{窓部分の水漏れ箇所。水漏れ箇所はフタ部分に１箇所（この図）、タンク上部に２箇所あった。全箇所とも接着状態が悪かったため隙間から水漏れが生じたと見られる。再接着後の試験では水漏れは起こらなかった。}
+\label{WaterTestMado}
+\end{minipage}
+\end{figure}
+
+\begin{table}[htbp]
+\caption[ANSYSの結果と、実際のタンク変形量]{タンク変形量のANSYSによる結果と実測値の比較}
+\centering
+\begin{tabular}{clcc}
+\hline \hline
+& & ANSYS & 実測値 \\
+ \hline
+フタ中心の変形量 & [mm] & +1.6 & +1.3\\
+本体中心下の変形量 & [mm] & +0.2 & +0.4 \\
+\hline \hline
+\multicolumn{4}{r}{+は膨張したことを意味する}
+\end{tabular}
+\label{CompDeform}
+\end{table}
+
+\subsection{インストレーション}
+2010年11月2日と4日に外タンクと内タンクを前置検出器ホールの地下2階に降ろす作業を行った。\figref{InstallOuterTank}は外タンクを、\figref{InstallInnerTank}は内タンクをそれぞれクレーンで吊り降ろしているところである。
+
+地下に降ろされた後、外タンクは指定した位置（\figref{MCPosition}）に運ばれ、アンカーボルトで固定した。内タンクはまだ外タンク内部には設置されておらず、今後設置作業をする予定である。
+
+\begin{figure}[htbp]
+\begin{minipage}{0.47\textwidth}
+\centering
+\includegraphics[bb=0 0 400 300, clip, width=1\textwidth]{fig/P1090738.JPG}
+\caption[外タンクインストール風景]{外タンクのインストール風景。外タンクはクレーンによって無事ホール地下2階まで降ろされた。}
+\label{InstallOuterTank}
+\end{minipage}
+\hfil
+\begin{minipage}{0.47\textwidth}
+\centering
+\includegraphics[bb=0 0 400 300, clip, width=1\textwidth]{fig/P1090789.JPG}
+\caption[内タンクインストール風景]{内タンクのインストール風景。内タンクもクレーンを使って丁寧にホール地下2階まで降ろされた。}
+\label{InstallInnerTank}
+\end{minipage}
+\end{figure}
+
+
+
+%\subsection{タンク内壁の塗装}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{光電子増倍管のキャリブレーション}
+\label{PMTCalibration}
+\section{目的}
+本実験では直径3インチの光電子増倍管を164本使用する。\secref{MonteCalro}で説明したような光量カットによるイベント選択をうまく行うためには、ある入射光量に対して全ての光電子増倍管から一様の応答が返ってくる必要がある。
+
+そのため、光電子増倍管間の相対的量子効率と、各光電子増倍管の電流増幅率曲線の測定を予め行うことにより、各光電子増倍管間の量子効率の違いを把握することと、印加電圧を制御することで、電流流増幅率が調整可能なようにした。
+
+
+
+\section{測定原理}
+
+\subsection{光電子数と電流増幅率}
+
+光子が発生し光電子増倍管の光電面に入射し、光電子に変換される過程はポアソン分布に従う。
+平均入射光電子数を$\lambda_{\pe}$、光電子増倍管の電流増幅率を$G$とすると、測定出来る平均信号$\mu$は
+\begin{equation}
+\mu = G\cdot e \cdot\lambda_{\pe}
+\label{mu}
+\end{equation}
+となる。ここで$e$は素電荷である。
+
+このとき、電流増幅率$G$は常に一定であり、信号の標準偏差$\sigma_{\mu}$は平均入射光電子数$\lambda$のポアソンゆらぎによることとなり、
+\begin{equation}
+\sigma_{\mu} = Ge\cdot \sigma_{\lambda_{\pe}}=Ge\cdot \sqrt{\lambda_{\pe}}
+\label{sigmamu}
+\end{equation}
+が成り立つ。上2式より、入射光電子数$\lambda_{\pe}$、電流増幅率$G$が計算でき、
+\begin{eqnarray}
+\lambda_{\pe} = \left(\frac{\mu}{\sigma_{\mu}}\right)^{2}
+&, & G  =  \frac{1}{e}\cdot \frac{\sigma_{\mu}^{2}}{\mu} \label{pegain}
+\end{eqnarray}
+となる。
+
+今回の測定で得られるADCのヒストグラムの平均値Mean、と標準偏差RMS\footnote{本来、標準偏差とRMSは異なるものであるが、今回用いた解析ツールROOTでは、標準偏差をRMSと表記しているので、それに従うことにする}の関係は、AD変換係数$C_{AD}$とすると、次のようになり、
+\begin{equation}
+\mu = C_{AD} \times Mean,\  \sigma_{\mu} = C_{AD} \times RMS
+\end{equation}
+これらを\equref{pegain}に代入すると、
+\begin{eqnarray}
+\lambda_{\pe} & = & \left(\mathrm{\frac{Mean}{RMS}}\right)^{2}\\
+G & = & \mathrm{\frac{RMS^{2}}{Mean}} \times \frac{C_{AD}}{e} \label{adcrms}
+\end{eqnarray}
+が得られる。
+このようにして、入射光電子数$\lambda_{\pe}$と電流増幅率$G$を計算した。
+
+本測定では使用したCAMAC ADC（LeCroy 2249W）のスペック値$C_{AD}=0.25$ [pC/count]を使用した。
+
+\subsection{相対的量子効率}
+光源から放出され、光電面に入射した光子数を$\lambda_{\photon}$、光電面の量子効率を$Q$とすると、光電面から放出される光電子数は$\lambda_{\pe}=Q \cdot \lambda_{\photon}$である。入射光子数の絶対値が分かっていれば、$Q$を求めることができるが、今回の測定では入射光子数の絶対値が分からないため、下記のようにして相対的量子効率を求めることにした
+
+基準となる光電子増倍管の量子効率を$Q^{(ref)}$、測定した$i$番目の光電子増倍管の量子効率を$Q^{(i)}$とすると、同量の光子が入射した時のそれぞれの光電子増倍管で測定される光電子数は次のようになる。
+\begin{eqnarray}
+\lambda_{\pe}^{(ref)} & =  & Q^{(ref)}\lambda_{\photon}\\
+\lambda_{\pe}^{(i)} & = & Q^{(i)}\lambda_{\photon}
+\end{eqnarray}
+よって、相対的量子効率$Q_{rel}^{(i)}$は
+\begin{equation}
+Q_{rel}^{(i)} \equiv \frac{Q^{(i)}}{Q^{(ref)}}%
+ = \frac{Q^{(i)}\lambda_{\photon}}{Q^{(ref)}\lambda_{\photon}} %
+ = \frac{\lambda_{\pe}^{(i)}}{\lambda_{\pe}^{(ref)}}%
+\end{equation}
+となる。
+
+
+\subsection{電流増幅率曲線}
+光電子増倍管の二次電子放出比$\delta$はダイノード間電圧$E$の関数となり次のように表すことができる。
+\begin{equation}
+\delta = a \cdot E^{k}
+\label{SecPEratio}
+\end{equation}
+ここで、$a$は定数、$k$は電極の構造・材質で決まる数である（通常$k=0.7\sim0.8$程度）。
+
+等分割デバイダの場合、印加電圧を$V$、ダイノード段数を$n$とすると、各ダイノード間の電圧$E$は次のようになり（\equref{DinodeVoltage}）、
+\begin{equation}
+E=\frac{V}{n+1}
+\label{DinodeVoltage}
+\end{equation}
+電流増幅率$G$は、
+\begin{eqnarray}
+G & = &  \delta^{n} = aE^{k} \cdot aE^{k} \cdots aE^{k}  \nonumber \\
+%& = & (aE^{k})^{n} \\
+& = & a^{n} \left(\frac{V}{n+1}\right)^{kn}  \nonumber \\
+& = & A \cdot V^{B}
+\ \ \ \left(\ A \equiv \frac{a^{n}}{(n+1)^{kn}}, B\equiv kn  \text{とした}\right) \label{fit1}
+%G & = & A \cdot V^{kn}
+\end{eqnarray}
+となり、印加電圧$V$の冪関数で表すことができる。
+また、この両辺の対数をとると、
+\begin{eqnarray}
+\log_{10}G & = & \log_{10}A + B \log_{10}V \label{fit2}
+\end{eqnarray}
+となり、両対数目盛上で直線となる。
+電流増幅率曲線の解析では\equref{fit2}を使ってフィッティングすることでその係数を求めた。
+
+
+\section{方法・手順}
+\subsection{実験器具}
+測定の際のセットアップの概略図を\figref{CalibSetUpFig}に示す。
+光電子増倍管やLEDなど必要な装置は\figref{CalibPMT}のように暗箱の中に設置した。
+
+光電子増倍管はLEDを中心に８個セットした。それぞれ予め取り付けてあるジグにマジックテープで固定できるようになっている。設置場所は、\figref{CalibSetUpFig}のCH1の位置を基準に反時計回りにCH2〜CH8と呼ぶことにする。
+
+LEDには青色光のものを使用した。この青色光の波長は470 nm程度であり、これはチェレンコフ光や、光電面の感度波長ピークに近い波長である。
+
+LEDは暗箱の中心に、上を向けた状態でセットした。またその高さを光電面の中心になるように台座を調整した。LED光は指向性が強いため、光をできるだけ等方的に散乱させるためのキャップを取り付けた。\figref{CalibLED}にLEDをセットした状態を示す。
+
+\begin{figure}[htbp]
+\centering
+%\includegraphics[bb=0 0 905 410, width=1\textwidth]{fig/CalibSetUpFig.pdf}
+\includegraphics[bb=0 0 1010 458, width=0.78\textwidth]{fig/CalibSetUpFig2.pdf}
+\caption[測定セットアップ概略図]{測定セットアップ概略図。パルスジェネレータの信号をトリガにして、LEDを光らせるとともに、ADCのゲートを開き、光電子増倍管からの信号を取得する。}
+\label{CalibSetUpFig}
+\end{figure}
+
+\begin{figure}[!htbp]
+  \begin{minipage}{0.47\textwidth}
+    \subfigure[暗箱の中にLEDと光電子増倍管をセットした。LEDを中心に、８本の光電子増倍管を設置し、それぞれの光電子増倍管はマジックテープで固定する。]{
+    %\includegraphics[bb=0 0 400 300, width=1\textwidth]{fig/P1090975.JPG}
+%\includegraphics[bb=0 0 400 300, width=1\textwidth]{fig/P1090976.JPG}
+%\includegraphics[bb=0 0 400 300, width=1\textwidth]{fig/P1090977.JPG}
+\includegraphics[bb=0 0 400 267, width=1\textwidth]{fig/IMG_0254.JPG}
+   \label{CalibPMT}}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.47\textwidth}
+    \subfigure[LEDには散乱キャップ（図手前の白い被せ物）を取り付け、光が等方的に放出されるようにした。また高さがほぼ光電面の中心に来るようにした。]{
+\includegraphics[bb=0 0 400 267, width=1\textwidth]{fig/IMG_0258.JPG}
+   \label{CalibLED}}
+  \end{minipage}
+    \caption{実際の測定セットアップ}
+  \label{CalibSetUpPic}
+\end{figure}
+
+
+%今回のキャリブレーションではLEDを光源として利用した。LEDは日亜化学工業のものを使用した。幅20nsのパルスを200Hzで入力しLEDを点滅させる。それと同期してADCのGateを開き、光電子増倍管からの信号を測定。CAMAC ADCにはLeCroy2249Wを使用した。
+
+\if0
+\begin{table}[htdp]
+\caption{キャリブレーションに使用した装置一覧}
+\begin{center}
+\begin{tabular}{cc}
+\hline \hline
+LED & NICHIA \\
+LED光拡散キャップ & OPTOSUPPLY\\
+CAMAC ADC LeCroy 2249W\\
+\hline \hline
+\end{tabular}
+\end{center}
+\label{default}
+\end{table}%
+\fi
+
+
+\subsection{基本的な測定手順}
+
+パルスジェネレータからの信号をトリガにして、LEDとゲートジェネレータに入力することによって、LEDが点灯したタイミングで光電子増倍管の信号をCAMAC ADCを使って読み取った。
+
+パルスジェネレータから、幅20 ns、周波数200 Hz、高さ3.2 Vのパルス信号を入力しLEDを点灯させた。またパルス信号と同期して出力されているTTL信号を、レベルアダプターを通しNIM信号へ変換させた後、ゲートジェネレータへと入力した。ゲートジェネレータからは幅60 nsのゲート信号を出力し、CAMAC ADCに入力した。
+
+シグナル、ベデスタルそれぞれ10000イベントのデータを取得した。
+ペデスタルの測定はLEDへのパルスをOFFにした状態\footnote{この状態でも200HzでTTL信号が出ている}で行い、シグナルを測定する前に毎回行った。
+
+\figref{CalibMeasurement}にオシロスコープで確認した信号の波形と、その測定の時に得られたADC分布を示す。
+
+\begin{figure}[htbp]
+%%%
+  \begin{minipage}{0.47\textwidth}
+    \subfigure[オシロスコープで確認した波形。上から順にCH1、CH2、CH3の光電子増倍管からの出力、一番下がLEDへのパルスと同時に開いたゲート]{
+\includegraphics[bb=0 0 800 480, width=1\textwidth]{fig/CalibOscillo.pdf}
+   \label{CalibOscillo}}
+  \end{minipage}
+\hfill%%%
+  \begin{minipage}{0.47\textwidth}
+    \subfigure[左図のときに得られたCH1の光電子増倍管のADC分布。黒線：実測値、赤線：ガウス関数でフィットした曲線]{\includegraphics[bb=255 36 822 575, width=1\textwidth]{fig/RUN7_CH1_HV1100_SIG.pdf}
+   \label{CalibData}}
+  \end{minipage}
+    \caption[測定データ]{測定データ}
+  \label{CalibMeasurement}
+\end{figure}
+
+
+\section{等方性・再現性の測定}
+全ての光電子増倍管の相対的量子効率・電流増幅率曲線の測定を行う前に、前述した設定の下、LEDから放出される光量の等方性、また本セットアップの測定の再現性を確認した。
+
+まず、光電子増倍管を適当に2本選択した。１本（PMT1）はLEDからの光量をモニターする参照用として\figref{CalibSetUpFig}のCH1に固定し、残りの１本（PMT2）を、CH2からCH8まで順番に移動させて、光量の測定を行った。このとき、PMT1、PMT2の印加電圧はともに1100 Vに設定した。
+
+実験原理で説明した方法で求めた各位置（=CH）での光電子数を、PMT1の光電子数で規格化する。
+\begin{equation}
+\text{規格化した光電子数}R_{\pe} \equiv \frac{\text{PMT2で観測した光電子数}}{\text{PMT1で観測した光電子数}}
+\end{equation}
+PMT1の光電子数で規格化することにより、LEDから放出される光子数の測定ごとの不定性を抑えるようにした。
+
+各CHでの$R_{\pe}$を比較することによって、光量の等方性を確認した。また、CH2からCH8までの測定を１回として複数回測定を行うことにより、本セットアップの再現性を確認した。
+
+
+
+\subsection{等方性と再現性}
+上記の測定を５回測行った結果を\figref{CalibIsoRepCheck}にまとめた。横軸をCH番号（光電子増倍管を固定した場所）、縦軸を$R_{\pe}$にしてプロットした。線の色の違いは、それを測定したセット番号を表している。
+
+\figref{CalibIsoRepCheck}から、各CHでの５回の測定結果は統計誤差の範囲でほとんど一致していることが分かる。これより、LEDからの光量は等方的ではないが、再現する位置依存性があることが分かる。そこで、位置による光量の違いを補正する数を次に述べるように定義した。
+
+\begin{figure}[htbp]
+\begin{center}
+%\includegraphics[bb=0 0 779 624, width=0.8\textwidth]{fig/CalibIsoRepCheck.pdf}
+\includegraphics[bb=255 36 822 575, width=0.8\textwidth]{fig/ANA20_PENORM.pdf}
+\caption[等方性と再現性の確認]{等方性と再現性の確認。横軸に光電子増倍管を置いた場所、縦軸に規格化した光電子数をプロットした。線の色は測定セットの違いを表す。５セット分の測定が同じような分布をしていることから位置依存性があることが分かる}
+\label{CalibIsoRepCheck}
+\end{center}
+\end{figure}
+
+\subsubsection{場所による光量補正係数}
+光電子増倍管の設置場所による光量の補正係数を\tabref{PECorrectionFactor}にまとめた。
+場所による光量補正係数は\figref{CalibIsoRepCheck}の5回の測定で得られた設置場所ごとの$R_{\pe}$の平均値で定義した。
+また再現性は、その平均値周りの標準偏差の大きさの割合で評価した。相対的量子効率を求める際は、この補正係数を考慮して算出する。
+
+\begin{table}[htdp]
+\caption{光電子増倍管設置場所での光量補正係数}
+\begin{center}
+\begin{tabular}{cccccccc}
+\hline \hline
+設置場所 & 2 & 3 & 4 & 5 & 6 & 7 & 8\\
+\hline
+%補正係数 &1.21 & 1.32 & 1.46 & 1.46 & 1.44 & 1.30 & 1.24\\
+%再現性（\%） & 3.5 & 1.8 & 2.3 & 1.7 & 3.1 & 3.2 & 3.5\\
+補正係数 &1.22 & 1.33 & 1.46 & 1.45 & 1.46 & 1.30 & 1.25\\
+再現性（\%） & 2.40 & 1.80 & 2.02 & 2.15 & 3.30 & 4.05 & 2.99\\
+\hline \hline
+\end{tabular}
+\end{center}
+\label{PECorrectionFactor}
+\end{table}%
+
+
+\section{相対的量子効率・電流増幅率曲線の測定}
+
+等方性・再現性確認のときに使用した光電子増倍管（PMT1）を引き続き光量モニター用光電子増倍管として使用し、154本の光電子増倍管の測定を行った。基本的な測定手順はこれまでと同様である。
+
+ただし、今回は一度に7本ずつ（PMT1は除く）測定を行い、印加電圧に対する電流増幅率を調べるために、印加電圧を1000 Vから1300 Vまで50 V刻みで変化させて測定を行った\footnote{PMT1は光量モニターの役割があるため常に1100 Vを印加した}。7本の光電子増倍管を、1000 Vから1300 Vまで測定することを１ランと呼ぶことにする。
+
+\subsection{相対的量子効率}
+
+\begin{figure}[!h]
+\centering
+%%%
+  \begin{minipage}{0.8\textwidth}
+    \subfigure[光量補正前：Mean=1.239, RMS=0.1778]{
+    \includegraphics[bb=255 306 822 575, width=1\textwidth]{fig/H1_PE_NORM_HV1100.pdf}
+%    \includegraphics[bb=255 36 822 575, width=1\textwidth]{fig/H1_PE_NORM_HV1100v2.pdf}
+%    \includegraphics[bb=255 36 822 575, width=1\textwidth]{fig/H1_PE_NORM_HV1100v3.pdf}
+   \label{H1PENorm}}
+  \end{minipage}
+%\hfill%%%
+  \begin{minipage}{0.8\textwidth}
+      \subfigure[光量補正後：Mean=0.9167, RMS=0.1174]{
+\includegraphics[bb=255 306 822 575, width=1\textwidth]{fig/H1_PE_NORM_CORR_HV1100.pdf}
+%\includegraphics[bb=255 36 822 575, width=1\textwidth]{fig/H1_PE_NORM_CORR_HV1100v2.pdf}
+%\includegraphics[bb=255 36 822 575, width=1\textwidth]{fig/H1_PE_NORM_CORR_HV1100v3.pdf}
+       \label{H1PENormCorr}}
+  \end{minipage}
+    \caption[規格化された光電子数分布]{規格化された光電子数分布。光量補正を行うことによって、分布の幅（RMS）が0.1778 $\rightarrow$ 0.1174と良くなっている。}
+  \label{H1PECorr}
+\end{figure}
+
+\figref{H1PECorr}は、印加電圧1100 Vで測定した全光電子増倍管の$R_{\pe}$の分布を示す。\figref{H1PENorm}に\tabref{PECorrectionFactor}を用いて場所による光量補正を行うと\figref{H1PENormCorr}になる。
+
+光量補正を行うことによって、$R_{\pe}$は平均値は$1.22 \rightarrow 0.92$に変化し、標準偏差は$0.17 \rightarrow 0.12$と改善した。補正後の結果から、相対的量子効率のばらつきは13\%程度である。
+
+
+
+
+\subsection{電流増幅率曲線}
+光電子増倍管の印加電圧を1000 Vから1300 Vまで50V刻みで変化させながら、全部で154本の光電子増倍管に対して上記の測定を行った。
+\figref{GainDistribution1}、\figref{GainDistribution2}はその測定で得られた、各印加電圧での全光電子増倍管の電流増幅率分布を示す。これらのプロットから印加電圧1100 V$\sim$1250 Vの範囲で平均して$1\sim2\times 10^{6}$程度の電流増幅率が得られることが分かった。
+
+
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[bb=543 441 677 574, width=0.5\textwidth]{fig/CalibGainCurveLog.pdf}
+\caption[電流増幅率曲線のフィッティング]{電流増幅率曲線のフィッティング。横軸に印加電圧、縦軸に電流増幅率をとり、両対数グラフにプロットした。フィッティング関数に$y=Ax+B$を使用した。}
+\label{GainCurve}
+\end{figure}
+
+また、各印加電圧で計算した電流増幅率、横軸を印加電圧、縦軸を電流増幅率とした両対数軸にプロットし、直線$y=Ax+B$でフィッティングを行った結果の一例を\figref{GainCurve}に示す。
+このフィットから得た係数$A, B$および、前述した相対的量子効率を考慮した上での、各光電子増倍管ごとに必要とされる電流増幅率から、その光電子増倍管に最適な印加電圧を逆算してもとめる。
+
+今回フィットがうまくできなかったり、測定がうまくできなかった光電子増倍管については今後再試験をする予定である。
+\newpage
+
+\begin{figure}[htbp]
+\centering
+  \begin{minipage}{0.47\textwidth}
+    \subfigure[印加電圧1000 V：Mean = $5.8\times10^{5}$、RMS = $1.4\times10^{4}$]{
+\includegraphics[bb=255 36 822 575, width=1\textwidth]{fig/H1_GAIN_HV1000.pdf}
+   \label{H1Gain1000}}
+  \end{minipage}
+\hfill%%%
+  \begin{minipage}{0.47\textwidth}
+    \subfigure[印加電圧1040 V：Mean = $8.0\times10^{5}$、RMS = $2.6\times10^{5}$]{
+    \includegraphics[bb=255 36 822 575, width=1\textwidth]{fig/H1_GAIN_HV1050.pdf}
+   \label{H1Gain1050}}
+  \end{minipage}
+  \hfill%%%
+  \begin{minipage}{0.47\textwidth}
+    \subfigure[印加電圧1100 V：Mean = $1.7\times10^{6}$、RMS = $2.9\times10^{5}$]{
+    \includegraphics[bb=255 36 822 575, width=1\textwidth]{fig/H1_GAIN_HV1100.pdf}
+   \label{H1Gain1100}}
+  \end{minipage}
+  \hfill%%%
+  \begin{minipage}{0.47\textwidth}
+    \subfigure[印加電圧1200 V：Mean = $1.8\times10^{6}$、RMS = $4.1\times10^{5}$]{
+    \includegraphics[bb=255 36 822 575, width=1\textwidth]{fig/H1_GAIN_HV1200.pdf}
+   \label{H1Gain1200}}
+  \end{minipage}
+     \caption[印加電圧別の電流増幅率分布1]{印加電圧別の電流増幅率分布1}
+  \label{GainDistribution1}
+\end{figure}
+
+
+\begin{figure}[htbp]
+\centering
+ \begin{minipage}{0.47\textwidth}
+    \subfigure[印加電圧1250 V：Mean = $2.3\times10^{6}$、RMS = $5.4\times10^{5}$]{
+    \includegraphics[bb=255 36 822 575, width=1\textwidth]{fig/H1_GAIN_HV1250.pdf}
+   \label{H1Gain1250}}
+  \end{minipage}
+\hfill
+  \begin{minipage}{0.47\textwidth}
+    \subfigure[印加電圧1150 V：Mean = $1.4\times10^{6}$、RMS = $3.1\times10^{5}$]{
+    \includegraphics[bb=255 36 822 575, width=1\textwidth]{fig/H1_GAIN_HV1150.pdf}
+   \label{H1Gain1150}}
+  \end{minipage}
+\hfill
+    \begin{minipage}{0.47\textwidth}
+    \subfigure[印加電圧1300 V：Mean = $2.9\times10^{6}$、RMS = $7.4\times10^{5}$]{
+\includegraphics[bb=255 36 822 575, width=1\textwidth]{fig/H1_GAIN_HV1300.pdf}
+   \label{H1Gain1300}}
+  \end{minipage}
+    \caption[印加電圧別の電流増幅率分布2]{印加電圧別の電流増幅率分布2}
+  \label{GainDistribution2}
+\end{figure}
+
+
+\if0
+
+\hfill%%%
+
+
+  \begin{minipage}{0.47\textwidth}
+    \subfigure[印加電圧1350 V：Mean=, RMS=]{\includegraphics[bb=255 36 822 575, width=1\textwidth]{fig/H1_GAIN_HV1350.pdf}
+   \label{H1Gain1350}}
+  \end{minipage}
+  \hfill%%%
+  \begin{minipage}{0.47\textwidth}
+    \subfigure[印加電圧1400 V：Mean=, RMS=]{\includegraphics[bb=255 36 822 575, width=1\textwidth]{fig/H1_GAIN_HV1400.pdf}
+   \label{H1Gain1400}}
+  \end{minipage}
+\fi%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\newpage
+\subsection{印加電圧と光量の関係の問題点}
+
+\figref{AppVoltagePE}はラン20の各CHに対して、横軸を印加電圧、縦軸を光量としてプロットした図である。光量モニター用の光電子増倍管（図左上）は一定の光量を観測しているにも関わらず、その他の光電子増倍管では、印加電圧を大きくすると光量が下がる傾向があるように見える。
+
+原因の特定はできておらず、現在まだスタディ中の項目である。
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[bb=255 306 822 575, width=1\textwidth]{fig/RUN24_HV_PE_ZOOM.pdf}
+\caption[印加電圧と光量の関係]{印加電圧と光量の関係}
+\label{AppVoltagePE}
+\end{figure}
+
+
+
+本測定の測定原理のところに書いたように、今回は\equref{adcrms}のように測定したADC分布のMeanとRMSから、入射光電子数を計算する。印加電圧が大きい場所で、このMeanとRMSの線型性が違っていたら、光量が変わってくるため、LEDの光量を少なくして測定することを検討している。
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\if0
+\chapter{データ収集システム：MizuDAQ}
+
+\section{概要}
+\section{フロントエンド部}
+\subsection{ATM}
+\subsection{GONG}
+\section{リアエンド部}
+\subsection{SMP}
+\section{トリガー部}
+\subsection{TRG}
+\fi
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\chapter{ニュートリノビーム測定}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{まとめ}
+
+本研究では、T2K実験前置検出器ホールにて開発中の小型水チェレンコフ検出器``Mizuche''の開発を行った。検出器シミュレーションによる期待される性能評価と、強度解析・耐震解析の結果を踏まえた実機の構造の決定ならびに製作、そして、使用する光電子増倍管の相対的量子効率・電流増幅率の測定を行った。
+
+MIzuche検出器は、水とニュートリノの反応によって生じる荷電粒子（主にミューオン）が放出するチェレンコフ光を、周りに設置した光電子増倍管で検出することによって、ニュートリノを観測する水チェレンコフ光検出器である。
+
+T2K実験の後置検出器であるスーパーカミオカンデと同じニュートリノ反応標的（水）と検出原理（チェレンコフ光）を持つ本検出器により振動前のニュートリノ反応数を測定することにより、スーパーカミオカンデへの外挿を系統誤差を小さく抑えて行うことそ最終目標としている。
+
+本検出器は有効体積0.5トンの内タンク（FV）と一回り大きい外タンク（OV）を同軸上に配置した２層構造をしている。外タンクと内タンクの間には300 mmのバッファー層を設け、FVの端で起こったニュートリノ反応によるミューオンでも十分なチェレンコフ光を発生させることができるようになっている。FVとOVは物理的に区切られており、その内部の水はそれぞれ独立して充填することが可能である。そのため、FVの水だけを抜き差しして測定を行うことが可能である。
+
+本検出器の測定原理は、FV水ありと、FV水なしの2状態で測定を行い、その残差をFVで起きたニュートリノ反応数として計数することである。
+これは2状態の差をとることにより、OVでの反応は相殺し、FVでの反応だけが残るからである。だたし、この測定原理が成り立つためには、2状態のOVでのニュートリノ反応検出効率が一致している必要がある。
+
+そこで、ニュートリノ反応に対する検出器シミュレーションを行い、2状態のOVの検出効率をそれぞれ見積もった。
+その結果、期待される総光量に対するカットを150 p.e.に設定すると、2状態のOVの検出効率はよく一致し、測定原理が成り立つことを示すことができた。またその際に、シグナルに対するOV混入イベントの割合を3\%程度にまで抑えて測定することが可能だということが分かった。
+
+次に強度・耐震性の確認を行いながら、検出器の詳細設計を行った。強度・耐震性の解析にはANSYSという強度解析ツールを使用した。材料の引張強度に対して安全係数を3に設定した設計を行い、業者に製作を依頼した。検出器を満水試験による変形量は、ANSYSで得られた結果とほぼ同じ結果を示した。強度の安全性は問題ないと判断し、検出器を前置検出器ホール地下２階へインストールした。
+
+光電子増倍管のキャリブレーションに関しては、必要数164本に対して、現在までに153本の相対的量子効率、電流増幅率曲線の測定を終えた。本測定のセットアップの再現性による光量補正を行った結果、相対的量子効率は13\%程度のばらつきがあることが分かった。今後は、合わせて測定した電流増幅率曲線を利用して、電流増幅率の制御を行い、ある入射光量に対して全ての光電子増倍管からの出力が一様となるよう印加電圧の調整を行う予定である。
+
+
+今後の予定として、まず、検出器への光電子増倍管取り付けやケーブリングなどのアセンブリー作業を完了させる。次に、LED光源を用いた検出器応答のキャリブレーションや、ニュートリノビーム由来の壁からのミューオンを用いた光量キャリブレーションなどの作業を行う。そして、FV水ありの状態でニュートリノ反応数の測定を開始し、十分なデータを取得できた後は、水なしの状態での測定を開始する。そして、T2K実験の大強度ビームに対する小型水チェレンコフ検出器の実用性の検証、および前置検出器部分でのニュートリノ反応数測定精度2\%を目指したい。
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter*{謝辞}
+
+修士課程の２年間は、とても短く感じられましたが、多くの方々に支えられて、充実した日々を送ることができました。ここに感謝の意を表したいと思います。本当にありがとうございます。
+
+中家剛教授、市川温子准教授、そして小林隆教授には、T2K実験という世界最先端の実験場で本研究の機会を与えてくださったことに感謝いたします。
+
+特に、市川温子准教授には、のんびりな私を要所要所で引き締めていただき、根気よく丁寧にここまでご指導いただいたことを深く感謝しております。
+
+坂下健助教には、本研究を進める上でとてもたくさんのご助言をいただきました。
+また、研究者としての姿勢を間近で学ばせていただきました。
+村上明さんには、検出器シミュレーションをはじめ、本研究の至る所でたくさんお世話になりました。
+山内隆寛くんに、年末の光電子増倍管の測定を手伝っていただいておかげで、測定をほぼ終わらせることができました。本当にありがとう。
+
+検出器の作製に関して、スズノ技研株式会社の皆様に本当に感謝しております。できあがった検出器を初めて見たときの嬉しさはいまでも忘れません。本当にありがとうございます。
+
+検出器のインストールや地下での作業には第一鉄工株式会社の皆様に大変お世話になりました。
+いろいろと急なお願いが多いにも関わらず、引き受けてくださり本当にありがとうございます。
+
+メカサポートの田井野ご夫妻と石井さんには、光電子増倍管の準備およびコネクタ付けの際には大変お世話になりました。本当にありがとうございます。
+
+%この研究をみんなと一緒にできて本当に良かったと思います。
+
+J-PARCでの生活では、大谷将士さん、木河達也くん、鈴木研人くん、矢野孝臣さん、とたまに来る松村知恵さんのおかげで、楽しく過ごせました。大谷さんは、何かと研究の進捗を気にかけて下さり、アドバイスなどもたくさんしていただきました。ありがとうございます。\newline
+
+最後に、これまで研究生活を支えてくれた家族と最愛の人に心から感謝します。本当にありがとう。\newline
+\begin{flushright}
+2011年１月　吉日\\
+\UTF{9AD9}橋　将太
+\end{flushright}
+
+
+
+\input{bibbib}
+%\bibliography{mt_ref}
+
+\end{document}
