@@ -1,11 +1,12 @@
-\documentclass[11pt]{jreport}
+\documentclass[11pt]{ltjsreport}
+\usepackage{luatexja}
 %\documentclass[11pt, draft]{jreport}
 
 \usepackage{geometry}	% See geometry.pdf to learn the layout options. There are lots.
 \geometry{a4paper}    % ... or a4paper or a5paper or ...
 
 %余白の設定
-\setlength{\textwidth}{40zw}
+\setlength{\textwidth}{40\zw}
 %\setlength{\textheight}{44\baselineskip}
 \setlength{\textheight}{40\baselineskip}
 \addtolength{\textheight}{\topskip}
@@ -14,11 +15,11 @@
 
 \usepackage[dvipdfmx]{graphicx, color}
 \usepackage{wrapfig}
-\usepackage{mediabb}
+%\usepackage{mediabb}
 \usepackage{subfigure}
 \DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
 \usepackage{wallpaper}
-\usepackage{utf}
+%\usepackage{utf}
 \usepackage{ulem}
 %\usepackage{umoline}
 %\usepackage{epstopdf}
@@ -32,7 +33,7 @@
 
 \bibliographystyle{jplain}
 
-\usepackage[dvipdfm,%
+\usepackage[%dvipdfm,%
 bookmarks=false,%
 bookmarksnumbered=true,%
 bookmarkstype=toc,%
@@ -112,7 +113,9 @@ pdfkeywords={T2K, Mizuche, neutrino, Kyoto University}]{hyperref}
 \title{修士論文\\ニュートリノ反応数測定のための\\小型水チェレンコフ検出器"Mizuche"の開発}
 \author{京都大学大学院理学研究科　物理学・宇宙物理学専攻\\
 物理学第二教室　高エネルギー物理学研究室\\
-\UTF{9AD9}橋 将太}
+%\UTF{9AD9}橋 将太
+髙橋将太
+}
 \date{\today}
 
 %\ThisULCornerWallPaper{.3}{fig/shota-pooh_christmas.pdf}
@@ -139,7 +142,7 @@ pdfkeywords={T2K, Mizuche, neutrino, Kyoto University}]{hyperref}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{はじめに}
 \pagenumbering{arabic}
-\pagestyle{bothstyle}
+%\pagestyle{bothstyle}
 %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%% %%%%%%%%%%
 
 
@@ -716,7 +719,7 @@ T_{1}:T_{2} = V_{1}:V_{2}
 1年のビームタイムを100日と仮定し、前節のとおりに測定時間を配分したときに期待されるニュートリノ反応数を見積もった。FV水ありの体積は2.5トン、FV水なしの体積は2.0トンであるので、測定時間はそれぞれ56日と44日になる。ビーム強度を100 kW（750 kW）と仮定したときのイベント数を\tabref{EventEstimationYear}にまとめた。FV内でのニュートリノ反応は1日あたり41（304）イベントが期待できる。
 
 
-\begin{table}[htdp]
+\begin{table}[htbp]
 \caption[期待されるニュートリノ反応数]{期待されるニュートリノ反応数}
 \begin{center}
 \begin{tabular}{cccc}
@@ -2530,7 +2533,7 @@ PMT1の光電子数で規格化することにより、LEDから放出される�
 場所による光量補正係数は\figref{CalibIsoRepCheck}の5回の測定で得られた設置場所ごとの$R_{\pe}$の平均値で定義した。
 また再現性は、その平均値周りの標準偏差の大きさの割合で評価した。相対的量子効率を求める際は、この補正係数を考慮して算出する。
 
-\begin{table}[htdp]
+\begin{table}[htbp]
 \caption{光電子増倍管設置場所での光量補正係数}
 \begin{center}
 \begin{tabular}{cccccccc}
@@ -2771,12 +2774,13 @@ J-PARCでの生活では、大谷将士さん、木河達也くん、鈴木研�
 最後に、これまで研究生活を支えてくれた家族と最愛の人に心から感謝します。本当にありがとう。\newline
 \begin{flushright}
 2011年１月　吉日\\
-\UTF{9AD9}橋　将太
+%\UTF{9AD9}橋　将太
+髙橋将太
 \end{flushright}
 
 
 
-\input{bibbib}
+%\input{bibbib}
 %\bibliography{mt_ref}
 
 \end{document}
