@@ -10,3 +10,24 @@
 
 それから10余年が経過し、LaTeX環境の日本語サポートの状況がかなり改善しています。
 LuaLaTeXの利用をベースに、より適切なパッケージ選択を追求し、修論作成のベストプラクティスを提示したいと思います。
+
+## 作成時のLaTeX環境
+
+- エンジン: `upLaTeX`（たぶん）
+- ドキュメントクラス: `jreport`
+
+### パッケージ
+
+- `geometry`
+- `graphicx`（ドライバーは`dvipdfmx`）
+- `color`
+- `wrapfig`
+- `mediabb`
+- `subfigure`
+- `wallpaper`
+- `utf`
+- `ulem`
+- `float`
+- `lineno`
+- `amsmath, asmsymb`
+- `type1cm`
