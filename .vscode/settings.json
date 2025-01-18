@@ -1,14 +1,21 @@
 {
+    "latex-workshop.latex.search.rootFiles.exclude": ["source", "ptex"],
     "latex-workshop.latex.tools": [
         {
-            "name": "latexmk",
+            "name": "luatexmk",
             "command": "latexmk",
             "args": [
                 "-synctex=1",
                 "-interaction=nonstopmode",
                 "-file-line-error",
+                "-r", "lualatexmkrc",
             ],
-            "env": {}
+        },
+    ],
+    "latex-workshop.latex.recipes": [
+        {
+            "name": "Build with LuaLaTeX",
+            "tools": ["luatexmk"]
         },
     ]
 }
