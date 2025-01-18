@@ -1,8 +1,12 @@
 \documentclass[draft]{ltjsreport}
 \usepackage{luatexja}
 
-\usepackage[showframe]{geometry}	% See geometry.pdf to learn the layout options. There are lots.
-\geometry{a4paper}    % ... or a4paper or a5paper or ...
+% ページ設定
+\usepackage[showframe]{geometry}
+\geometry{
+    % 用紙サイズ
+    a4paper,    % a4paper, a5paper, b5paper, letterpaper, legalpaper, executivepaper (default: letterpaper)
+}
 
 %余白の設定
 %\setlength{\textwidth}{40\zw}
@@ -12,21 +16,10 @@
 %\setlength{\hoffset}{0.46cm}
 %\addtolength{\textheight}{2.4cm}
 
+% 図版の設定
 \usepackage{graphicx}
 \usepackage{xcolor}
-\usepackage{wrapfig}
-%\usepackage{mediabb}
-\usepackage{subfigure}
-\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
-\usepackage{wallpaper}
-%\usepackage{utf}
-\usepackage{ulem}
-%\usepackage{umoline}
-%\usepackage{epstopdf}
-\usepackage{float}
-\usepackage{lineno}
-%\linenumbers
-\usepackage{type1cm}
+
 
 % 数式関係
 \usepackage{amsmath}
@@ -42,6 +35,25 @@
 %\西暦
 
 \bibliographystyle{jplain}
+
+\usepackage{wrapfig}
+%\usepackage{mediabb}
+\usepackage{subfigure}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+\usepackage{wallpaper}
+%\usepackage{utf}
+\usepackage{ulem}
+%\usepackage{umoline}
+%\usepackage{epstopdf}
+\usepackage{float}
+\usepackage{lineno}
+%\linenumbers
+\usepackage{type1cm}
+
+% ハイパーリンクの設定
+% hyperrefパッケージを読み込むと、目次や参考文献などのリンクを自動的に作成できます。
+% \hypersetup コマンドで、リンクの色や枠線の設定、PDFのメタデータの設定などを行います。
+% このパッケージは、他のパッケージよりも後に読み込む必要があります。
 
 \usepackage{hyperref}
 \hypersetup{
