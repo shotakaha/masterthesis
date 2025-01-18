@@ -46,15 +46,18 @@
 
 \usepackage{hyperref}
 \hypersetup{
-    bookmarks=false,
-    bookmarksnumbered=true,
-    bookmarkstype=toc,
-    colorlinks=true,
-    linkcolor=black,
-    citecolor=black,
-    pdftitle={Mizucheの開発},
-    pdfauthor={Shota TAKAHASHI},
-    pdfkeywords={T2K, Mizuche, neutrino, Kyoto University},
+    %%%%%%%%%%%%%%%%%%%%
+    % PDFのしおりの設定
+    %%%%%%%%%%%%%%%%%%%%
+    % Unicode対応を有効にする
+    unicode=true,    % [false, true] (default: false)
+    % しおりを作成する
+    % bookmarks=true,    % [true, false] (default: true)
+    % しおりのスタイル
+    % bookmarkstype=toc, % [toc, number, none] (default: toc)
+    % しおりにセクション番号を表示する
+    bookmarksnumbered=true,  % [false, true] (default: false)
+    %%%%%%%%%%%%%%%%%%%%
 }
 
 % bookmark(しおり)の文字化け対策
