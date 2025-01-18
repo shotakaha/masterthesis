@@ -46,28 +46,78 @@
 
 \usepackage{hyperref}
 \hypersetup{
-    bookmarks=false,
-    bookmarksnumbered=true,
-    bookmarkstype=toc,
-    colorlinks=true,
-    linkcolor=black,
-    citecolor=black,
-    pdftitle={Mizucheの開発},
-    pdfauthor={Shota TAKAHASHI},
-    pdfkeywords={T2K, Mizuche, neutrino, Kyoto University},
+    %%%%%%%%%%%%%%%%%%%%
+    % PDFのしおりの設定
+    %%%%%%%%%%%%%%%%%%%%
+    % Unicode対応を有効にする
+    unicode=true,    % [false, true] (default: false)
+    % しおりを作成する
+    % bookmarks=true,    % [true, false] (default: true)
+    % しおりのスタイル
+    % bookmarkstype=toc, % [toc, number, none] (default: toc)
+    % しおりにセクション番号を表示する
+    bookmarksnumbered=true,  % [false, true] (default: false)
+    %%%%%%%%%%%%%%%%%%%%
+    % リンクの設定
+    %%%%%%%%%%%%%%%%%%%%
+    % 長いリンクを改行する
+    breaklinks=true,    % [false, true] (default: false)
+    % リンクを見えないようにする（色や枠線を非表示）
+    % hidelinks,    % [false, true] (default: false)
+    % リンクの枠線の設定
+    pdfborder={0 0 0},    % [0 0 0] (default: [0 0 1])
+    % PDF内のリンクをカラー表示する
+    colorlinks=true,    % [false, true] (default: false)
+    % URLの色
+    urlcolor=black,    % [red, blue, ...] (default: cyan)
+    % ファイルリンク（file://）の色
+    filecolor=black,    % [red, blue, ...] (default: magenta)
+    % メニューリンクの色
+    menucolor=black,    % [red, blue, ...] (default: red)
+    % ハイパーリンクの色
+    linkcolor=black,    % [red, blue, ...] (default: red)
+    % 文献引用の色
+    citecolor=black,    % [red, blue, ...] (default: green)
+    %%%%%%%%%%%%%%%%%%%%
+    % メタデータの設定
+    %%%%%%%%%%%%%%%%%%%%    
+    % PDFのタイトル
+    pdftitle={Mizucheの開発},    % 文字 (default: [])
+    % PDFのサブタイトル
+    pdfsubject={修士論文},    % 文字 (default: [])
+    % PDFの著者
+    pdfauthor={Shota TAKAHASHI},    % 文字 (default: [])
+    % PDFを作成したツール
+    %pdfcreator={LuaTeX},    % 文字 (default: LuaTeX)
+    % PDFを作成した組版システム
+    %pdfproducer={LuaTeX},    % 文字 (default: LuaTeX)
+    % PDFのキーワード
+    pdfkeywords={T2K, Mizuche, neutrino, Kyoto University},    % 文字 (default: [])
+    %%%%%%%%%%%%%%%%%%%%
+    % PDFの表示設定
+    %%%%%%%%%%%%%%%%%%%%
+    % PDFを開いた時の表示モード
+    % pdfstartview={FitH},    % [Fit, FitH, FitV, FitB, FitBH, FitBV] (default: Fit)
+    % PDFを開いた時のナビゲーションパネルの表示モード
+    pdfpagemode={UseOutlines},    % [UseNone, UseThumbs, UseOutlines, FullScreen] (default: UseNone)
+    % PDFを開いた時にウィンドウサイズに合わせる
+    pdffitwindow=true,    % boolean: [false, true] (default: false)
 }
 
-% bookmark(しおり)の文字化け対策
-%\ifnum 42146=\euc"A4A2
-%\AtBeginDvi{\special{pdf:tounicode EUC-UCS2}}\else
-%\AtBeginDvi{\special{pdf:tounicode 90ms-RKSJ-UCS2}}\fi
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% マクロファイルを読み込んでください。
+% 自分で定義したコマンドなどは、別ファイルに作成してください。
+% \inputコマンドでファイルのパスを指定します。
+% 拡張子は必要です。
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \input{macros.tex}
 
 
-%\includeonly{ch1/ch1,ch2/ch2,ch3/ch3,ch4/ch4,ch5/ch5,ch6/ch6,ch7/ch7}
-\includeonly{ch1/ch1}
+
+%\includeonly{source/abstract/abstract,source/ch1/ch1,source/ch2/ch2,source/ch3/ch3,source/ch4/ch4,source/ch5/ch5,source/ch6/ch6,source/ch7/ch7,source/thanks/thanks}
+\includeonly{source/abstract/abstract,source/ch1/ch1}
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
@@ -143,21 +193,26 @@
 
 \pagenumbering{roman}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\include{abstract/abstract}
+\include{source/abstract/abstract}
 
 \tableofcontents
 %\listoffigures
 %\listoftables
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 本文に関係するファイルをここで読み込んでください
+% \includeコマンドでファイルのパスを指定します。
+% 拡張子は省略できます。
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\include{ch1/ch1}
-\include{ch2/ch2}
-\include{ch3/ch3}
-\include{ch4/ch4}
-\include{ch5/ch5}
-\include{ch6/ch6}
-\include{ch7/ch7}
-\include{thanks/thanks}
+\include{source/ch1/ch1}
+\include{source/ch2/ch2}
+\include{source/ch3/ch3}
+\include{source/ch4/ch4}
+\include{source/ch5/ch5}
+\include{source/ch6/ch6}
+\include{source/ch7/ch7}
+\include{source/thanks/thanks}
 
 
 
