@@ -1,3 +1,6 @@
+$source_dir = "./luatex";
+@default_files = ("$source_dir/main.tex");
+
 $pdf_mode = 4;
 $out_dir = "_build";
 $aux_dir = "_aux";
