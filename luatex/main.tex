@@ -27,8 +27,17 @@
 \usepackage{float}
 \usepackage{lineno}
 %\linenumbers
-\usepackage{amsmath, amssymb}
 \usepackage{type1cm}
+
+% 数式関係
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+
+% 物理関係
+\usepackage{physics}
+\usepackage{siunitx}
+\AtBeginDocument{\RenewCommandCopy\qty\SI}
 
 \西暦
 
@@ -63,8 +72,8 @@ pdfkeywords={T2K, Mizuche, neutrino, Kyoto University}]{hyperref}
 
 % = math sequences =
 % \bra and \ket must be used in math mode
-\newcommand{\bra}[1]{\langle #1 |}
-\newcommand{\ket}[1]{ | #1 \rangle}
+%\newcommand{\bra}[1]{\langle #1 |}
+%\newcommand{\ket}[1]{ | #1 \rangle}
 
 % = units =
 \newcommand{\cmcm}{cm$^{2}$}
