@@ -1,5 +1,5 @@
 {
-    "latex-workshop.latex.search.rootFiles.exclude": ["source", "ptex"],
+    "latex-workshop.latex.search.rootFiles.exclude": ["ptex"],
     "latex-workshop.latex.tools": [
         {
             "name": "luatexmk",
@@ -8,7 +8,8 @@
                 "-synctex=1",
                 "-interaction=nonstopmode",
                 "-file-line-error",
-                "-r", "lualatexmkrc",
+                "-r", "luatex/latexmkrc",
+                "-cd"
             ],
         },
     ],
