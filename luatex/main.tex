@@ -16,9 +16,17 @@
 %\setlength{\hoffset}{0.46cm}
 %\addtolength{\textheight}{2.4cm}
 
-% 図版の設定
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 図版関係
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% graphicxは画像を取り込むためのパッケージです。
 \usepackage{graphicx}
+% xcolorはテキストの色などを変更するためのパッケージです。
 \usepackage{xcolor}
+% mweはMinimum Working Exampleの略で、
+% 最小限のサンプル画像を提供するパッケージです。
+% 図版がまだ準備できてない場合に、プレースホルダーとして利用できます。
+\usepackage{mwe}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 数式関係
@@ -32,12 +40,14 @@
 % mathtoolsはamsmathの機能を拡張するパッケージです。
 \usepackage{mathtools}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 物理関係
-% physicsパッケージを読み込むと、物理量の表記を簡単に行うことができます。
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% physicsは物理に関する表記を簡単にするパッケージです。
 % 少し古いパッケージですが、代替パッケージがないため、今でも使われています。
 % （physics2という後継パッケージもありますが、あまり完成度が高くないみたいです）
 \usepackage{physics}
-% siunitxパッケージを読み込むと、SI単位系を簡単に表記することができます。
+% siunitxはSI単位系を簡単に表記できるパッケージです。
 \usepackage{siunitx}
 % \qtyコマンドは、physicsとsiunixで衝突します。
 % physicsパッケージにはよりモダンな設計の\pqtyコマンドなどがあります。
@@ -45,7 +55,6 @@
 % （siunitxの）\SIコマンドに置き換えても問題ありません）
 \AtBeginDocument{\RenewCommandCopy\qty\SI}
 
-\usepackage{mwe}
 %\西暦
 
 \bibliographystyle{jplain}
