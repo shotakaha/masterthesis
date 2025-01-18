@@ -43,3 +43,32 @@
 
 - `mediabb`
 - `utf`
+
+## タイプセット
+
+```console
+// 作業ディレクトリに移動
+$ cd luatex/
+
+// タイプセット
+$ latexmk
+
+// auxファイルを削除
+$ latexmk -c
+
+// ビルドしたファイルを削除
+$ latexmk -C
+```
+
+もしくは
+
+```console
+// プロジェクトルートで実行
+$ luatexmk luatex/main.tex -r luatex/latexmkrc -cd
+
+// auxファイルを削除
+$ luatexmk luatex/main.tex -r luatex/latexmkrc -cd -c
+
+// ビルドしたファイルを削除
+$ luatexmk luatex/main.tex -r luatex/latexmkrc -cd -C
+```
