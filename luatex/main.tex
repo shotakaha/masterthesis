@@ -60,24 +60,49 @@
 \bibliographystyle{jplain}
 
 \usepackage{wrapfig}
-%\usepackage{mediabb}
-\usepackage{subfigure}
 \DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
 \usepackage{wallpaper}
-%\usepackage{utf}
-\usepackage{ulem}
-%\usepackage{umoline}
-%\usepackage{epstopdf}
 \usepackage{float}
 \usepackage{lineno}
 %\linenumbers
-\usepackage{type1cm}
 
-% ハイパーリンクの設定
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 削除
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% subfigureは、現在非推奨なパッケージです。
+% 代わりにsubcaptionを利用します。
+%\usepackage{subfigure}
+%
+% ulemは、下線や取り消し線を引くためのパッケージです。
+% umolineは、ulemの代替パッケージですが、こちらも非推奨です。
+% 代わりにsoulやsoulutf8を利用します。
+%\usepackage{ulem}
+%\usepackage{umoline}
+%
+% type1cmは、フォントのスケーリングを行うためのパッケージです。
+% luatexja-fontspecパッケージでフォントを設定できるため、不要です。
+% \usepackage{type1cm}
+%
+% mediabbは、PDのバウンディングボックス情報を取得するためのパッケージです。
+% 現在のgraphicxには、この機能が統合されているため、不要です。
+%\usepackage{mediabb}
+%
+% utfは、UTF-8エンコーディングを扱うためのパッケージです。
+% luatexja-fontspecパッケージでUTF-8エンコーディングを扱うため、不要です。
+%\usepackage{utf}
+%
+% epstopdfは、EPSファイルをPDFファイルに変換するためのパッケージです。
+% 現在のgraphicxには、この機能が統合されているため、不要です。
+% またモダンLaTeXでは、PDFファイルを直接取り込むことが推奨されています。
+%\usepackage{epstopdf}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ハイパーリンク関係
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % hyperrefパッケージを読み込むと、目次や参考文献などのリンクを自動的に作成できます。
 % \hypersetup コマンドで、リンクの色や枠線の設定、PDFのメタデータの設定などを行います。
 % このパッケージは、他のパッケージよりも後に読み込む必要があります。
-
 \usepackage{hyperref}
 \hypersetup{
     %%%%%%%%%%%%%%%%%%%%
@@ -148,8 +173,18 @@
 
 
 
-%\includeonly{source/abstract/abstract,source/ch1/ch1,source/ch2/ch2,source/ch3/ch3,source/ch4/ch4,source/ch5/ch5,source/ch6/ch6,source/ch7/ch7,source/thanks/thanks}
-\includeonly{source/abstract/abstract,source/ch1/ch1}
+\includeonly{
+    source/abstract/abstract,
+    source/ch1/ch1,
+    %source/ch2/ch2,
+    %source/ch3/ch3,
+    %source/ch4/ch4,
+    %source/ch5/ch5,
+    %source/ch6/ch6,
+    %source/ch7/ch7,
+    %source/thanks/thanks,
+}
+
 
 
 
