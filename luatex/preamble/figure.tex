@@ -1,0 +1,19 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 図版関係
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% graphicxは画像を取り込むためのパッケージです。
+\usepackage{graphicx}
+% xcolorはテキストの色などを変更するためのパッケージです。
+\usepackage{xcolor}
+% subcaptionは図版環境を拡張するパッケージです。
+% 複数の図版をまとめて扱うことができます。
+\usepackage{subcaption}
+% mweはMinimum Working Exampleの略で、
+% 最小限のサンプル画像を提供するパッケージです。
+% 図版がまだ準備できてない場合に、プレースホルダーとして利用できます。
+\usepackage{mwe}
+
+\usepackage{wrapfig}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+\usepackage{wallpaper}
+\usepackage{float}

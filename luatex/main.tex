@@ -1,144 +1,51 @@
+% ltjsreportはLuaLaTeXに対応した和文テンプレートです。
+% jsreportからの移行する場合は、ltjsreportを利用するとよいです。
+% 新規に作成する場合は、jlreqクラスを利用するとよいです。
 \documentclass[draft]{ltjsreport}
+
+% luatexjaは、LuaTeXで日本語を組版するためのパッケージです。
+% どのドキュメントクラスでも、このパッケージを読み込むことで日本語を組版できます。
 \usepackage{luatexja}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% ページ設定
-% geometryはページ設定できるパッケージです。
-% ドキュメントクラスによって、ページ設定のデフォルト値は異なりますが、
-% このパッケージを利用することで、より詳細な設定が可能です。
-% 例えば、用紙サイズ、余白の設定、本文エリアの中央揃えなどを指定できます。
-% レイアウトを表示するためにshowframeオプションを指定します。
-% 余白の設定は、marginオプションで指定します。
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\usepackage{geometry}
-\geometry{
-    % レイアウトを表示
-    showframe,    % [true, false] (default: false)
-    % 用紙サイズ
-    a4paper,    % a4paper, a5paper, b5paper, letterpaper, legalpaper, executivepaper (default: a4paper)
-    % 余白の設定
-    margin=25mm,    % [length] (default: 1.5in)
-    %left=30mm,    % [length] (default: 1.5in)
-    %right=30mm,    % [length] (default: 1.5in)
-    %top=30mm,    % [length] (default: 1.5in)
-    %bottom=30mm,    % [length] (default: 1.5in)
-    % 余白の自動調整
-    %heightrounded,    % [true, false] (default: false)
-    % 本文エリアを中央揃え
-    %centering,    % [true, false] (default: false)
-}
-
-%余白の設定
-%\setlength{\textwidth}{40\zw}
-%\setlength{\textheight}{44\baselineskip}
-%\setlength{\textheight}{40\baselineskip}
-%\addtolength{\textheight}{\topskip}
-%\setlength{\hoffset}{0.46cm}
-%\addtolength{\textheight}{2.4cm}
-% fancyhdrはヘッダー・フッターを設定するためのパッケージです。
-\usepackage{fancyhdr}
-\pagestyle{fancy}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% 箇条書き関係
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\usepackage{enumitem}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% 図版関係
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% graphicxは画像を取り込むためのパッケージです。
-\usepackage{graphicx}
-% xcolorはテキストの色などを変更するためのパッケージです。
-\usepackage{xcolor}
-% subcaptionは図版環境を拡張するパッケージです。
-% 複数の図版をまとめて扱うことができます。
-\usepackage{subcaption}
-% mweはMinimum Working Exampleの略で、
-% 最小限のサンプル画像を提供するパッケージです。
-% 図版がまだ準備できてない場合に、プレースホルダーとして利用できます。
-\usepackage{mwe}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% 数式関係
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% amsmathは数式環境を拡張するパッケージです。
-% align環境などが追加され、複数業の数式の整列が容易になります。
-% \textや\docsなど、数式内で利用できるコマンドも追加されます。
-\usepackage{amsmath}
-% amssymbはより多くの数学記号が使えるようになるパッケージです。
-\usepackage{amssymb}
-% mathtoolsはamsmathの機能を拡張するパッケージです。
-\usepackage{mathtools}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% 物理関係
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% physicsは物理に関する表記を簡単にするパッケージです。
-% 少し古いパッケージですが、代替パッケージがないため、今でも使われています。
-% （physics2という後継パッケージもありますが、あまり完成度が高くないみたいです）
-\usepackage{physics}
-% siunitxはSI単位系を簡単に表記できるパッケージです。
-\usepackage{siunitx}
-% \qtyコマンドは、physicsとsiunixで衝突します。
-% physicsパッケージにはよりモダンな設計の\pqtyコマンドなどがあります。
-% （physicsの）\qtyコマンドを使う必要がないため、
-% （siunitxの）\SIコマンドに置き換えても問題ありません）
-\AtBeginDocument{\RenewCommandCopy\qty\SI}
-
-%\西暦
-
-\bibliographystyle{jplain}
-
-\usepackage{wrapfig}
-\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
-\usepackage{wallpaper}
-\usepackage{float}
-\usepackage{lineno}
-%\linenumbers
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% 削除
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% subfigureは、現在非推奨なパッケージです。
-% 代わりにsubcaptionを利用します。
-%\usepackage{subfigure}
+% パッケージの読み込み
 %
-% ulemは、下線や取り消し線を引くためのパッケージです。
-% umolineは、ulemの代替パッケージですが、こちらも非推奨です。
-% 代わりにsoulやsoulutf8を利用します。
-%\usepackage{ulem}
-%\usepackage{umoline}
-%
-% type1cmは、フォントのスケーリングを行うためのパッケージです。
-% luatexja-fontspecパッケージでフォントを設定できるため、不要です。
-% \usepackage{type1cm}
-%
-% mediabbは、PDのバウンディングボックス情報を取得するためのパッケージです。
-% 現在のgraphicxには、この機能が統合されているため、不要です。
-%\usepackage{mediabb}
-%
-% utfは、UTF-8エンコーディングを扱うためのパッケージです。
-% luatexja-fontspecパッケージでUTF-8エンコーディングを扱うため、不要です。
-%\usepackage{utf}
-%
-% epstopdfは、EPSファイルをPDFファイルに変換するためのパッケージです。
-% 現在のgraphicxには、この機能が統合されているため、不要です。
-% またモダンLaTeXでは、PDFファイルを直接取り込むことが推奨されています。
-%\usepackage{epstopdf}
+% パッケージは用途別にファイルを分類してください。
+% \inputコマンドでファイルのパスを指定します。
+% 拡張子は必要です。
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{preamble/pages.tex}
+\input{preamble/figure.tex}
+\input{preamble/math.tex}
+\input{preamble/physics.tex}
 
-\input{packages/hyperref.tex}
+\input{preamble/hyperref.tex}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% マクロファイルを読み込んでください。
+% マクロの読み込み
+%
 % 自分で定義したコマンドなどは、別ファイルに作成してください。
 % \inputコマンドでファイルのパスを指定します。
 % 拡張子は必要です。
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\input{macros.tex}
+\input{preamble/macros.tex}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 参考文献の設定
+%
+% biblatexを使った方法に移行する
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\bibliographystyle{jplain}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ビルドするページの設定
+%
+% \includeonlyコマンドで、ビルドするページを指定できます。
+% 原稿を執筆する際は、全ページをビルドすると時間がかかるため、
+% 作業中は必要なページだけビルドすると効率的です。
+% 作業が終わったら、全ページをビルドするのを忘れないようにしましょう。
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \includeonly{
     %source/abstract/abstract,
@@ -151,9 +58,6 @@
     %source/ch7/ch7,
     %source/thanks/thanks,
 }
-
-
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
@@ -249,11 +153,6 @@
 \include{source/ch6/ch6}
 \include{source/ch7/ch7}
 \include{source/thanks/thanks}
-
-
-
-
-
 
 %\input{bibbib}
 %\bibliography{mt_ref}

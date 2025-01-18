@@ -1,0 +1,47 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ページ設定
+% geometryはページ設定できるパッケージです。
+% ドキュメントクラスによって、ページ設定のデフォルト値は異なりますが、
+% このパッケージを利用することで、より詳細な設定が可能です。
+% 例えば、用紙サイズ、余白の設定、本文エリアの中央揃えなどを指定できます。
+% レイアウトを表示するためにshowframeオプションを指定します。
+% 余白の設定は、marginオプションで指定します。
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{geometry}
+\geometry{
+    % レイアウトを表示
+    showframe,    % [true, false] (default: false)
+    % 用紙サイズ
+    a4paper,    % a4paper, a5paper, b5paper, letterpaper, legalpaper, executivepaper (default: a4paper)
+    % 余白の設定
+    margin=25mm,    % [length] (default: 1.5in)
+    %left=30mm,    % [length] (default: 1.5in)
+    %right=30mm,    % [length] (default: 1.5in)
+    %top=30mm,    % [length] (default: 1.5in)
+    %bottom=30mm,    % [length] (default: 1.5in)
+    % 余白の自動調整
+    %heightrounded,    % [true, false] (default: false)
+    % 本文エリアを中央揃え
+    %centering,    % [true, false] (default: false)
+}
+
+%余白の設定
+%\setlength{\textwidth}{40\zw}
+%\setlength{\textheight}{44\baselineskip}
+%\setlength{\textheight}{40\baselineskip}
+%\addtolength{\textheight}{\topskip}
+%\setlength{\hoffset}{0.46cm}
+%\addtolength{\textheight}{2.4cm}
+% fancyhdrはヘッダー・フッターを設定するためのパッケージです。
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 箇条書き関係
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{enumitem}
+
+% linenoは行番号を表示するためのパッケージです。
+% 草稿を共有する際に有効にすると、行番号を使って修正の指摘を受けやすくなります。
+% \usepackage{lineno}
+%\linenumbers
