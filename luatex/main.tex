@@ -1,33 +1,48 @@
 \documentclass[draft]{ltjsreport}
+
+% luatexjaは、LuaTeXで日本語を組版するためのパッケージです。
+% どのドキュメントクラスでも、このパッケージを読み込むことで日本語を組版できます。
 \usepackage{luatexja}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% パッケージの読み込み
+%
+% パッケージは用途別にファイルを分類してください。
+% \inputコマンドでファイルのパスを指定します。
+% 拡張子は必要です。
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \input{preamble/pages.tex}
 \input{preamble/figure.tex}
 \input{preamble/math.tex}
 \input{preamble/physics.tex}
 
-%\西暦
-
-\bibliographystyle{jplain}
-
-\usepackage{wrapfig}
-\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
-\usepackage{wallpaper}
-\usepackage{float}
-\usepackage{lineno}
-%\linenumbers
-
 \input{preamble/hyperref.tex}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% マクロファイルを読み込んでください。
+% マクロの読み込み
+%
 % 自分で定義したコマンドなどは、別ファイルに作成してください。
 % \inputコマンドでファイルのパスを指定します。
 % 拡張子は必要です。
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \input{preamble/macros.tex}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 参考文献の設定
+%
+% biblatexを使った方法に移行する
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\bibliographystyle{jplain}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ビルドするページの設定
+%
+% \includeonlyコマンドで、ビルドするページを指定できます。
+% 原稿を執筆する際は、全ページをビルドすると時間がかかるため、
+% 作業中は必要なページだけビルドすると効率的です。
+% 作業が終わったら、全ページをビルドするのを忘れないようにしましょう。
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \includeonly{
     %source/abstract/abstract,
@@ -40,9 +55,6 @@
     %source/ch7/ch7,
     %source/thanks/thanks,
 }
-
-
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
@@ -138,11 +150,6 @@
 \include{source/ch6/ch6}
 \include{source/ch7/ch7}
 \include{source/thanks/thanks}
-
-
-
-
-
 
 %\input{bibbib}
 %\bibliography{mt_ref}
