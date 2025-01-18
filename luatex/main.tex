@@ -43,26 +43,26 @@
 
 \bibliographystyle{jplain}
 
-\usepackage[%dvipdfm,%
-bookmarks=false,%
-bookmarksnumbered=true,%
-bookmarkstype=toc,%
-colorlinks=true,%
-linkcolor=black,%
-citecolor=black,%
-pdftitle={Mizucheの開発},
-pdfauthor={Shota TAKAHASHI},
-pdfkeywords={T2K, Mizuche, neutrino, Kyoto University}]{hyperref}
+\usepackage{hyperref}
+\hypersetup{
+    bookmarks=true,
+    bookmarksnumbered=true,
+    bookmarkstype=toc,
+    colorlinks=true,
+    linkcolor=black,
+    citecolor=black,
+    pdftitle={Mizucheの開発},
+    pdfauthor={Shota TAKAHASHI},
+    pdfkeywords={T2K, Mizuche, neutrino, Kyoto University},
+}
 
 % bookmark(しおり)の文字化け対策
-\ifnum 42146=\euc"A4A2
-\AtBeginDvi{\special{pdf:tounicode EUC-UCS2}}\else
-\AtBeginDvi{\special{pdf:tounicode 90ms-RKSJ-UCS2}}\fi
+%\ifnum 42146=\euc"A4A2
+%\AtBeginDvi{\special{pdf:tounicode EUC-UCS2}}\else
+%\AtBeginDvi{\special{pdf:tounicode 90ms-RKSJ-UCS2}}\fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \input{macros.tex}
-
-
 
 
 %\includeonly{ch1/ch1,ch2/ch2,ch3/ch3,ch4/ch4,ch5/ch5,ch6/ch6,ch7/ch7}
