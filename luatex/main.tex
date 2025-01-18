@@ -27,8 +27,16 @@
 \usepackage{mathtools}
 
 % 物理関係
+% physicsパッケージを読み込むと、物理量の表記を簡単に行うことができます。
+% 少し古いパッケージですが、代替パッケージがないため、今でも使われています。
+% （physics2という後継パッケージもありますが、あまり完成度が高くないみたいです）
 \usepackage{physics}
+% siunitxパッケージを読み込むと、SI単位系を簡単に表記することができます。
 \usepackage{siunitx}
+% \qtyコマンドは、physicsとsiunixで衝突します。
+% physicsパッケージにはよりモダンな設計の\pqtyコマンドなどがあります。
+% （physicsの）\qtyコマンドを使う必要がないため、
+% （siunitxの）\SIコマンドに置き換えても問題ありません）
 \AtBeginDocument{\RenewCommandCopy\qty\SI}
 
 \usepackage{mwe}
