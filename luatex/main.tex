@@ -128,71 +128,7 @@
 % またモダンLaTeXでは、PDFファイルを直接取り込むことが推奨されています。
 %\usepackage{epstopdf}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% ハイパーリンク関係
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% hyperrefパッケージを読み込むと、目次や参考文献などのリンクを自動的に作成できます。
-% \hypersetup コマンドで、リンクの色や枠線の設定、PDFのメタデータの設定などを行います。
-% このパッケージは、他のパッケージよりも後に読み込む必要があります。
-\usepackage{hyperref}
-\hypersetup{
-    %%%%%%%%%%%%%%%%%%%%
-    % PDFのしおりの設定
-    %%%%%%%%%%%%%%%%%%%%
-    % Unicode対応を有効にする
-    unicode=true,    % [false, true] (default: false)
-    % しおりを作成する
-    % bookmarks=true,    % [true, false] (default: true)
-    % しおりのスタイル
-    % bookmarkstype=toc, % [toc, number, none] (default: toc)
-    % しおりにセクション番号を表示する
-    bookmarksnumbered=true,  % [false, true] (default: false)
-    %%%%%%%%%%%%%%%%%%%%
-    % リンクの設定
-    %%%%%%%%%%%%%%%%%%%%
-    % 長いリンクを改行する
-    breaklinks=true,    % [false, true] (default: false)
-    % リンクを見えないようにする（色や枠線を非表示）
-    % hidelinks,    % [false, true] (default: false)
-    % リンクの枠線の設定
-    pdfborder={0 0 0},    % [0 0 0] (default: [0 0 1])
-    % PDF内のリンクをカラー表示する
-    colorlinks=true,    % [false, true] (default: false)
-    % URLの色
-    urlcolor=black,    % [red, blue, ...] (default: cyan)
-    % ファイルリンク（file://）の色
-    filecolor=black,    % [red, blue, ...] (default: magenta)
-    % メニューリンクの色
-    menucolor=black,    % [red, blue, ...] (default: red)
-    % ハイパーリンクの色
-    linkcolor=black,    % [red, blue, ...] (default: red)
-    % 文献引用の色
-    citecolor=black,    % [red, blue, ...] (default: green)
-    %%%%%%%%%%%%%%%%%%%%
-    % メタデータの設定
-    %%%%%%%%%%%%%%%%%%%%    
-    % PDFのタイトル
-    pdftitle={Mizucheの開発},    % 文字 (default: [])
-    % PDFのサブタイトル
-    pdfsubject={修士論文},    % 文字 (default: [])
-    % PDFの著者
-    pdfauthor={Shota TAKAHASHI},    % 文字 (default: [])
-    % PDFを作成したツール
-    %pdfcreator={LuaTeX},    % 文字 (default: LuaTeX)
-    % PDFを作成した組版システム
-    %pdfproducer={LuaTeX},    % 文字 (default: LuaTeX)
-    % PDFのキーワード
-    pdfkeywords={T2K, Mizuche, neutrino, Kyoto University},    % 文字 (default: [])
-    %%%%%%%%%%%%%%%%%%%%
-    % PDFの表示設定
-    %%%%%%%%%%%%%%%%%%%%
-    % PDFを開いた時の表示モード
-    % pdfstartview={FitH},    % [Fit, FitH, FitV, FitB, FitBH, FitBV] (default: Fit)
-    % PDFを開いた時のナビゲーションパネルの表示モード
-    pdfpagemode={UseOutlines},    % [UseNone, UseThumbs, UseOutlines, FullScreen] (default: UseNone)
-    % PDFを開いた時にウィンドウサイズに合わせる
-    pdffitwindow=true,    % boolean: [false, true] (default: false)
-}
+\input{packages/hyperref.tex}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % マクロファイルを読み込んでください。
