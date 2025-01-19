@@ -7,6 +7,25 @@
 % どのドキュメントクラスでも、このパッケージを読み込むことで日本語を組版できます。
 \usepackage{luatexja}
 
+% フォントの設定
+% デフォルトで HaranoAjiが設定されているので、とくに変更する必要はありません。
+% もし、フォントを変更したい場合は、luatexja-fontspecで変更できます。
+% ここでは欧文・和文フォントのすべてをMoralerspace（のKryptonバリアント）にしています。
+% ...main...: 本文フォント（明朝）
+% ...sans...: 見出しフォント（ゴシック系）
+% ...mono...: モノフォント（等幅系）
+\usepackage{luatexja-fontspec}
+% 欧文フォント
+\setmainfont{MoralerspaceKrypton}
+\setsansfont{MoralerspaceKrypton}
+\setmonofont{MoralerspaceKrypton}
+% 和文フォント
+\setmainjfont{MoralerspaceKrypton}
+\setsansjfont{MoralerspaceKrypton}
+\setmonojfont{MoralerspaceKrypton}
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % パッケージの読み込み
 %
