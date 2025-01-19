@@ -184,7 +184,7 @@ E_{t} = \frac{nm}{\sqrt{n^{2}-1}}
 \begin{tabular}{c|ccc}
 \hline \hline
 & 静止質量 $m$ [MeV/c$^{2}$] & $E_{t}$ [MeV] & $p_{t}$ [MeV/c]\\
- \hline
+\hline
 e$^{\pm}$	& 0.511	& 0.775 & 0.583\\
 $\mu^{\pm}$	& 105.7 & 160.3 & 120.5\\
 $\pi^{\pm}$	& 139.6 & 211.7 & 159.2 \\
@@ -205,14 +205,14 @@ p$^{+}$	& 938.2	& 1423 & 1070\\
 %\end{eqnarray}
 
 \begin{equation}
-\frac{d^{2}N_{\photon}}{dxd\lambda} =  \frac{2 \pi \alpha z^{2}}{\lambda^{2}} \sin^{2} \theta_{c}
+\frac{\dd[2]{N_{\photon}}}{\dd{x} \dd{\lambda}} = \frac{2 \pi \alpha z^{2}}{\lambda^{2}} \sin^{2} \theta_{c}
 \label{dNdXdL}
 \end{equation}
 ここで、$\lambda$はチェレンコフ光の波長、$\alpha \simeq 1/137$は微細構造定数である。
 これを波長で積分すると、次式が得られる（\equref{dNdX}）。
 
 \begin{equation}
-\frac{dN_{\photon}}{dx} =  2 \pi \alpha z^{2} \sin^{2} \theta_{c} \left( \frac{1}{\lambda_{1}}-\frac{1}{\lambda_{2}} \right) \ , (\lambda_{1} < \lambda_{2})
+  \dv{N_{\photon}}{x} =  2 \pi \alpha z^{2} \sin^{2} \theta_{c} \pqty{ \frac{1}{\lambda_{1}}-\frac{1}{\lambda_{2}} }  \qcomma \pqty{\lambda_{1} < \lambda_{2}}
 \label{dNdX}
 \end{equation}
 
@@ -242,7 +242,7 @@ FVで生じた荷電粒子が、検出するのに十分な光量のチェレン
     \caption[ミューオンと電子の運動量とチェレンコフ角の関係]{ミューオンと電子の運動量とチェレンコフ角の関係。黒線はミューオン、赤線は電子を表す。}
     \label{MizucheCheDeg}
   \end{minipage}
-  \hfil
+  \hfill
   \begin{minipage}{0.47\textwidth}
     \centering
     \includegraphics[bb=0 0 500 484, width=1\textwidth]{fig/MizuchedPhoton.pdf}
@@ -258,7 +258,7 @@ FVで生じた荷電粒子が、検出するのに十分な光量のチェレン
     \caption[Mizucheで検出できる単位飛程あたりの光電子数]{Mizucheで検出できる単位飛程あたり光電子数。光電被覆率 6.24\%、量子効率19\%とした。黒線はミューオン、赤線は電子を表す。}
     \label{MizuchedPE}
   \end{minipage}
-  \hfil
+  \hfill
   \begin{minipage}{0.47\textwidth}
     \centering
     \includegraphics[bb=0 0 500 484, width=1\textwidth]{fig/MizuchePE.pdf}
