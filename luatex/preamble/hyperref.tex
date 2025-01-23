@@ -63,3 +63,16 @@
     % PDFを開いた時にウィンドウサイズに合わせる
     pdffitwindow=true,    % boolean: [false, true] (default: false)
 }
+
+\renewcommand{\sectionautorefname}{章}
+\renewcommand{\figureautorefname}{図}
+\renewcommand{\tableautorefname}{表}
+
+% cleverefは相互参照をサポートするパッケージです。
+% \crefコマンドで、参照先のカウンターに応じた接頭辞を出力します
+% \crefnameコマンドで、カウンター名を変更できます。
+\usepackage{cleveref}
+% \crefname{環境名}{単数}{複数形}
+\crefname{section}{セクション}{セクション}
+\crefname{figure}{図}{図}
+\crefname{table}{表}{表}
