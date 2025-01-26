@@ -28,6 +28,16 @@
 %\usepackage[hiragino-pron]{luatexja-preset}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 参考文献の設定
+%
+% biblatexを使った方法に移行する
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{biblatex}
+\addbibresource{references/biblatex_format.bib}
+%\addbibresource{references/bibtex_format.bib}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % パッケージの読み込み
 %
 % パッケージは用途別にファイルを分類してください。
@@ -53,13 +63,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \input{preamble/macros.tex}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% 参考文献の設定
-%
-% biblatexを使った方法に移行する
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\usepackage{biblatex}
-%\addbibresource{source/refs/refs}
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -147,5 +151,7 @@
 \bibitem{jhf_2001} Y. Itow et al., "The JHF-Kamioka neutrino project", arXiv:hep-ex/0106019
 \bibitem{hamamatsu_3a} 浜松ホトニクス, 「光電子増倍管 — その基礎と応用 — 日本語版/第 3a 版」
 \end{thebibliography}
+
+\printbibliography[title={参考文献}]
 
 \end{document}
