@@ -1,22 +1,20 @@
 # platexを使ってDVIファイルを作成
+# -l: platexエンジン
+# -ot: TeXのオプション
 # -interaction=nonstopmode: エラーが出ても続行
 # -synctex=1: SyncTeX情報を出力（PDF ↔︎ ソース行のジャンプが可能）
 # %O: latexmkのオプション
 # %S: 対象のTeXファイル（例: main.tex）
-$latex = "platex -interaction=nonstopmode -synctex=1 %O %S";
+$latex = 'ptex2pdf -l -ot "-interaction=nonstopmode -synctex=1" %O %S';
 
-# DVI->PDFに変換
-# %O: latexmkのオプション
-# %S: 入力ファイル（.dviファイル）
-# %D: 出力ファイル（.pdfファイル）
-$dvipdf = "dvipdfmx %O -o %D %S";
-
-# latex->dvipdfmxの処理
-$pdf_mode = 3;
+# latex->PDFの処理
+$pdf_mode = 1;
 
 $out_dir = "_build";
 $aux_dir = "_aux";
 
 # BibTeX
+# %O: latexmkのオプション
+# %B: ベースファイル名（.auxから取得）
 $bibtex = "pbibtex %O %B";
 $force_mode = 1;
